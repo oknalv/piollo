@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script>
+      var attrs=[{}];
+      var langs=[{}];
+      var lang;
+      var texts=[{}];
+      function loadTexts(language){
+        var ob;
+        jQuery.ajax("controllers/languageController.php?get="+language,{async:false}).done(function(data){
+          ob=JSON.parse(data);
+        });
+        return ob;
+      }
+      function fillTexts(texts){
+        for(t in texts) $("#"+t).html(texts[t]);
+        if(!check()) $("#switch").html(texts["switchOff"]);
+      }
+      function check(){
+        var ret;
+        jQuery.ajax("controllers/powerController.php?check",{async:false}).done(function(data){
+          ret=data;
+        });
+        return ret;
+      }
+
+      jQuery.ajax("controllers/languageController.php?getAll",{async:false}).done(function(data){
+        langs=JSON.parse(data);
+      });
+      var get=$(location).attr("search").substring(1);
+      if(get!=""){
+        var v=get.split("&");
+        for (var i=0;i<v.length;i++){
+          var param = v[i].split('=');
+          attrs[param[0]]=param[1];
+        }
+      }
+      lang=attrs['lang'];
+      if(lang==undefined) lang=langs[0];
+      else{
+        var flag=false;
+        for(l in langs){
+          if(langs[l]==lang){
+            flag=true;
+            break;
+          }
+        }
+        if(!flag) lang=langs[0];
+      }
+      texts=loadTexts(lang);
+
+      $(document).ready(function(){
+        fillTexts(texts);
+        for(l in langs){
+          $('#languageSelector').append("<option>"+langs[l]+"</option>");
+        }
+        $("#languageSelector").on("change",function(){
+          lang=$("#languageSelector").val();
+          texts=loadTexts(lang);
+          fillTexts(texts);
+        });
+        $("#switch").on("click",function(){
+          var sw="on";
+          if(check()) sw="off";
+          jQuery.ajax("controllers/powerController.php?switch="+sw,{async:false});
+          if(!check()) $("#switch").html(texts["switchOff"]);
+          else $("#switch").html(texts["switch"])
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <div>
+      <div id="selLang"></div>
+      <select id="languageSelector"></select>
+    </div>
+    <div>
+      <button id="switch"></button>
+    </div>
+    <div>
+      <button id="cheese"></button>
+    </div>
+  </body>
+</html>

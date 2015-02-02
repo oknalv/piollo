@@ -1,0 +1,32 @@
+<lang>
+  <en>
+    <selLang>Select a language</selLang>
+    <switch>Switch on</switch>
+    <switchOff>Switch off</switchOff>
+    <cheese>Take a picture</cheese>
+  </en>
+  <eo>
+    <selLang>Elekti lingvon</selLang>
+    <switch>Enŝalti</switch>
+    <switchOff>Elŝalti</switchOff>
+    <cheese>Preni foton</cheese>
+  </eo>
+  <es>
+    <selLang>Seleccionar un idioma</selLang>
+    <switch>Encender</switch>
+    <switchOff>Apagar</switchOff>
+    <cheese>Sacar una foto</cheese>
+  </es>
+  <fi>
+    <selLang>Valita kieli</selLang>
+    <switch>Switch on</switch>
+    <switchOff>Switch off</switchOff>
+    <cheese>Take a picture</cheese>
+  </fi>
+  <gal>
+    <selLang>Seleccionar un idioma</selLang>
+    <switch>Acender</switch>
+    <switchOff>Apagar</switchOff>
+    <cheese>Quitar unha foto</cheese>
+  </gal>
+</lang>
