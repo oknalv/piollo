@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
@@ -10,6 +11,8 @@
       var langs=[{}];
       var lang;
       var texts=[{}];
+      var pics=[{}];
+      var vids=[{}];
       function loadTexts(language){
         var ob;
         jQuery.ajax("controllers/languageController.php?get="+language,{async:false}).done(function(data){
@@ -19,14 +22,51 @@
       }
       function fillTexts(texts){
         for(t in texts) $("#"+t).html(texts[t]);
-        if(!check()) $("#switch").html(texts["switchOff"]);
+        if(!checkPower()) $("#switch").html(texts["switchOff"]);
       }
-      function check(){
+      function checkPower(){
         var ret;
         jQuery.ajax("controllers/powerController.php?check",{async:false}).done(function(data){
           ret=data;
         });
         return ret;
+      }
+      function loadPics(){
+        var ob;
+        jQuery.ajax("controllers/fileController.php?getPics",{async:false}).done(function(data){
+          ob=JSON.parse(data);
+        });
+        return ob;
+      }
+      function fillPics(pics){
+        $("#tpic").empty();
+        for(p in pics){
+          var pic="<tr>";
+          pic+="<td>";
+          pic+="<div class='custom-thumbnail'>";
+          pic+="<img src='pictures/"+pics[p]+"' class='img-thumbnail custom-img'>";
+          pic+="</div>"
+          pic+="</td>";
+          pic+="<td>"+pics[p]+"<td>";
+          pic+="</tr>";
+          $("#tpic").append(pic);
+        }
+      }
+      function loadVids(){
+        var ob;
+        jQuery.ajax("controllers/fileController.php?getVids",{async:false}).done(function(data){
+          ob=JSON.parse(data);
+        });
+        return ob;
+      }
+      function fillVids(vids){
+        $("#tvid").empty();
+        for(v in vids){
+          var vid="<tr>"
+          vid+="<td>"+vids[v]+"</td>";
+          vid+="</tr>";
+          $("#tvid").append(vid);
+        }
       }
 
       jQuery.ajax("controllers/languageController.php?getAll",{async:false}).done(function(data){
@@ -53,9 +93,13 @@
         if(!flag) lang=langs[0];
       }
       texts=loadTexts(lang);
+      pics=loadPics();
+      vids=loadVids();
 
       $(document).ready(function(){
         fillTexts(texts);
+        fillPics(pics);
+        fillVids(vids);
         for(l in langs){
           $('#languageSelector').append("<option>"+langs[l]+"</option>");
         }
@@ -64,12 +108,30 @@
           texts=loadTexts(lang);
           fillTexts(texts);
         });
-        $("#switch").on("click",function(){
+        $("#switchb").on("click",function(){
           var sw="on";
-          if(check()) sw="off";
+          if(checkPower()) sw="off";
           jQuery.ajax("controllers/powerController.php?switch="+sw,{async:false});
-          if(!check()) $("#switch").html(texts["switchOff"]);
+          if(!checkPower()) $("#switch").html(texts["switchOff"]);
           else $("#switch").html(texts["switch"])
+        });
+        $("#pica").on("click",function(){
+          $("#films").removeClass("active");
+          $("#pics").addClass("active");
+          $("#videos").removeClass("active in");
+          $("#pictures").addClass("active in");
+        });
+        $("#filma").on("click",function(){
+          $("#pics").removeClass("active");
+          $("#films").addClass("active");
+          $("#pictures").removeClass("active in");
+          $("#videos").addClass("active in");
+        });
+        $("#reload").on("click",function(){
+          pics=loadPics();
+          fillPics(pics);
+          vids=loadVids();
+          fillVids(vids);
         });
       });
 
@@ -78,20 +140,30 @@
   <body>
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
+              <img src="piollo.svg" class="img-thumbnail">
+        </div>
+        <div class="col-sm-1">
           <div class="navbar-header">
-            <div class="navbar-brand">
-              π <i class="glyphicon glyphicon-eye-open"></i> piollo
-            </div>
+            <div class="navbar-brand">piollo</div>
           </div>
         </div>
-        <div class="col-sm-8"></div>
       </div>
     </div>
     <div class="container">
       <div class="col-sm-10">
-          <button class="btn btn-default" id="switch"></button>
-          <button class="btn btn-default" id="cheese"></button>
+          <button class="btn btn-default" id="switchb">
+            <i class="glyphicon glyphicon-off"></i>
+            <span id="switch"></span>
+          </button>
+          <button class="btn btn-default" id="cheeseb">
+            <i class="glyphicon glyphicon-camera"></i>
+            <span id="cheese"></span>
+          </button>
+          <button class="btn btn-default" id="filmb">
+            <i class="glyphicon glyphicon-record custom-record"></i>
+            <span id="film"></span>
+          </button>
       </div>
       <div class="col-sm-2">
         <div class="input-group">
@@ -99,8 +171,45 @@
           <select id="languageSelector" class="form-control"></select>
         </div>
       </div>
-      <div class="col-sm-12">
-        <video></video>
+      <div class="col-sm-12"><br></div>
+      <div class="col-sm-7">
+        <video>
+          <source src="videos/example.ogv" type="video/ogg">
+        </video>
+      </div>
+      <div class="col-sm-5">
+        <div class="col-sm-12">
+          <ul class="nav nav-tabs">
+            <li role="presentation" class="active" id="pics">
+              <a href="#" id="pica">
+                <i class="glyphicon glyphicon-picture"></i>
+                <span id="pictag"></span>
+              </a>
+            </li>
+            <li role="presentation" id="films">
+              <a href="#" id="filma">
+                <i class="glyphicon glyphicon-film"></i>
+                <span id="filmtag"></span>
+              </a>
+            </li>
+            <li role="presentation">
+              <a href="#" id="reload">
+                <i class="glyphicon glyphicon-repeat"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="col-sm-12"><br></div>
+          <div id="pictures" class="col-sm-12 tab-pane fade active in">
+            <table id="tpic" class="table">
+            </table>
+          </div>
+          <div id="videos"class="col-sm-12 tab-pane fade">
+            <table id="tvid" class="table">
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </body>

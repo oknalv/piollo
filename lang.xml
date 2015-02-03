@@ -4,29 +4,26 @@
     <switch>Switch on</switch>
     <switchOff>Switch off</switchOff>
     <cheese>Take a picture</cheese>
+    <film>Record</film>
+    <filmtag>Videos</filmtag>
+    <pictag>Pictures</pictag>
   </en>
-  <eo>
-    <selLang>Lingvo</selLang>
-    <switch>Enŝalti</switch>
-    <switchOff>Elŝalti</switchOff>
-    <cheese>Preni foton</cheese>
-  </eo>
   <es>
     <selLang>Idioma</selLang>
     <switch>Encender</switch>
     <switchOff>Apagar</switchOff>
     <cheese>Sacar una foto</cheese>
+    <film>Grabar</film>
+    <filmtag>Vídeos</filmtag>
+    <pictag>Imágenes</pictag>
   </es>
-  <fi>
-    <selLang>Kieli</selLang>
-    <switch>Switch on</switch>
-    <switchOff>Switch off</switchOff>
-    <cheese>Take a picture</cheese>
-  </fi>
   <gal>
     <selLang>Idioma</selLang>
     <switch>Acender</switch>
     <switchOff>Apagar</switchOff>
     <cheese>Quitar unha foto</cheese>
+    <film>Gravar</film>
+    <filmtag>Vídeos</filmtag>
+    <pictag>Imágenes</pictag>
   </gal>
 </lang>
