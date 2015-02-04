@@ -5,6 +5,7 @@
     <switchOff>Switch off</switchOff>
     <cheese>Take a picture</cheese>
     <film>Record</film>
+    <stop>Stop Recording</stop>
     <filmtag>Videos</filmtag>
     <pictag>Pictures</pictag>
   </en>
@@ -14,6 +15,7 @@
     <switchOff>Apagar</switchOff>
     <cheese>Sacar una foto</cheese>
     <film>Grabar</film>
+    <stop>Parar de grabar</stop>
     <filmtag>Vídeos</filmtag>
     <pictag>Imágenes</pictag>
   </es>
@@ -23,6 +25,7 @@
     <switchOff>Apagar</switchOff>
     <cheese>Quitar unha foto</cheese>
     <film>Gravar</film>
+    <stop>Parar de gravar</stop>
     <filmtag>Vídeos</filmtag>
     <pictag>Imágenes</pictag>
   </gal>

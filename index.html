@@ -22,7 +22,7 @@
       }
       function fillTexts(texts){
         for(t in texts) $("#"+t).html(texts[t]);
-        if(!checkPower()) $("#switch").html(texts["switchOff"]);
+        if(checkPower()) $("#switch").html(texts["switchOff"]);
       }
       function checkPower(){
         var ret;
@@ -68,6 +68,13 @@
           $("#tvid").append(vid);
         }
       }
+      function checkRecord(){
+        var ret;
+        jQuery.ajax("controllers/recordController.php?check",{async:false}).done(function(data){
+          ret=data;
+        });
+        return ret;
+      }
 
       jQuery.ajax("controllers/languageController.php?getAll",{async:false}).done(function(data){
         langs=JSON.parse(data);
@@ -103,6 +110,16 @@
         for(l in langs){
           $('#languageSelector').append("<option>"+langs[l]+"</option>");
         }
+        if(!checkPower()){
+          $("#cheeseb").prop("disabled",true);
+          $("#filmb").prop("disabled",true);
+        }
+        if(checkRecord()){
+          $("#filmglyph").removeClass("glyphicon-record custom-record").addClass("glyphicon-stop");
+          $("#film").html(texts['stop']);
+          $("#cheeseb").prop("disabled",true);
+          $("#switchb").prop("disabled",true);
+        }
         $("#languageSelector").on("change",function(){
           lang=$("#languageSelector").val();
           texts=loadTexts(lang);
@@ -112,8 +129,33 @@
           var sw="on";
           if(checkPower()) sw="off";
           jQuery.ajax("controllers/powerController.php?switch="+sw,{async:false});
-          if(!checkPower()) $("#switch").html(texts["switchOff"]);
-          else $("#switch").html(texts["switch"])
+          if(checkPower()){
+            $("#switch").html(texts["switchOff"]);
+            $("#cheeseb").prop("disabled",false);
+            $("#filmb").prop("disabled",false);
+          }
+          else{
+            $("#cheeseb").prop("disabled",true);
+            $("#filmb").prop("disabled",true);
+            $("#switch").html(texts["switch"]);
+          }
+        });
+        $("#filmb").on("click",function(){
+          var rc="stop";
+          if(!checkRecord()) rc="play";
+          jQuery.ajax("controllers/recordController.php?record="+rc,{async:false});
+          if(checkRecord()){
+            $("#filmglyph").removeClass("glyphicon-record custom-record").addClass("glyphicon-stop");
+            $("#film").html(texts['stop']);
+            $("#cheeseb").prop("disabled",true);
+            $("#switchb").prop("disabled",true);
+          }
+          else{
+            $("#filmglyph").removeClass("glyphicon-stop").addClass("glyphicon-record custom-record");
+            $("#film").html(texts['film']);
+            $("#cheeseb").prop("disabled",false);
+            $("#switchb").prop("disabled",false);
+          }
         });
         $("#pica").on("click",function(){
           $("#films").removeClass("active");
@@ -161,13 +203,16 @@
             <span id="cheese"></span>
           </button>
           <button class="btn btn-default" id="filmb">
-            <i class="glyphicon glyphicon-record custom-record"></i>
+            <i id="filmglyph" class="glyphicon glyphicon-record custom-record"></i>
             <span id="film"></span>
           </button>
       </div>
       <div class="col-sm-2">
         <div class="input-group">
-          <span class="input-group-addon" id="selLang"></span>
+          <div class="input-group-addon">
+            <i class="glyphicon glyphicon-globe"></i>
+            <span id="selLang"></span>
+          </div>
           <select id="languageSelector" class="form-control"></select>
         </div>
       </div>
