@@ -1,5 +1,5 @@
 <lang>
-  <en>
+  <English>
     <selLang>Language</selLang>
     <switch>Switch on</switch>
     <switchOff>Switch off</switchOff>
@@ -8,8 +8,22 @@
     <stop>Stop Recording</stop>
     <filmtag>Videos</filmtag>
     <pictag>Pictures</pictag>
-  </en>
-  <es>
+    <noVids>There aren't any videos yet</noVids>
+    <noPics>There aren't any pictures yet</noPics>
+  </English>
+  <Deutsch>
+    <selLang>dd</selLang>
+    <switch>dd</switch>
+    <switchOff>dd</switchOff>
+    <cheese>dd</cheese>
+    <film>dd</film>
+    <stop>dd</stop>
+    <filmtag>dd</filmtag>
+    <pictag>dd</pictag>
+    <noVids>dd</noVids>
+    <noPics>dd</noPics>
+  </Deutsch>
+  <español>
     <selLang>Idioma</selLang>
     <switch>Encender</switch>
     <switchOff>Apagar</switchOff>
@@ -17,9 +31,11 @@
     <film>Grabar</film>
     <stop>Parar de grabar</stop>
     <filmtag>Vídeos</filmtag>
-    <pictag>Imágenes</pictag>
-  </es>
-  <gal>
+    <pictag>Fotos</pictag>
+    <noVids>Aún no hay vídeos</noVids>
+    <noPics>Aún no hay fotos</noPics>
+  </español>
+  <galego>
     <selLang>Idioma</selLang>
     <switch>Acender</switch>
     <switchOff>Apagar</switchOff>
@@ -27,6 +43,32 @@
     <film>Gravar</film>
     <stop>Parar de gravar</stop>
     <filmtag>Vídeos</filmtag>
-    <pictag>Imágenes</pictag>
-  </gal>
+    <pictag>Fotos</pictag>
+    <noVids>Inda non hai vídeos</noVids>
+    <noPics>Inda non hai fotos</noPics>
+  </galego>
+  <suomi>
+    <selLang>Kieli</selLang>
+    <switch>ss</switch>
+    <switchOff>ss</switchOff>
+    <cheese>ss</cheese>
+    <film>ss</film>
+    <stop>ss</stop>
+    <filmtag>Videot</filmtag>
+    <pictag>Kuvat</pictag>
+    <noVids>ss</noVids>
+    <noPics>ss</noPics>
+  </suomi>
+  <العربية>
+    <selLang>ةة</selLang>
+    <switch>ةة</switch>
+    <switchOff>ةة</switchOff>
+    <cheese>ةة</cheese>
+    <film>ةة</film>
+    <stop>ةة</stop>
+    <filmtag>ةة</filmtag>
+    <pictag>ةة</pictag>
+    <noVids>ةة</noVids>
+    <noPics>ةة</noPics>
+  </العربية>
 </lang>

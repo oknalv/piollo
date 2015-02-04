@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <title>piollo</title>
+    <link rel="icon" href="piollo-favicon.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <script src="js/jquery.js"></script>
@@ -40,7 +42,13 @@
       }
       function fillPics(pics){
         $("#tpic").empty();
-        for(p in pics){
+        if(jQuery.isEmptyObject(pics)){
+          var pic="<tr>";
+          pic+="<td><i id='noPics'>"+texts["noPics"]+"</i></td>";
+          pic+="<tr>";
+          $("#tpic").append(pic);
+        }
+        else for(p in pics){
           var pic="<tr>";
           pic+="<td>";
           pic+="<div class='custom-thumbnail'>";
@@ -61,7 +69,13 @@
       }
       function fillVids(vids){
         $("#tvid").empty();
-        for(v in vids){
+        if(jQuery.isEmptyObject(vids)){
+          var vid="<tr>";
+          vid+="<td><i id='noVids'>"+texts["noVids"]+"</i></td>";
+          vid+="<tr>";
+          $("#tvid").append(vid);
+        }
+        else for(v in vids){
           var vid="<tr>"
           vid+="<td>"+vids[v]+"</td>";
           vid+="</tr>";
@@ -107,6 +121,7 @@
         fillTexts(texts);
         fillPics(pics);
         fillVids(vids);
+        $('#languageSelector').append("<option disabled selected>---</option>");
         for(l in langs){
           $('#languageSelector').append("<option>"+langs[l]+"</option>");
         }
@@ -182,18 +197,11 @@
   <body>
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
-        <div class="col-sm-1">
               <img src="piollo.svg" class="img-thumbnail">
-        </div>
-        <div class="col-sm-1">
-          <div class="navbar-header">
-            <div class="navbar-brand">piollo</div>
-          </div>
-        </div>
       </div>
     </div>
     <div class="container">
-      <div class="col-sm-10">
+      <div class="col-sm-9">
           <button class="btn btn-default" id="switchb">
             <i class="glyphicon glyphicon-off"></i>
             <span id="switch"></span>
@@ -207,7 +215,7 @@
             <span id="film"></span>
           </button>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <div class="input-group">
           <div class="input-group-addon">
             <i class="glyphicon glyphicon-globe"></i>
@@ -219,7 +227,6 @@
       <div class="col-sm-12"><br></div>
       <div class="col-sm-7">
         <video>
-          <source src="videos/example.ogv" type="video/ogg">
         </video>
       </div>
       <div class="col-sm-5">
