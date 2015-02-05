@@ -10,6 +10,10 @@
     <pictag>Pictures</pictag>
     <noVids>There aren't any videos yet</noVids>
     <noPics>There aren't any pictures yet</noPics>
+    <options>Options</options>
+    <optionHeader>Options</optionHeader>
+    <close>Close</close>
+    <save>Save</save>
   </English>
   <Deutsch>
     <selLang>dd</selLang>
@@ -22,8 +26,12 @@
     <pictag>dd</pictag>
     <noVids>dd</noVids>
     <noPics>dd</noPics>
+    <options>dd</options>
+    <optionHeader>dd</optionHeader>
+    <close>dd</close>
+    <save>dd</save>
   </Deutsch>
-  <español>
+  <Español>
     <selLang>Idioma</selLang>
     <switch>Encender</switch>
     <switchOff>Apagar</switchOff>
@@ -34,8 +42,12 @@
     <pictag>Fotos</pictag>
     <noVids>Aún no hay vídeos</noVids>
     <noPics>Aún no hay fotos</noPics>
-  </español>
-  <galego>
+    <options>Opciones</options>
+    <optionHeader>Opciones</optionHeader>
+    <close>Cerrar</close>
+    <save>Guardar</save>
+  </Español>
+  <Galego>
     <selLang>Idioma</selLang>
     <switch>Acender</switch>
     <switchOff>Apagar</switchOff>
@@ -46,8 +58,12 @@
     <pictag>Fotos</pictag>
     <noVids>Inda non hai vídeos</noVids>
     <noPics>Inda non hai fotos</noPics>
-  </galego>
-  <suomi>
+    <options>Opcións</options>
+    <optionHeader>Opcións</optionHeader>
+    <close>Pechar</close>
+    <save>Gardar</save>
+  </Galego>
+  <Suomi>
     <selLang>Kieli</selLang>
     <switch>ss</switch>
     <switchOff>ss</switchOff>
@@ -58,17 +74,9 @@
     <pictag>Kuvat</pictag>
     <noVids>ss</noVids>
     <noPics>ss</noPics>
-  </suomi>
-  <العربية>
-    <selLang>ةة</selLang>
-    <switch>ةة</switch>
-    <switchOff>ةة</switchOff>
-    <cheese>ةة</cheese>
-    <film>ةة</film>
-    <stop>ةة</stop>
-    <filmtag>ةة</filmtag>
-    <pictag>ةة</pictag>
-    <noVids>ةة</noVids>
-    <noPics>ةة</noPics>
-  </العربية>
+    <options>ss</options>
+    <optionHeader>ss</optionHeader>
+    <close>ss</close>
+    <save>ss</save>
+  </Suomi>
 </lang>

@@ -9,3 +9,9 @@
 .custom-record{
   color: red;
 }
+.custom-logo{
+  margin: 5px;
+}
+a, a:hover{
+  color: #555;
+}
