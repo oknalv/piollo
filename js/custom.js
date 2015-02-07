@@ -31,23 +31,44 @@ function loadPics(){
 }
 function fillPics(pics){
   $("#tpic").empty();
+  var pic="";
   if(jQuery.isEmptyObject(pics)){
-    var pic="<tr>";
+    pic+="<tr>";
     pic+="<td><i id='noPics'>"+texts["noPics"]+"</i></td>";
     pic+="<tr>";
-    $("#tpic").append(pic);
   }
-  else for(p in pics){
-    var pic="<tr>";
+  else{
+    pic+="<thead>";
+    pic+="<tr>";
     pic+="<td>";
-    pic+="<div class='custom-thumbnail'>";
-    pic+="<img src='pictures/"+pics[p]+"' class='img-thumbnail custom-img'>";
-    pic+="</div>"
+    pic+="<i class='glyphicon glyphicon-eye-open'></i>";
     pic+="</td>";
-    pic+="<td>"+pics[p]+"<td>";
+    pic+="<td>";
+    pic+="</td>";
+    pic+="<td>";
+    pic+="</td>";
+    pic+="<td>";
+    pic+="</td>";
     pic+="</tr>";
-    $("#tpic").append(pic);
+    pic+="</thead>";
+    pic+="<tbody>";
+    for(p in pics){
+      pic+="<tr>";
+      pic+="<td>";
+      pic+="<div class='custom-thumbnail'>";
+      pic+="<a href='#'><img src='pictures/"+pics[p]+"' class='img-thumbnail custom-img'></a>";
+      pic+="</div>";
+      pic+="</td>";
+      pic+="<td>"+pics[p]+"</td>";
+      pic+="<td>";
+      pic+="<a class='btn btn-primary' href='pictures/"+pics[p]+"' download>"
+      pic+="<i class='glyphicon glyphicon-download-alt'></a></td>";
+      pic+="<td><i class='glyphicon glyphicon-trash'></i></td>";
+      pic+="</tr>";
+    }
+    pic+="</tbody>";
   }
+  $("#tpic").append(pic);
 }
 function loadVids(){
   var ob;
@@ -103,13 +124,21 @@ else{
   if(!flag) lang=langs[0];
 }
 texts=loadTexts(lang);
-pics=loadPics();
-vids=loadVids();
 
 $(document).ready(function(){
   fillTexts(texts);
-  fillPics(pics);
-  fillVids(vids);
+  $("#reload").on("click",function(){
+    pics=loadPics();
+    fillPics(pics);
+    vids=loadVids();
+    fillVids(vids);
+    $(".custom-img").on("click",function(){
+      $("#imgPreview").attr('src',$(this).attr('src'));
+      $("#modalImgA").attr('href',$(this).attr('src'));
+      $("#showImg").modal("show");
+    });
+  });
+  $("#reload").trigger("click");
   $('#languageSelector').append("<option disabled selected>---</option>");
   for(l in langs){
     $('#languageSelector').append("<option>"+langs[l]+"</option>");
@@ -179,26 +208,27 @@ $(document).ready(function(){
     $("#pictures").removeClass("active in");
     $("#videos").addClass("active in");
   });
-  $("#reload").on("click",function(){
-    pics=loadPics();
-    fillPics(pics);
-    vids=loadVids();
-    fillVids(vids);
-  });
   $("#optionsb").on("click",function(){
     $("#optionsMenu").modal("show");
   });
-  $("#x").on("click",function(){
+  $(".closeMenu").on("click",function(){
     $("#optionsMenu").modal("hide");
     //cargar las opciones
   });
-  $("#closeb").on("click",function(){
-    $("#optionsMenu").modal("hide");
-    //cargar las opciones
+  $(".closeImg").on("click",function(){
+    $("#showImg").modal("hide");
   });
   $("#saveb").on("click",function(){
     //mandar datos al server
     $("#optionsMenu").modal("hide");
     //cargar las opciones
+  });
+  $("#cheeseb").on("click",function(){
+    $("#pica").trigger("click");
+    $("#tpic").empty();
+    $("#tpic").append("<tr><td><i>Loading...</i></td></tr>");
+    jQuery.ajax("controllers/photoController.php?take",{async:false}).done(function(data){
+    });
+    $("#reload").trigger("click");
   });
 });

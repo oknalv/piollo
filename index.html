@@ -38,16 +38,52 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <button class="close" id="x"><span>&times;</span></button>
+                  <button class="close closeMenu"><span>&times;</span></button>
                   <h4 class="modal-title">
                     <i class="glyphicon glyphicon-cog"></i>
                     <span id="optionHeader"></span>
                   </h4>
                 </div>
-                <div class="modal-body">asdasd
+                <div class="modal-body">
+                  <div>
+                    <div>
+                      <input type="radio" value="yes" name="ir">
+                      <i class="glyphicon glyphicon-eye-close"></i>
+                      <span id="enIr"></span>
+                    </div>
+                    <div>
+                      <input type="radio" value="no" name="ir">
+                      <i class="glyphicon glyphicon-eye-open"></i>
+                      <span id="disIr"></span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <div>
+                      <i class="glyphicon glyphicon-hd-video"></i>
+                      <span id="quality"></span>
+                    </div>
+                    <div>
+                      <input type="radio" value="1080" name="hd">
+                      <span>1080p</span>
+                    </div>
+                    <div>
+                      <input type="radio" value="720" name="hd">
+                      <span>720p</span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <div>
+                      <span id="bright"></span>
+                    </div>
+                    <div class="input group">
+                    <inputtype="range" min="0" max="100" value="50">
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-default" id="closeb">
+                  <button class="btn btn-default closeMenu">
                     <i class="glyphicon glyphicon-remove"></i>
                     <span id="close"></span>
                   </button>
@@ -101,6 +137,33 @@
           <div id="pictures" class="col-sm-12 tab-pane fade active in">
             <table id="tpic" class="table">
             </table>
+          </div>
+          <div class="modal fade" id="showImg">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <i class="glyphicon glyphicon-picture"></i>
+                  <button class="close closeImg"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <img id="imgPreview" class="img img-responsive" src="">
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-danger pull-left closeImg">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span id="removeI"></span>
+                  </button>
+                  <button class="btn btn-default closeImg">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span id="closeI"></span>
+                  </button>
+                  <a href="" class="btn btn-primary" id="modalImgA" download>
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <span id="downloadImg"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           <div id="videos"class="col-sm-12 tab-pane fade">
             <table id="tvid" class="table">

@@ -14,6 +14,12 @@
     <optionHeader>Options</optionHeader>
     <close>Close</close>
     <save>Save</save>
+    <enIr>Infrared enlabled</enIr>
+    <disIr>Infrared disabled</disIr>
+    <quality>Quality</quality>
+    <downloadImg>Download</downloadImg>
+    <closeI>Close</closeI>
+    <removeI>Remove</removeI>
   </English>
   <Deutsch>
     <selLang>dd</selLang>
