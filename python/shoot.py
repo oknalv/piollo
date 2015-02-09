@@ -2,15 +2,24 @@
 
 import picamera
 import datetime
+import xml.etree.ElementTree as et
 
-curdate=str(datetime.datetime.now())
-curdate=curdate.replace("-","")
-curdate=curdate.replace(" ","")
-curdate=curdate.replace(".","")
-curdate=curdate.replace(":","")
-curdate+=".jpg"
-cam=picamera.PiCamera()
+curdate = str(datetime.datetime.now())
+curdate = curdate.replace("-", "")
+curdate = curdate.replace(" ", "")
+curdate = curdate.replace(".", "")
+curdate = curdate.replace(":", "")
 
-cam.capture("../pictures/pic"+curdate)
+config = et.parse('../config.xml')
+img = config.getroot().find('img')
+frmt = img.find('format').text
+
+if frmt not in ["jpeg", "png", "gif", "bmp", "yuv", "rgb", "rgba", "bgr", "bgra", "raw"]:
+    frmt = "jpeg"
+    
+curdate += "." + frmt
+cam = picamera.PiCamera()
+
+cam.capture("../pictures/pic"+curdate, frmt)
 
 print(curdate)

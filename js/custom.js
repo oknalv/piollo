@@ -4,6 +4,7 @@ var lang;
 var texts=[{}];
 var pics=[{}];
 var vids=[{}];
+var opts=[{}];
 function loadTexts(language){
   var ob;
   jQuery.ajax("controllers/languageController.php?get="+language,{async:false}).done(function(data){
@@ -12,8 +13,8 @@ function loadTexts(language){
   return ob;
 }
 function fillTexts(texts){
-  for(t in texts) $("#"+t).html(texts[t]);
-  if(checkPower()) $("#switch").html(texts["switchOff"]);
+  for(t in texts) $("."+t).html(texts[t]);
+  if(checkPower()) $(".switch").html(texts["switchOff"]);
 }
 function checkPower(){
   var ret;
@@ -38,35 +39,24 @@ function fillPics(pics){
     pic+="<tr>";
   }
   else{
-    pic+="<thead>";
-    pic+="<tr>";
-    pic+="<td>";
-    pic+="<i class='glyphicon glyphicon-eye-open'></i>";
-    pic+="</td>";
-    pic+="<td>";
-    pic+="</td>";
-    pic+="<td>";
-    pic+="</td>";
-    pic+="<td>";
-    pic+="</td>";
-    pic+="</tr>";
-    pic+="</thead>";
-    pic+="<tbody>";
     for(p in pics){
       pic+="<tr>";
       pic+="<td>";
       pic+="<div class='custom-thumbnail'>";
-      pic+="<a href='#'><img src='pictures/"+pics[p]+"' class='img-thumbnail custom-img'></a>";
+      pic+="<a href='#'><img  alt='"+pics[p]+"' src='pictures/"+pics[p]+"' class='img-thumbnail custom-img'></a>";
       pic+="</div>";
       pic+="</td>";
       pic+="<td>"+pics[p]+"</td>";
       pic+="<td>";
       pic+="<a class='btn btn-primary' href='pictures/"+pics[p]+"' download>"
       pic+="<i class='glyphicon glyphicon-download-alt'></a></td>";
-      pic+="<td><i class='glyphicon glyphicon-trash'></i></td>";
+      pic+="<td>";
+      pic+="<button class='btn btn-danger throwSureI' value='"+pics[p]+"'>"
+      pic+="<i class='glyphicon glyphicon-trash'></i>";
+      pic+="</button>"
+      pic+="</td>";
       pic+="</tr>";
     }
-    pic+="</tbody>";
   }
   $("#tpic").append(pic);
 }
@@ -91,6 +81,21 @@ function fillVids(vids){
     vid+="</tr>";
     $("#tvid").append(vid);
   }
+}
+
+function loadOpts(def){
+  var ob;
+  var df="get";
+  if(def) df="def";
+  jQuery.ajax("controllers/optionController.php?"+df,{async:false}).done(function(data){
+    ob=JSON.parse(data);
+  });
+  return ob;
+}
+
+function setOpts(opts){
+  $("#imgFormat option[selected='selected']").attr("selected",false)
+  $("#imgFormat option[value='"+opts['img']['format']+"']").attr("selected",true);
 }
 function checkRecord(){
   var ret;
@@ -124,9 +129,11 @@ else{
   if(!flag) lang=langs[0];
 }
 texts=loadTexts(lang);
+opts=loadOpts(false);
 
 $(document).ready(function(){
   fillTexts(texts);
+  setOpts(opts);
   $("#reload").on("click",function(){
     pics=loadPics();
     fillPics(pics);
@@ -135,8 +142,21 @@ $(document).ready(function(){
     $(".custom-img").on("click",function(){
       $("#imgPreview").attr('src',$(this).attr('src'));
       $("#modalImgA").attr('href',$(this).attr('src'));
+      $("#removePreview").attr('value',$(this).attr('alt'));
       $("#showImg").modal("show");
     });
+    $(".throwSureI").on("click",function(){
+      $("#delImg").attr("value",$(this).attr("value"));
+      $("#fileToDel").html($(this).attr("value"));
+      $("#type").attr("value","img");
+      $("#sure").modal("show");
+    })
+  });
+  $("#delImg").on("click",function(){
+    jQuery.ajax("controllers/fileController.php?del="+$(this).attr("value")+"&type=img",{async:false});
+    $("#reload").trigger("click");
+    $("#showImg").modal("hide");
+    $("#sure").modal("hide");
   });
   $("#reload").trigger("click");
   $('#languageSelector').append("<option disabled selected>---</option>");
@@ -159,6 +179,7 @@ $(document).ready(function(){
     lang=$("#languageSelector").val();
     texts=loadTexts(lang);
     fillTexts(texts);
+    $("#reload").trigger("click");
   });
   $("#switchb").on("click",function(){
     var sw="on";
@@ -208,6 +229,18 @@ $(document).ready(function(){
     $("#pictures").removeClass("active in");
     $("#videos").addClass("active in");
   });
+  $("#imgAOpt").on("click",function(){
+    $("#vidLiOpt").removeClass("active");
+    $("#imgLiOpt").addClass("active");
+    $("#vidOptionTab").removeClass("active in");
+    $("#imgOptionTab").addClass("active in");
+  });
+  $("#vidAOpt").on("click",function(){
+    $("#imgLiOpt").removeClass("active");
+    $("#vidLiOpt").addClass("active");
+    $("#imgOptionTab").removeClass("active in");
+    $("#vidOptionTab").addClass("active in");
+  });
   $("#optionsb").on("click",function(){
     $("#optionsMenu").modal("show");
   });
@@ -218,17 +251,36 @@ $(document).ready(function(){
   $(".closeImg").on("click",function(){
     $("#showImg").modal("hide");
   });
+  $(".closeSure").on("click",function(){
+    $("#sure").modal("hide");
+  });
   $("#saveb").on("click",function(){
     //mandar datos al server
     $("#optionsMenu").modal("hide");
     //cargar las opciones
   });
   $("#cheeseb").on("click",function(){
+    $("#cheeseb").prop("disabled",true);
+    $("#filmb").prop("disabled",true);
+    $("#optionsb").prop("disabled",true);
+    $("#switchb").prop("disabled",true);
     $("#pica").trigger("click");
     $("#tpic").empty();
-    $("#tpic").append("<tr><td><i>Loading...</i></td></tr>");
+    $("#tpic").append("<tr><td><i>"+texts["loading"]+"</i></td></tr>");
     jQuery.ajax("controllers/photoController.php?take",{async:false}).done(function(data){
     });
+    $("#cheeseb").prop("disabled",false);
+    $("#filmb").prop("disabled",false);
+    $("#optionsb").prop("disabled",false);
+    $("#switchb").prop("disabled",false);
     $("#reload").trigger("click");
+  });
+  $("#resetDef").on("click",function(){
+    opts=loadOpts(true);
+    setOpts(opts);
+  });
+  $("#resetConf").on("click",function(){
+    opts=loadOpts(false);
+    setOpts(opts);
   });
 });

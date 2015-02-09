@@ -11,78 +11,20 @@
     <noVids>There aren't any videos yet</noVids>
     <noPics>There aren't any pictures yet</noPics>
     <options>Options</options>
-    <optionHeader>Options</optionHeader>
-    <close>Close</close>
+    <closeb>Close</closeb>
     <save>Save</save>
-    <enIr>Infrared enlabled</enIr>
-    <disIr>Infrared disabled</disIr>
-    <quality>Quality</quality>
-    <downloadImg>Download</downloadImg>
-    <closeI>Close</closeI>
-    <removeI>Remove</removeI>
+    <download>Download</download>
+    <remove>Remove</remove>
+    <loading>Loading...</loading>
+    <warning>Warning</warning>
+    <areYouSure>Are you sure about deleting this element?</areYouSure>
+    <noUndo>This action cannot be undone.</noUndo>
+    <cancel>Cancel</cancel>
+    <accept>Accept</accept>
+    <fileFormat>File format</fileFormat>
+    <imgOpt>Image options</imgOpt>
+    <vidOpt>Video options</vidOpt>
+    <resetConf>Reset</resetConf>
+    <resetDefault>Default options</resetDefault>
   </English>
-  <Deutsch>
-    <selLang>dd</selLang>
-    <switch>dd</switch>
-    <switchOff>dd</switchOff>
-    <cheese>dd</cheese>
-    <film>dd</film>
-    <stop>dd</stop>
-    <filmtag>dd</filmtag>
-    <pictag>dd</pictag>
-    <noVids>dd</noVids>
-    <noPics>dd</noPics>
-    <options>dd</options>
-    <optionHeader>dd</optionHeader>
-    <close>dd</close>
-    <save>dd</save>
-  </Deutsch>
-  <Español>
-    <selLang>Idioma</selLang>
-    <switch>Encender</switch>
-    <switchOff>Apagar</switchOff>
-    <cheese>Sacar una foto</cheese>
-    <film>Grabar</film>
-    <stop>Parar de grabar</stop>
-    <filmtag>Vídeos</filmtag>
-    <pictag>Fotos</pictag>
-    <noVids>Aún no hay vídeos</noVids>
-    <noPics>Aún no hay fotos</noPics>
-    <options>Opciones</options>
-    <optionHeader>Opciones</optionHeader>
-    <close>Cerrar</close>
-    <save>Guardar</save>
-  </Español>
-  <Galego>
-    <selLang>Idioma</selLang>
-    <switch>Acender</switch>
-    <switchOff>Apagar</switchOff>
-    <cheese>Quitar unha foto</cheese>
-    <film>Gravar</film>
-    <stop>Parar de gravar</stop>
-    <filmtag>Vídeos</filmtag>
-    <pictag>Fotos</pictag>
-    <noVids>Inda non hai vídeos</noVids>
-    <noPics>Inda non hai fotos</noPics>
-    <options>Opcións</options>
-    <optionHeader>Opcións</optionHeader>
-    <close>Pechar</close>
-    <save>Gardar</save>
-  </Galego>
-  <Suomi>
-    <selLang>Kieli</selLang>
-    <switch>ss</switch>
-    <switchOff>ss</switchOff>
-    <cheese>ss</cheese>
-    <film>ss</film>
-    <stop>ss</stop>
-    <filmtag>Videot</filmtag>
-    <pictag>Kuvat</pictag>
-    <noVids>ss</noVids>
-    <noPics>ss</noPics>
-    <options>ss</options>
-    <optionHeader>ss</optionHeader>
-    <close>ss</close>
-    <save>ss</save>
-  </Suomi>
 </lang>

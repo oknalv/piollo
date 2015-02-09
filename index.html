@@ -20,19 +20,19 @@
       <div class="col-sm-9">
           <button class="btn btn-default" id="switchb">
             <i class="glyphicon glyphicon-off"></i>
-            <span id="switch"></span>
+            <span class="switch"></span>
           </button>
           <button class="btn btn-default" id="cheeseb">
             <i class="glyphicon glyphicon-camera"></i>
-            <span id="cheese"></span>
+            <span class="cheese"></span>
           </button>
           <button class="btn btn-default" id="filmb">
             <i id="filmglyph" class="glyphicon glyphicon-record custom-record"></i>
-            <span id="film"></span>
+            <span class="film"></span>
           </button>
           <button class="btn btn-default" id="optionsb">
             <i class="glyphicon glyphicon-cog"></i>
-            <span id="options"></span>
+            <span class="options"></span>
           </button>
           <div class="modal fade" id="optionsMenu">
             <div class="modal-dialog">
@@ -41,55 +41,69 @@
                   <button class="close closeMenu"><span>&times;</span></button>
                   <h4 class="modal-title">
                     <i class="glyphicon glyphicon-cog"></i>
-                    <span id="optionHeader"></span>
+                    <span class="options"></span>
                   </h4>
                 </div>
                 <div class="modal-body">
                   <div>
-                    <div>
-                      <input type="radio" value="yes" name="ir">
-                      <i class="glyphicon glyphicon-eye-close"></i>
-                      <span id="enIr"></span>
-                    </div>
-                    <div>
-                      <input type="radio" value="no" name="ir">
-                      <i class="glyphicon glyphicon-eye-open"></i>
-                      <span id="disIr"></span>
-                    </div>
+                    <ul class="nav nav-tabs">
+                      <li class="active" id="imgLiOpt">
+                        <a href="#" id="imgAOpt">
+                          <i class="glyphicon glyphicon-picture"></i>
+                          <span class="imgOpt"></span>
+                        </a>
+                      </li>
+                      <li id="vidLiOpt">
+                        <a href="#" id="vidAOpt">
+                          <i class="glyphicon glyphicon-film"></i>
+                          <span class="vidOpt"></span>
+                        </a>
+                      </li>
+                    </ul>
                   </div>
-                  <hr>
-                  <div>
-                    <div>
-                      <i class="glyphicon glyphicon-hd-video"></i>
-                      <span id="quality"></span>
+                  <div class="tab-content">
+                    <div class="col-sm-12"><br></div>
+                    <div id="imgOptionTab" class="col-sm-12 tab-pane fade active in">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-file"></i>
+                          <span class="fileFormat"></span>
+                        </div>
+                        <select id="imgFormat" class="form-control">
+                          <option value="jpeg">jpeg</option>
+                          <option value="png">png</option>
+                          <option value="gif">gif</option>
+                          <option value="bmp">bmp</option>
+                          <option value="yuv">yuv</option>
+                          <option value="rgb">rgb</option>
+                          <option value="rgba">rgba</option>
+                          <option value="bgr">bgr</option>
+                          <option value="bgra">bgra</option>
+                          <option value="raw">raw</option>
+                        </select>
+                      </div>
                     </div>
-                    <div>
-                      <input type="radio" value="1080" name="hd">
-                      <span>1080p</span>
+                    <div id="vidOptionTab" class="col-sm-12 tab-pane fade">
                     </div>
-                    <div>
-                      <input type="radio" value="720" name="hd">
-                      <span>720p</span>
-                    </div>
-                  </div>
-                  <hr>
-                  <div>
-                    <div>
-                      <span id="bright"></span>
-                    </div>
-                    <div class="input group">
-                    <inputtype="range" min="0" max="100" value="50">
-                    </div>
+                    <div class="col-sm-12"><br></div>
                   </div>
                 </div>
                 <div class="modal-footer">
+                  <button class="btn btn-warning pull-left" id="resetDef">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                    <span class="resetDefault"></span>
+                  </button>
+                  <button class="btn btn-success pull-left" id="resetConf">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                    <span class="resetConf"></span>
+                  </button>
                   <button class="btn btn-default closeMenu">
                     <i class="glyphicon glyphicon-remove"></i>
-                    <span id="close"></span>
+                    <span class="closeb"></span>
                   </button>
                   <button class="btn btn-primary" id="saveb">
                     <i class="glyphicon glyphicon-floppy-save"></i>
-                    <span id="save"></span>
+                    <span class="save"></span>
                   </button>
                 </div>
               </div>
@@ -100,7 +114,7 @@
         <div class="input-group">
           <div class="input-group-addon">
             <i class="glyphicon glyphicon-globe"></i>
-            <span id="selLang"></span>
+            <span class="selLang"></span>
           </div>
           <select id="languageSelector" class="form-control"></select>
         </div>
@@ -116,18 +130,18 @@
             <li class="active" id="pics">
               <a href="#" id="pica">
                 <i class="glyphicon glyphicon-picture"></i>
-                <span id="pictag"></span>
+                <span class="pictag"></span>
               </a>
             </li>
             <li id="films">
               <a href="#" id="filma">
                 <i class="glyphicon glyphicon-film"></i>
-                <span id="filmtag"></span>
+                <span class="filmtag"></span>
               </a>
             </li>
             <li class="pull-right">
               <a href="#" id="reload">
-                <i class="glyphicon glyphicon-repeat"></i>
+                <i class="glyphicon glyphicon-refresh"></i>
               </a>
             </li>
           </ul>
@@ -149,25 +163,54 @@
                   <img id="imgPreview" class="img img-responsive" src="">
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-danger pull-left closeImg">
+                  <button class="btn btn-danger pull-left throwSureI" id="removePreview" value="">
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span id="removeI"></span>
+                    <span class="remove"></span>
                   </button>
                   <button class="btn btn-default closeImg">
                     <i class="glyphicon glyphicon-remove"></i>
-                    <span id="closeI"></span>
+                    <span class="closeb"></span>
                   </button>
                   <a href="" class="btn btn-primary" id="modalImgA" download>
                     <i class="glyphicon glyphicon-download-alt"></i>
-                    <span id="downloadImg"></span>
+                    <span class="download"></span>
                   </a>
                 </div>
               </div>
             </div>
           </div>
-          <div id="videos"class="col-sm-12 tab-pane fade">
+          <div id="videos" class="col-sm-12 tab-pane fade">
             <table id="tvid" class="table">
             </table>
+          </div>
+          <div class="modal fade" id="sure">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close closeSure"><span>&times;</span></button>
+                  <h4 class="modal-title text-warning">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                    <span class="warning"></span>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <span class="areYouSure"></span><br>
+                  <i><span id="fileToDel"></span></i><br>
+                  <span class="noUndo"></span>
+                  <input type="hidden" id="type" name="type" value="">
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-default closeSure">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span class="cancel"></span>
+                  </button>
+                  <button class="btn btn-default" id="delImg">
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <span class="accept"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
