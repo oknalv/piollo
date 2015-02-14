@@ -28,7 +28,7 @@
           </button>
           <button class="btn btn-default" id="filmb">
             <i id="filmglyph" class="glyphicon glyphicon-record custom-record"></i>
-            <span class="film"></span>
+            <span class="record"></span>
           </button>
           <button class="btn btn-default" id="optionsb">
             <i class="glyphicon glyphicon-cog"></i>
@@ -62,25 +62,42 @@
                     </ul>
                   </div>
                   <div class="tab-content">
-                    <div class="col-sm-12"><br></div>
-                    <div id="imgOptionTab" class="col-sm-12 tab-pane fade active in">
+                    <div><br></div>
+                    <div id="imgOptionTab" class="tab-pane fade active in">
                       <div class="input-group">
                         <div class="input-group-addon">
                           <i class="glyphicon glyphicon-file"></i>
                           <span class="fileFormat"></span>
                         </div>
                         <select id="imgFormat" class="form-control">
-                          <option value="jpeg">jpeg</option>
-                          <option value="png">png</option>
-                          <option value="gif">gif</option>
-                          <option value="bmp">bmp</option>
-                          <option value="yuv">yuv</option>
-                          <option value="rgb">rgb</option>
-                          <option value="rgba">rgba</option>
-                          <option value="bgr">bgr</option>
-                          <option value="bgra">bgra</option>
-                          <option value="raw">raw</option>
                         </select>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-star-empty"></i>
+                          <span class="effect"></span>
+                        </div>
+                        <select id="imgEffect" class="form-control">
+                        </select>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-resize-horizontal"></i>
+                          <span class="width"></span>
+                        </div>
+                        <input id="inputWidth" class="form-control" type="range" min="640" max="1920" value="">
+                        <span class="input-group-addon" id="numWidth"></span>
+                      </div>
+                      <br>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-resize-vertical"></i>
+                          <span class="height"></span>
+                        </div>
+                        <input id="inputHeight" class="form-control" type="range" min="480" max="1080" value="">
+                        <span class="input-group-addon" id="numHeight"></span>
                       </div>
                     </div>
                     <div id="vidOptionTab" class="col-sm-12 tab-pane fade">
@@ -89,11 +106,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-warning pull-left" id="resetDef">
-                    <i class="glyphicon glyphicon-repeat"></i>
-                    <span class="resetDefault"></span>
-                  </button>
-                  <button class="btn btn-success pull-left" id="resetConf">
+                  <button class="btn btn-default pull-left" id="resetConf">
                     <i class="glyphicon glyphicon-repeat"></i>
                     <span class="resetConf"></span>
                   </button>
@@ -121,6 +134,7 @@
       </div>
       <div class="col-sm-12"><br></div>
       <div class="col-sm-7">
+        <h2>TO BE IMPLEMENTED</h2>
         <video>
         </video>
       </div>

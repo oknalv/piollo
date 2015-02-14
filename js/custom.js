@@ -83,19 +83,57 @@ function fillVids(vids){
   }
 }
 
-function loadOpts(def){
+function loadOpts(){
   var ob;
-  var df="get";
-  if(def) df="def";
-  jQuery.ajax("controllers/optionController.php?"+df,{async:false}).done(function(data){
+  jQuery.ajax("controllers/optionController.php?get",{async:false}).done(function(data){
     ob=JSON.parse(data);
   });
   return ob;
 }
 
 function setOpts(opts){
-  $("#imgFormat option[selected='selected']").attr("selected",false)
+  $("#imgFormat").empty();
+  var put='<option value="jpeg">jpeg</option>';
+  put+='<option value="png">png</option>';
+  put+='<option value="gif">gif</option>';
+  put+='<option value="bmp">bmp</option>';
+  put+='<option value="yuv">yuv</option>';
+  put+='<option value="rgb">rgb</option>';
+  put+='<option value="rgba">rgba</option>';
+  put+='<option value="bgr">bgr</option>';
+  put+='<option value="bgra">bgra</option>';
+  put+='<option value="raw">raw</option>';
+  $("#imgFormat").append(put);
   $("#imgFormat option[value='"+opts['img']['format']+"']").attr("selected",true);
+  $("#imgEffect").empty();
+  put='<option value="none">'+texts['none']+'</option>';
+  put+='<option value="negative">'+texts['negative']+'</option>';
+  put+='<option value="solarize">'+texts['solarize']+'</option>';
+  put+='<option value="sketch">'+texts['sketch']+'</option>';
+  put+='<option value="denoise">'+texts['denoise']+'</option>';
+  put+='<option value="emboss">'+texts['emboss']+'</option>';
+  put+='<option value="oilpaint">'+texts['oilpaint']+'</option>';
+  put+='<option value="hatch">'+texts['hatch']+'</option>';
+  put+='<option value="gpen">'+texts['gpen']+'</option>';
+  put+='<option value="pastel">'+texts['pastel']+'</option>';
+  put+='<option value="watercolor">'+texts['watercolor']+'</option>';
+  put+='<option value="film">'+texts['film']+'</option>';
+  put+='<option value="blur">'+texts['blur']+'</option>';
+  put+='<option value="saturation">'+texts['saturation']+'</option>';
+  put+='<option value="colorswap">'+texts['colorswap']+'</option>';
+  put+='<option value="washedout">'+texts['washedout']+'</option>';
+  put+='<option value="posterise">'+texts['posterise']+'</option>';
+  put+='<option value="colorpoint">'+texts['colorpoint']+'</option>';
+  put+='<option value="colorbalance">'+texts['colorbalance']+'</option>';
+  put+='<option value="cartoon">'+texts['cartoon']+'</option>';
+  put+='<option value="deinterlace1">'+texts['deinterlace1']+'</option>';
+  put+='<option value="deinterlace2">'+texts['deinterlace2']+'</option>';
+  $("#imgEffect").append(put);
+  $("#imgEffect option[value='"+opts['img']['effect']+"']").attr("selected",true);
+  $("#inputWidth").attr("value",opts['img']['width']);
+  $("#inputHeight").attr("value",opts['img']['height']);
+  $("#numWidth").html(opts['img']['width']);
+  $("#numHeight").html(opts['img']['height']);
 }
 function checkRecord(){
   var ret;
@@ -129,7 +167,7 @@ else{
   if(!flag) lang=langs[0];
 }
 texts=loadTexts(lang);
-opts=loadOpts(false);
+opts=loadOpts();
 
 $(document).ready(function(){
   fillTexts(texts);
@@ -255,9 +293,13 @@ $(document).ready(function(){
     $("#sure").modal("hide");
   });
   $("#saveb").on("click",function(){
-    //mandar datos al server
+    var get="";
+    get+="iformat="+$("#imgFormat").val();
+    get+="&iwidth="+$("#inputWidth").val();
+    get+="&iheight="+$("#inputHeight").val();
+    get+="&ieffect="+$("#imgEffect").val();
+    jQuery.ajax("controllers/optionController.php?change&"+get,{async:false});
     $("#optionsMenu").modal("hide");
-    //cargar las opciones
   });
   $("#cheeseb").on("click",function(){
     $("#cheeseb").prop("disabled",true);
@@ -267,20 +309,23 @@ $(document).ready(function(){
     $("#pica").trigger("click");
     $("#tpic").empty();
     $("#tpic").append("<tr><td><i>"+texts["loading"]+"</i></td></tr>");
-    jQuery.ajax("controllers/photoController.php?take",{async:false}).done(function(data){
-    });
+    jQuery.ajax("controllers/photoController.php?take",{async:false});
     $("#cheeseb").prop("disabled",false);
     $("#filmb").prop("disabled",false);
     $("#optionsb").prop("disabled",false);
     $("#switchb").prop("disabled",false);
     $("#reload").trigger("click");
   });
-  $("#resetDef").on("click",function(){
-    opts=loadOpts(true);
-    setOpts(opts);
-  });
   $("#resetConf").on("click",function(){
-    opts=loadOpts(false);
+    jQuery.ajax("controllers/optionController.php?reset",{async:false});
+    opts=loadOpts();
     setOpts(opts);
+    $("#optionsMenu").modal("hide");
+  });
+  $("#inputWidth").on("input",function(){
+    $("#numWidth").html($("#inputWidth").val());
+  });
+  $("#inputHeight").on("input",function(){
+    $("#numHeight").html($("#inputHeight").val());
   });
 });

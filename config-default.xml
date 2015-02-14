@@ -1,6 +1,10 @@
+<?xml version="1.0"?>
 <config>
   <img>
     <format>png</format>
+    <width>640</width>
+    <height>480</height>
+    <effect>none</effect>
   </img>
   <vid>
   </vid>

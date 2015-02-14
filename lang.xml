@@ -4,7 +4,7 @@
     <switch>Switch on</switch>
     <switchOff>Switch off</switchOff>
     <cheese>Take a picture</cheese>
-    <film>Record</film>
+    <record>Record</record>
     <stop>Stop Recording</stop>
     <filmtag>Videos</filmtag>
     <pictag>Pictures</pictag>
@@ -24,7 +24,31 @@
     <fileFormat>File format</fileFormat>
     <imgOpt>Image options</imgOpt>
     <vidOpt>Video options</vidOpt>
-    <resetConf>Reset</resetConf>
-    <resetDefault>Default options</resetDefault>
+    <resetConf>Reset to default</resetConf>
+    <effect>Effect</effect>
+    <width>Width</width>
+    <height>Height</height>
+    <none>none</none>
+    <negative>negative</negative>
+    <solarize>solarize</solarize>
+    <sketch>sketch</sketch>
+    <denoise>denoise</denoise>
+    <emboss>emboss</emboss>
+    <oilpaint>oilpaint</oilpaint>
+    <hatch>hatch</hatch>
+    <gpen>gpen</gpen>
+    <pastel>pastel</pastel>
+    <watercolor>watercolor</watercolor>
+    <film>film</film>
+    <blur>blur</blur>
+    <saturation>saturation</saturation>
+    <colorswap>colorswap</colorswap>
+    <washedout>washedout</washedout>
+    <posterise>posterise</posterise>
+    <colorpoint>colorpoint</colorpoint>
+    <colorbalance>colorbalance</colorbalance>
+    <cartoon>cartoon</cartoon>
+    <deinterlace1>deinterlace1</deinterlace1>
+    <deinterlace2>deinterlace2</deinterlace2>
   </English>
 </lang>
