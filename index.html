@@ -47,27 +47,27 @@
                 <div class="modal-body">
                   <div>
                     <ul class="nav nav-tabs">
-                      <li class="active" id="imgLiOpt">
-                        <a href="#" id="imgAOpt">
-                          <i class="glyphicon glyphicon-picture"></i>
-                          <span class="imgOpt"></span>
+                      <li class="active" id="genLiOpt">
+                        <a href="#" id="genAOpt">
+                          <i class="glyphicon glyphicon-wrench"></i>
+                          <span class="genOpt"></span>
                         </a>
                       </li>
-                      <li id="vidLiOpt">
-                        <a href="#" id="vidAOpt">
-                          <i class="glyphicon glyphicon-film"></i>
-                          <span class="vidOpt"></span>
+                      <li id="fxLiOpt">
+                        <a href="#" id="fxAOpt">
+                          <i class="glyphicon glyphicon-star-empty"></i>
+                          <span class="fxOpt"></span>
                         </a>
                       </li>
                     </ul>
                   </div>
                   <div class="tab-content">
                     <div><br></div>
-                    <div id="imgOptionTab" class="tab-pane fade active in">
+                    <div id="genOptionTab" class="tab-pane fade active in">
                       <div class="input-group">
                         <div class="input-group-addon">
-                          <i class="glyphicon glyphicon-file"></i>
-                          <span class="fileFormat"></span>
+                          <i class="glyphicon glyphicon-picture"></i>
+                          <span class="imgFormat"></span>
                         </div>
                         <select id="imgFormat" class="form-control">
                         </select>
@@ -80,6 +80,15 @@
                         </div>
                         <select id="imgEffect" class="form-control">
                         </select>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-time"></i>
+                          <span class="timer"></span>
+                        </div>
+                        <input type="number" id="timer" min="0" max="10" value="" class="form-control">
+                        <span class="input-group-addon">s</span>
                       </div>
                       <hr>
                       <div class="input-group">
@@ -99,8 +108,193 @@
                         <input id="inputHeight" class="form-control" type="range" min="480" max="1080" value="">
                         <span class="input-group-addon" id="numHeight"></span>
                       </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="col-sm-12 text-center">
+                          <div class="col-sm-6">
+                            <div class="col-sm-6">
+                              <div><span class="rotate"></span></div>
+                              <button class="btn btn-default" id="noclock">
+                                <i class="glyphicon glyphicon-repeat custom-hflip"></i>
+                              </button>
+                              <button class="btn btn-default" id="oclock">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                              </button>
+                            </div>
+                            <div class="col-sm-6">
+                              <i id="rotIcon" class="glyphicon glyphicon-picture custom-bigfont"></i>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="col-sm-6">
+                              <div><span class="flip"></span></div>
+                              <button class="btn btn-default" id="vflipb">
+                                <i class="glyphicon glyphicon-sort"></i>
+                              </button>
+                              <button class="btn btn-default" id="hflipb">
+                                <i class="glyphicon glyphicon-sort custom-r90"></i>
+                              </button>
+                            </div>
+                            <div class="col-sm-6">
+                              <i id="rotName" class="glyphicon glyphicon-picture custom-bigfont"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <input type="hidden" id="hflip" name="hflip" value="">
+                        <input type="hidden" id="vflip" name="vflip" value="">
+                        <input type="hidden" id="rotate" name="rotate" value="">
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-certificate"></i>
+                          <span class="brightness"></span>
+                        </div>
+                        <input id="inputBrightness" class="form-control" type="range" min="0" max="100" value="">
+                        <span id="numBrightness" class="input-group-addon"></span>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-adjust"></i>
+                          <span class="contrast"></span>
+                        </div>
+                        <input id="inputContrast" class="form-control" type="range" min="-100" max="100" value="">
+                        <span id="numContrast" class="input-group-addon"></span>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-tint"></i>
+                          <span class="saturation"></span>
+                        </div>
+                        <input id="inputSaturation" class="form-control" type="range" min="-100" max="100" value="">
+                        <span id="numSaturation" class="input-group-addon"></span>
+                      </div>
+                      <hr>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-play custom-r270"></i>
+                          <span class="sharpness"></span>
+                        </div>
+                        <input id="inputSharpness" class="form-control" type="range" min="-100" max="100" value="">
+                        <span id="numSharpness" class="input-group-addon"></span>
+                      </div>
                     </div>
-                    <div id="vidOptionTab" class="col-sm-12 tab-pane fade">
+                    <div id="fxOptionTab" class="tab-pane fade">
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12">
+                          <span class="blur"></span>
+                        </label>
+                        <div class="col-sm-3 text-right">
+                          <span class="kernelSize"></span>
+                        </div>
+                        <div class="btn-group col-sm-9" data-toggle="buttons">
+                          <label class="btn btn-default" id="ks1">
+                            <input name="blurSize" type="radio" value="1">1
+                          </label>
+                          <label class="btn btn-default" id="ks2">
+                            <input name="blurSize" type="radio" value="2">2
+                          </label>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12">
+                          <span class="watercolor"></span>
+                        </label>
+                        <div class="col-sm-3 text-right">
+                          <span class="enableUV"></span>
+                        </div>
+                        <div class="col-sm-9">
+                            <input name="watercolorEnableUV" id="watercolorEnableUV" type="checkbox">
+                        </div>
+                        <br>
+                        <div class="col-sm-3 text-right">
+                          <span>U</span>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <input id="watercolorU" class="form-control" type="range" min="0" max="255" value="">
+                          <span id="numwaterU" class="input-group-addon"></span>
+                        </div>
+                        <br>
+                        <div class="col-sm-3 text-right">
+                          <span>V</span>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <input id="watercolorV" class="form-control" type="range" min="0" max="255" value="">
+                          <span id="numwaterV" class="input-group-addon"></span>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12">
+                          <span class="colorswap"></span>
+                        </label>
+                        <div class="col-sm-3 text-right">
+                          <span class="mode"></span>
+                        </div>
+                        <div class="btn-group col-sm-9" data-toggle="buttons">
+                          <label class="btn btn-default" id="m0">
+                            <input name="colorswapMode" type="radio" value="0">
+                            <span class="rgbtobgr"></span>
+                            <span class="custom-red">&nbsp;</span>
+                            <span class="custom-lime">&nbsp;</span>
+                            <span class="custom-blue">&nbsp;</span>
+                            <i class="glyphicon glyphicon-arrow-right"></i>
+                            <span class="custom-blue">&nbsp;</span>
+                            <span class="custom-lime">&nbsp;</span>
+                            <span class="custom-red">&nbsp;</span>
+                          </label>
+                          <label class="btn btn-default" id="m1">
+                            <input name="colorswapMode" type="radio" value="1">
+                            <span class="rgbtobrg"></span>
+                            <span class="custom-red">&nbsp;</span>
+                            <span class="custom-lime">&nbsp;</span>
+                            <span class="custom-blue">&nbsp;</span>
+                            <i class="glyphicon glyphicon-arrow-right"></i>
+                            <span class="custom-blue">&nbsp;</span>
+                            <span class="custom-red">&nbsp;</span>
+                            <span class="custom-lime">&nbsp;</span>
+                          </label>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12">
+                          <span class="posterise"></span>
+                        </label>
+                        <div class="col-sm-3 text-right">
+                          <span class="quantizationSteps"></span>
+                        </div>
+                        <div class="col-sm-9 input-group">
+                          <div class="input-group-addon">
+                            <span class="steps"></span>
+                          </div>
+                          <input type="number" id="posteriseSteps" min="2" max="32" value="" class="form-control">
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12"><span class="colorpoint"></span></label>
+                        <div class="col-sm-3 text-right">
+                          <span class="color"></span>
+                        </div>
+                        <div class="btn-group col-sm-9" data-toggle="buttons">
+                          <label class="btn btn-default" id="c0">
+                            <input name="colorpointColor" type="radio" value="0"><span class="custom-greens">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          </label>
+                          <label class="btn btn-default" id="c1">
+                            <input name="colorpointColor" type="radio" value="1"><span class="custom-red-yellow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          </label>
+                          <label class="btn btn-default" id="c2">
+                            <input name="colorpointColor" type="radio" value="2"><span class="custom-blues">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          </label>
+                          <label class="btn btn-default" id="c3">
+                            <input name="colorpointColor" type="radio" value="3"><span class="custom-purples">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          </label>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-sm-12"><br></div>
                   </div>
@@ -219,7 +413,35 @@
                     <span class="cancel"></span>
                   </button>
                   <button class="btn btn-default" id="delImg">
-                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <span class="accept"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="sureAll">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close closeSureAll"><span>&times;</span></button>
+                  <h4 class="modal-title text-warning">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                    <span class="warning"></span>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <span id="elementsToDelete"></span><br>
+                  <span class="noUndo"></span>
+                  <input type="hidden" id="type" name="type" value="">
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-default closeSureAll">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span class="cancel"></span>
+                  </button>
+                  <button class="btn btn-default" id="delAll">
+                    <i class="glyphicon glyphicon-ok"></i>
                     <span class="accept"></span>
                   </button>
                 </div>

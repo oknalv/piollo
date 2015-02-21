@@ -8,8 +8,8 @@
     <stop>Stop Recording</stop>
     <filmtag>Videos</filmtag>
     <pictag>Pictures</pictag>
-    <noVids>There aren't any videos yet</noVids>
-    <noPics>There aren't any pictures yet</noPics>
+    <noVids>There aren't any videos</noVids>
+    <noPics>There aren't any pictures</noPics>
     <options>Options</options>
     <closeb>Close</closeb>
     <save>Save</save>
@@ -21,34 +21,118 @@
     <noUndo>This action cannot be undone.</noUndo>
     <cancel>Cancel</cancel>
     <accept>Accept</accept>
-    <fileFormat>File format</fileFormat>
-    <imgOpt>Image options</imgOpt>
-    <vidOpt>Video options</vidOpt>
+    <imgFormat>Image file format</imgFormat>
+    <genOpt>General</genOpt>
+    <fxOpt>Effects</fxOpt>
     <resetConf>Reset to default</resetConf>
     <effect>Effect</effect>
     <width>Width</width>
     <height>Height</height>
-    <none>none</none>
-    <negative>negative</negative>
-    <solarize>solarize</solarize>
-    <sketch>sketch</sketch>
-    <denoise>denoise</denoise>
-    <emboss>emboss</emboss>
-    <oilpaint>oilpaint</oilpaint>
-    <hatch>hatch</hatch>
-    <gpen>gpen</gpen>
-    <pastel>pastel</pastel>
-    <watercolor>watercolor</watercolor>
-    <film>film</film>
-    <blur>blur</blur>
-    <saturation>saturation</saturation>
-    <colorswap>colorswap</colorswap>
-    <washedout>washedout</washedout>
-    <posterise>posterise</posterise>
-    <colorpoint>colorpoint</colorpoint>
-    <colorbalance>colorbalance</colorbalance>
-    <cartoon>cartoon</cartoon>
-    <deinterlace1>deinterlace1</deinterlace1>
-    <deinterlace2>deinterlace2</deinterlace2>
+    <none>None</none>
+    <negative>Negative</negative>
+    <solarize>Solarize</solarize>
+    <sketch>Sketch</sketch>
+    <denoise>Noise reduction</denoise>
+    <emboss>Emboss</emboss>
+    <oilpaint>Oil paint</oilpaint>
+    <hatch>Hatch</hatch>
+    <gpen>Gpen</gpen>
+    <pastel>Pastel</pastel>
+    <watercolor>Watercolor</watercolor>
+    <film>Film</film>
+    <blur>Blur</blur>
+    <saturation>Saturation</saturation>
+    <colorswap>Color swap</colorswap>
+    <washedout>Washed out</washedout>
+    <posterise>Posterise</posterise>
+    <colorpoint>Highlight color</colorpoint>
+    <colorbalance>Colorbalance</colorbalance>
+    <cartoon>Cartoon</cartoon>
+    <deinterlace1>Deinterlace1</deinterlace1>
+    <deinterlace2>Deinterlace2</deinterlace2>
+    <timer>Timer</timer>
+    <rotate>Rotate</rotate>
+    <flip>Flip</flip>
+    <color>Color</color>
+    <mode>Mode</mode>
+    <rgbtobgr>RGB to BGR</rgbtobgr>
+    <rgbtobrg>RGB to BRG</rgbtobrg>
+    <deleteAllImages>Delete all images</deleteAllImages>
+    <imgSure>Are you sure about deleting all images?</imgSure>
+    <brightness>Brightness</brightness>
+    <contrast>Contrast</contrast>
+    <sharpness>Sharpness</sharpness>
+    <quantizationSteps>Quantization steps</quantizationSteps>
+    <steps>Steps</steps>
+    <kernelSize>Kernel size</kernelSize>
+    <enableUV>Enable U/V effect</enableUV>
   </English>
+  <Español>
+    <selLang>Idioma</selLang>
+    <switch>Encender</switch>
+    <switchOff>Apagar</switchOff>
+    <cheese>Sacar una foto</cheese>
+    <record>Grabar</record>
+    <stop>Parar de grabar</stop>
+    <filmtag>Vídeos</filmtag>
+    <pictag>Fotos</pictag>
+    <noVids>No hay vídeos</noVids>
+    <noPics>No hay fotos</noPics>
+    <options>Opciones</options>
+    <closeb>Cerrar</closeb>
+    <save>Guardar</save>
+    <download>Descargar</download>
+    <remove>Eliminar</remove>
+    <loading>Cargando...</loading>
+    <warning>Advertencia</warning>
+    <areYouSure>¿Estás seguro de querer borrar este elemento?</areYouSure>
+    <noUndo>Esta acción no se puede deshacer.</noUndo>
+    <cancel>Cancelar</cancel>
+    <accept>Aceptar</accept>
+    <imgFormat>Formato del archivo de imagen</imgFormat>
+    <genOpt>General</genOpt>
+    <fxOpt>Efectos</fxOpt>
+    <resetConf>Restaurar configuración inicial</resetConf>
+    <effect>Efecto</effect>
+    <width>Ancho</width>
+    <height>Alto</height>
+    <none>Ninguno</none>
+    <negative>Negativo</negative>
+    <solarize>Solarizar</solarize>
+    <sketch>Boceto</sketch>
+    <denoise>Reducción del ruido</denoise>
+    <emboss>Grabado</emboss>
+    <oilpaint>Pintura al óleo</oilpaint>
+    <hatch>Trazos</hatch>
+    <gpen>Gpen</gpen>
+    <pastel>Pastel</pastel>
+    <watercolor>Acuarela</watercolor>
+    <film>Película</film>
+    <blur>Desenfoque</blur>
+    <saturation>Saturación</saturation>
+    <colorswap>Intercambiar colores</colorswap>
+    <washedout>Difuminado</washedout>
+    <posterise>Posterizar</posterise>
+    <colorpoint>Realzar color</colorpoint>
+    <colorbalance>Colorbalance</colorbalance>
+    <cartoon>Cartoon</cartoon>
+    <deinterlace1>Deinterlace1</deinterlace1>
+    <deinterlace2>Deinterlace2</deinterlace2>
+    <timer>Temporizador</timer>
+    <rotate>Rotar</rotate>
+    <flip>Voltear</flip>
+    <color>Color</color>
+    <mode>Modo</mode>
+    <rgbtobgr>RGB a BGR</rgbtobgr>
+    <rgbtobrg>RGB a BRG</rgbtobrg>
+    <deleteAllImages>Borrar todas las imágenes</deleteAllImages>
+    <imgSure>¿Estás seguro de querer borrar todas las imágenes?</imgSure>
+    <brightness>Brillo</brightness>
+    <contrast>Contraste</contrast>
+    <sharpness>Nitidez</sharpness>
+    <quantizationSteps>Pasos de cuantización</quantizationSteps>
+    <steps>Pasos</steps>
+    <kernelSize>Tamaño de la semilla</kernelSize>
+    <enableUV>Habilitar efecto U/V</enableUV>
+  </Español>
 </lang>

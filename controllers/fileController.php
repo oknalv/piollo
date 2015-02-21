@@ -16,4 +16,19 @@
       if($ret) unlink($folder."/".$_GET['del']);
     }
   }
+  else if(isset($_GET['delAll'])){
+    if(isset($_GET['type'])){
+      $ret=false;
+      $folder="";
+      if($_GET['type']=="img") $folder="../pictures";
+      else if($_GET['type']=="vid") $folder="../videos";
+      if($folder!=""){
+        $files=array_slice(scandir($folder),2);
+        foreach($files as $file){
+          unlink($folder."/".$file);
+        }
+        $ret=true;
+      }
+    }
+  }
   echo $ret;

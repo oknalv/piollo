@@ -57,6 +57,16 @@ function fillPics(pics){
       pic+="</td>";
       pic+="</tr>";
     }
+    pic+="<tr>";
+    pic+="<td>";
+    pic+="</td>";
+    pic+="<td class='text-right text-danger' colspan=2><i>"+texts["deleteAllImages"]+"</i></td>";
+    pic+="<td>";
+    pic+="<button class='btn btn-danger throwSureAll' value='img'>";
+    pic+="<i class='glyphicon glyphicon-trash'></i>";
+    pic+="</button>";
+    pic+="</td>";
+    pic+="</tr>";
   }
   $("#tpic").append(pic);
 }
@@ -104,36 +114,58 @@ function setOpts(opts){
   put+='<option value="bgra">bgra</option>';
   put+='<option value="raw">raw</option>';
   $("#imgFormat").append(put);
-  $("#imgFormat option[value='"+opts['img']['format']+"']").attr("selected",true);
+  $("#imgFormat option[value='"+opts['imgFormat']+"']").attr("selected",true);
   $("#imgEffect").empty();
-  put='<option value="none">'+texts['none']+'</option>';
-  put+='<option value="negative">'+texts['negative']+'</option>';
-  put+='<option value="solarize">'+texts['solarize']+'</option>';
-  put+='<option value="sketch">'+texts['sketch']+'</option>';
-  put+='<option value="denoise">'+texts['denoise']+'</option>';
-  put+='<option value="emboss">'+texts['emboss']+'</option>';
-  put+='<option value="oilpaint">'+texts['oilpaint']+'</option>';
-  put+='<option value="hatch">'+texts['hatch']+'</option>';
-  put+='<option value="gpen">'+texts['gpen']+'</option>';
-  put+='<option value="pastel">'+texts['pastel']+'</option>';
-  put+='<option value="watercolor">'+texts['watercolor']+'</option>';
-  put+='<option value="film">'+texts['film']+'</option>';
-  put+='<option value="blur">'+texts['blur']+'</option>';
-  put+='<option value="saturation">'+texts['saturation']+'</option>';
-  put+='<option value="colorswap">'+texts['colorswap']+'</option>';
-  put+='<option value="washedout">'+texts['washedout']+'</option>';
-  put+='<option value="posterise">'+texts['posterise']+'</option>';
-  put+='<option value="colorpoint">'+texts['colorpoint']+'</option>';
-  put+='<option value="colorbalance">'+texts['colorbalance']+'</option>';
-  put+='<option value="cartoon">'+texts['cartoon']+'</option>';
-  put+='<option value="deinterlace1">'+texts['deinterlace1']+'</option>';
-  put+='<option value="deinterlace2">'+texts['deinterlace2']+'</option>';
+  put='<option class="none" value="none"></option>';
+  put+='<option class="negative" value="negative"></option>';
+  put+='<option class="solarize" value="solarize"></option>';
+  put+='<option class="denoise" value="sketch"></option>';
+  put+='<option class="sketch" value="denoise"></option>';
+  put+='<option class="emboss" value="emboss"></option>';
+  put+='<option class="oilpaint" value="oilpaint"></option>';
+  put+='<option class="gpen" value="hatch"></option>';
+  put+='<option class="hatch" value="gpen"></option>';
+  put+='<option class="pastel" value="pastel"></option>';
+  put+='<option class="watercolor" value="watercolor"></option>';
+  put+='<option class="film" value="film"></option>';
+  put+='<option class="blur" value="blur"></option>';
+  put+='<option class="saturation" value="saturation"></option>';
+  put+='<option class="colorswap" value="colorswap"></option>';
+  put+='<option class="washedout" value="washedout"></option>';
+  put+='<option class="posterise" value="posterise"></option>';
+  put+='<option class="colorpoint" value="colorpoint"></option>';
+  put+='<option class="colorbalance" value="colorbalance"></option>';
+  put+='<option class="cartoon" value="cartoon"></option>';
+  put+='<option class="deinterlace2" value="deinterlace1"></option>';
+  put+='<option class="deinterlace1" value="deinterlace2"></option>';
   $("#imgEffect").append(put);
-  $("#imgEffect option[value='"+opts['img']['effect']+"']").attr("selected",true);
-  $("#inputWidth").attr("value",opts['img']['width']);
-  $("#inputHeight").attr("value",opts['img']['height']);
-  $("#numWidth").html(opts['img']['width']);
-  $("#numHeight").html(opts['img']['height']);
+  $("#imgEffect option[value='"+opts['effect']+"']").attr("selected",true);
+  $("#inputWidth").val(opts['width']);
+  $("#inputHeight").val(opts['height']);
+  $("#inputBrightness").val(opts['brightness']);
+  $("#inputContrast").val(opts['contrast']);
+  $("#inputSaturation").val(opts['saturation']);
+  $("#inputSharpness").val(opts['sharpness']);
+  $("#numWidth").html(opts['width']);
+  $("#numHeight").html(opts['height']);
+  $("#numBrightness").html(opts['brightness']);
+  $("#numContrast").html(opts['contrast']);
+  $("#numSaturation").html(opts['saturation']);
+  $("#numSharpness").html(opts['sharpness']);
+  $("#timer").val(opts['timer']);
+  $("#hflip").attr("value",opts['hflip']);
+  $("#vflip").attr("value",opts['vflip']);
+  $("#rotate").attr("value",opts['rotate']);
+  imgOr();
+  $("#c"+opts['colorpointColor']).trigger("click");
+  $("#m"+opts['colorswapMode']).trigger("click");
+  $("#posteriseSteps").val(opts['posteriseSteps']);
+  $("#ks"+opts['blurSize']).trigger("click");
+  $("#watercolorEnableUV").prop("checked",opts['watercolorEnableUV']=="1");
+  $("#watercolorU").val(opts['watercolorU']);
+  $("#watercolorV").val(opts['watercolorV']);
+  $("#numwaterU").html(opts['watercolorU']);
+  $("#numwaterV").html(opts['watercolorV']);
 }
 function checkRecord(){
   var ret;
@@ -141,6 +173,26 @@ function checkRecord(){
     ret=data;
   });
   return ret;
+}
+function imgOr(){
+  if($("#vflip").attr("value")=="1"&&$("#hflip").attr("value")=="1"){
+    $("#rotName").addClass("custom-vhflip");
+    $("#rotName").removeClass("custom-hflip custom-vflip custom-noflip");
+  }
+  else if($("#vflip").attr("value")=="1"){
+    $("#rotName").addClass("custom-vflip");
+    $("#rotName").removeClass("custom-hflip custom-vhflip custom-noflip");
+  }
+  else if($("#hflip").attr("value")=="1"){
+    $("#rotName").addClass("custom-hflip");
+    $("#rotName").removeClass("custom-vflip custom-vhflip custom-noflip");
+  }
+  else{
+    $("#rotName").addClass("custom-noflip");
+    $("#rotName").removeClass("custom-vflip custom-hflip custom-vhflip");
+  }
+  $("#rotIcon").removeClass("custom-r0 custom-r90 custom-r180 custom-r270");
+  $("#rotIcon").addClass("custom-r"+$("#rotate").val());
 }
 
 jQuery.ajax("controllers/languageController.php?getAll",{async:false}).done(function(data){
@@ -170,7 +222,6 @@ texts=loadTexts(lang);
 opts=loadOpts();
 
 $(document).ready(function(){
-  fillTexts(texts);
   setOpts(opts);
   $("#reload").on("click",function(){
     pics=loadPics();
@@ -188,13 +239,23 @@ $(document).ready(function(){
       $("#fileToDel").html($(this).attr("value"));
       $("#type").attr("value","img");
       $("#sure").modal("show");
-    })
+    });
+    $(".throwSureAll").on("click",function(){
+      $("#delAll").attr("value",$(this).attr("value"));
+      $("#elementsToDelete").html(texts[$(this).attr("value")+"Sure"]);
+      $("#sureAll").modal("show");
+    });
   });
   $("#delImg").on("click",function(){
     jQuery.ajax("controllers/fileController.php?del="+$(this).attr("value")+"&type=img",{async:false});
     $("#reload").trigger("click");
     $("#showImg").modal("hide");
     $("#sure").modal("hide");
+  });
+  $("#delAll").on("click",function(){
+    jQuery.ajax("controllers/fileController.php?delAll&type="+$(this).attr("value"),{async:false});
+    $("#reload").trigger("click");
+    $("#sureAll").modal("hide");
   });
   $("#reload").trigger("click");
   $('#languageSelector').append("<option disabled selected>---</option>");
@@ -267,17 +328,17 @@ $(document).ready(function(){
     $("#pictures").removeClass("active in");
     $("#videos").addClass("active in");
   });
-  $("#imgAOpt").on("click",function(){
-    $("#vidLiOpt").removeClass("active");
-    $("#imgLiOpt").addClass("active");
-    $("#vidOptionTab").removeClass("active in");
-    $("#imgOptionTab").addClass("active in");
+  $("#genAOpt").on("click",function(){
+    $("#fxLiOpt").removeClass("active");
+    $("#genLiOpt").addClass("active");
+    $("#fxOptionTab").removeClass("active in");
+    $("#genOptionTab").addClass("active in");
   });
-  $("#vidAOpt").on("click",function(){
-    $("#imgLiOpt").removeClass("active");
-    $("#vidLiOpt").addClass("active");
-    $("#imgOptionTab").removeClass("active in");
-    $("#vidOptionTab").addClass("active in");
+  $("#fxAOpt").on("click",function(){
+    $("#genLiOpt").removeClass("active");
+    $("#fxLiOpt").addClass("active");
+    $("#genOptionTab").removeClass("active in");
+    $("#fxOptionTab").addClass("active in");
   });
   $("#optionsb").on("click",function(){
     $("#optionsMenu").modal("show");
@@ -292,12 +353,32 @@ $(document).ready(function(){
   $(".closeSure").on("click",function(){
     $("#sure").modal("hide");
   });
+  $(".closeSureAll").on("click",function(){
+    $("#sureAll").modal("hide");
+  });
   $("#saveb").on("click",function(){
     var get="";
-    get+="iformat="+$("#imgFormat").val();
-    get+="&iwidth="+$("#inputWidth").val();
-    get+="&iheight="+$("#inputHeight").val();
-    get+="&ieffect="+$("#imgEffect").val();
+    get+="imgFormat="+$("#imgFormat").val();
+    get+="&width="+$("#inputWidth").val();
+    get+="&height="+$("#inputHeight").val();
+    get+="&brightness="+$("#inputBrightness").val();
+    get+="&contrast="+$("#inputContrast").val();
+    get+="&saturation="+$("#inputSaturation").val();
+    get+="&sharpness="+$("#inputSharpness").val();
+    get+="&effect="+$("#imgEffect").val();
+    get+="&timer="+$("#timer").val();
+    get+="&rotate="+$("#rotate").attr("value");
+    get+="&hflip="+$("#hflip").attr("value");
+    get+="&vflip="+$("#vflip").attr("value");
+    get+="&colorpointColor="+$("input:radio[name=colorpointColor]:checked").attr("value");
+    get+="&colorswapMode="+$("input:radio[name=colorswapMode]:checked").attr("value");
+    get+="&posteriseSteps="+$("#posteriseSteps").val();
+    get+="&blurSize="+$("input:radio[name=blurSize]:checked").attr("value");
+    var uv="0";
+    if($("#watercolorEnableUV").prop("checked")) uv="1";
+    get+="&watercolorEnableUV="+uv;
+    get+="&watercolorU="+$("#watercolorU").val();
+    get+="&watercolorV="+$("#watercolorV").val();
     jQuery.ajax("controllers/optionController.php?change&"+get,{async:false});
     $("#optionsMenu").modal("hide");
   });
@@ -320,6 +401,7 @@ $(document).ready(function(){
     jQuery.ajax("controllers/optionController.php?reset",{async:false});
     opts=loadOpts();
     setOpts(opts);
+    fillTexts(texts);
     $("#optionsMenu").modal("hide");
   });
   $("#inputWidth").on("input",function(){
@@ -328,4 +410,51 @@ $(document).ready(function(){
   $("#inputHeight").on("input",function(){
     $("#numHeight").html($("#inputHeight").val());
   });
+  $("#inputBrightness").on("input",function(){
+    $("#numBrightness").html($("#inputBrightness").val());
+  });
+  $("#inputContrast").on("input",function(){
+    $("#numContrast").html($("#inputContrast").val());
+  });
+  $("#inputSaturation").on("input",function(){
+    $("#numSaturation").html($("#inputSaturation").val());
+  });
+  $("#inputSharpness").on("input",function(){
+    $("#numSharpness").html($("#inputSharpness").val());
+  });
+  $("#watercolorU").on("input",function(){
+    $("#numwaterU").html($("#watercolorU").val());
+  });
+  $("#watercolorV").on("input",function(){
+    $("#numwaterV").html($("#watercolorV").val());
+  });
+  $("#oclock").on("click",function(){
+    var rot=parseInt($("#rotate").attr("value"));
+    if(rot==270) rot=0;
+    else rot+=90;
+    $("#rotate").attr("value",rot);
+    imgOr();
+  });
+  $("#noclock").on("click",function(){
+    var rot=parseInt($("#rotate").attr("value"));
+    if(rot==0) rot=270;
+    else rot-=90;
+    $("#rotate").attr("value",rot);
+    imgOr();
+  });
+  $("#hflipb").on("click",function(){
+    var hflip=$("#hflip").attr("value");
+    if(hflip=="1") hflip="0";
+    else hflip="1";
+    $("#hflip").attr("value",hflip);
+    imgOr();
+  });
+  $("#vflipb").on("click",function(){
+    var vflip=$("#vflip").attr("value");
+    if(vflip=="1") vflip="0";
+    else vflip="1";
+    $("#vflip").attr("value",vflip);
+    imgOr();
+  });
+  fillTexts(texts);
 });
