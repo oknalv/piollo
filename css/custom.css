@@ -83,3 +83,23 @@ a, a:hover{
 .custom-red{
   background: red;
 }
+.custom-uvplane{
+  height: 256px;
+  width: 256px;
+  background: url(../img/uvplane.png);
+  cursor: crosshair;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.custom-planeselectorx{
+  height: 1px;
+  width: 256px;
+  background: white;
+  position: absolute;
+}
+.custom-planeselectory{
+  height: 256px;
+  width: 1px;
+  background: white;
+  position: absolute;
+}

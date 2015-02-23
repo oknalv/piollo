@@ -66,6 +66,8 @@
     <steps>Steps</steps>
     <kernelSize>Kernel size</kernelSize>
     <enableUV>Enable U/V effect</enableUV>
+    <mousePosition>Mouse position</mousePosition>
+    <UVPlane>U/V plane</UVPlane>
   </English>
   <Español>
     <selLang>Idioma</selLang>
@@ -134,5 +136,7 @@
     <steps>Pasos</steps>
     <kernelSize>Tamaño de la semilla</kernelSize>
     <enableUV>Habilitar efecto U/V</enableUV>
+    <mousePosition>Posición del ratón</mousePosition>
+    <UVPlane>Plano U/V</UVPlane>
   </Español>
 </lang>

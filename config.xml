@@ -16,7 +16,7 @@
   <saturation>0</saturation>
   <sharpness>0</sharpness>
   <blurSize>1</blurSize>
-  <watercolorEnableUV>0</watercolorEnableUV>
-  <watercolorU>0</watercolorU>
-  <watercolorV>0</watercolorV>
+  <watercolorEnableUV>1</watercolorEnableUV>
+  <watercolorU>250</watercolorU>
+  <watercolorV>250</watercolorV>
 </config>

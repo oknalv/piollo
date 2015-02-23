@@ -164,8 +164,10 @@ function setOpts(opts){
   $("#watercolorEnableUV").prop("checked",opts['watercolorEnableUV']=="1");
   $("#watercolorU").val(opts['watercolorU']);
   $("#watercolorV").val(opts['watercolorV']);
-  $("#numwaterU").html(opts['watercolorU']);
-  $("#numwaterV").html(opts['watercolorV']);
+  $("#numwaterU").html(opts['watercolorU']-128);
+  $("#numwaterV").html(opts['watercolorV']-128);
+  $("#watercolorUVPlaneSelectorV").css("margin-top",(255-opts['watercolorU'])+"px");
+  $("#watercolorUVPlaneSelectorU").css("margin-left",opts['watercolorV']+"px");
 }
 function checkRecord(){
   var ret;
@@ -423,10 +425,12 @@ $(document).ready(function(){
     $("#numSharpness").html($("#inputSharpness").val());
   });
   $("#watercolorU").on("input",function(){
-    $("#numwaterU").html($("#watercolorU").val());
+    $("#watercolorUVPlaneSelectorU").css("margin-left",$("#watercolorU").val()+"px");
+    $("#numwaterU").html($("#watercolorU").val()-128);
   });
   $("#watercolorV").on("input",function(){
-    $("#numwaterV").html($("#watercolorV").val());
+    $("#watercolorUVPlaneSelectorV").css("margin-top",(255-$("#watercolorV").val())+"px");
+    $("#numwaterV").html($("#watercolorV").val()-128);
   });
   $("#oclock").on("click",function(){
     var rot=parseInt($("#rotate").attr("value"));
@@ -455,6 +459,26 @@ $(document).ready(function(){
     else vflip="1";
     $("#vflip").attr("value",vflip);
     imgOr();
+  });
+  $("#watercolorUVPlane").on("mousemove",function(e){
+    $("#ustate").html(Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
+    $("#vstate").html(-(Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
+    if(e.buttons==1){
+      $("#watercolorU").val(128 + Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
+      $("#watercolorU").trigger("input");
+      $("#watercolorV").val(128 - (Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
+      $("#watercolorV").trigger("input");
+      $("#watercolorUVPlaneSelectorV").css("margin-top",Math.round(e.pageY - $("#watercolorUVPlane").offset().top));
+      $("#watercolorUVPlaneSelectorU").css("margin-left",Math.round(e.pageX - $("#watercolorUVPlane").offset().left));
+    }
+  });
+  $("#watercolorUVPlane").on("mousedown",function(e){
+    $("#watercolorU").val(128 + Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
+    $("#watercolorU").trigger("input");
+    $("#watercolorV").val(128 - (Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
+    $("#watercolorV").trigger("input");
+    $("#watercolorUVPlaneSelectorV").css("margin-top",Math.round(e.pageY - $("#watercolorUVPlane").offset().top));
+    $("#watercolorUVPlaneSelectorU").css("margin-left",Math.round(e.pageX - $("#watercolorUVPlane").offset().left));
   });
   fillTexts(texts);
 });
