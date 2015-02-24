@@ -90,16 +90,21 @@ a, a:hover{
   cursor: crosshair;
   -webkit-user-select: none;
   -moz-user-select: none;
+  color: white;
+}
+.custom-uvplane div{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  position:absolute;
+  color: white;
 }
 .custom-planeselectorx{
   height: 1px;
   width: 256px;
   background: white;
-  position: absolute;
 }
 .custom-planeselectory{
   height: 256px;
   width: 1px;
   background: white;
-  position: absolute;
 }

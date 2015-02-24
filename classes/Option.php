@@ -22,7 +22,8 @@
                                   $saturation,        $sharpness,
                                   $posteriseSteps,    $blurSize,
                                   $watercolorEnableUV,$watercolorU,
-                                  $watercolorV){
+                                  $watercolorV,       $filmStrength,
+                                  $filmU,             $filmV){
       if (file_exists('../config.xml')) {
         $xml = simplexml_load_file('../config.xml');
         $xml->imgFormat=$imgFormat;
@@ -44,6 +45,9 @@
         $xml->watercolorEnableUV=$watercolorEnableUV;
         $xml->watercolorU=$watercolorU;
         $xml->watercolorV=$watercolorV;
+        $xml->filmStrength=$filmStrength;
+        $xml->filmU=$filmU;
+        $xml->filmV=$filmV;
         $xml->asXml('../config.xml');
       } else {
         return('Error opening config.xml.');

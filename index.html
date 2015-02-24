@@ -75,15 +75,6 @@
                       <hr>
                       <div class="input-group">
                         <div class="input-group-addon">
-                          <i class="glyphicon glyphicon-star-empty"></i>
-                          <span class="effect"></span>
-                        </div>
-                        <select id="imgEffect" class="form-control">
-                        </select>
-                      </div>
-                      <hr>
-                      <div class="input-group">
-                        <div class="input-group-addon">
                           <i class="glyphicon glyphicon-time"></i>
                           <span class="timer"></span>
                         </div>
@@ -182,6 +173,15 @@
                       </div>
                     </div>
                     <div id="fxOptionTab" class="tab-pane fade">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="glyphicon glyphicon-star-empty"></i>
+                          <span class="effect"></span>
+                        </div>
+                        <select id="imgEffect" class="form-control">
+                        </select>
+                      </div>
+                      <hr>
                       <div class="input-group col-sm-12">
                         <label class="col-sm-12">
                           <span class="blur"></span>
@@ -233,9 +233,52 @@
                           <div id="watercolorUVPlane" class="custom-uvplane">
                             <div id="watercolorUVPlaneSelectorV" class="custom-planeselectorx"></div>
                             <div id="watercolorUVPlaneSelectorU" class="custom-planeselectory"></div>
+                            <div class="fade" id="watercolorUVPlaneMousePosition">
+                              U: <span id="ustateWatercolor"></span> / V: <span id="vstateWatercolor"></span>
+                            </div>
                           </div>
-                          <span class="mousePosition"></span><br>
-                          U: <span id="ustate"></span> / V: <span id="vstate"></span>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="input-group col-sm-12">
+                        <label class="col-sm-12">
+                          <span class="film"></span>
+                        </label>
+                        <div class="col-sm-3 text-right">
+                          <span class="strength"></span>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <input id="filmStrength" class="form-control" type="range" min="0" max="255" value="">
+                          <span id="numFilmStrength" class="input-group-addon"></span>
+                        </div>
+                        <br>
+                        <div class="col-sm-3 text-right">
+                          <span>U</span>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <input id="filmU" class="form-control" type="range" min="0" max="255" value="">
+                          <span id="numfilmU" class="input-group-addon"></span>
+                        </div>
+                        <br>
+                        <div class="col-sm-3 text-right">
+                          <span>V</span>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <input id="filmV" class="form-control" type="range" min="0" max="255" value="">
+                          <span id="numfilmV" class="input-group-addon"></span>
+                        </div>
+                        <br>
+                        <div class="col-sm-3 text-right">
+                          <span class="UVPlane"></class>
+                        </div>
+                        <div class="input-group col-sm-9">
+                          <div id="filmUVPlane" class="custom-uvplane">
+                            <div id="filmUVPlaneSelectorV" class="custom-planeselectorx"></div>
+                            <div id="filmUVPlaneSelectorU" class="custom-planeselectory"></div>
+                            <div class="fade" id="filmUVPlaneMousePosition">
+                              U: <span id="ustateFilm"></span> / V: <span id="vstateFilm"></span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <hr>

@@ -19,4 +19,7 @@
   <watercolorEnableUV>0</watercolorEnableUV>
   <watercolorU>0</watercolorU>
   <watercolorV>0</watercolorV>
+  <filmStrength>0</filmStrength>
+  <filmU>0</filmU>
+  <filmV>0</filmV>
 </config>

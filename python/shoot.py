@@ -32,6 +32,9 @@ blurSize = int(config.find('blurSize').text)
 watercolorEnableUV = bool(int(config.find('watercolorEnableUV').text))
 watercolorU = int(config.find('watercolorU').text)
 watercolorV = int(config.find('watercolorV').text)
+filmStrength = int(config.find('filmStrength').text)
+filmU = int(config.find('filmU').text)
+filmV = int(config.find('filmV').text)
 
 if imgFormat not in ["jpeg", "png", "gif", "bmp", "yuv", "rgb", "rgba", "bgr", "bgra", "raw"]:
     imgFormat = "jpeg"
@@ -55,6 +58,8 @@ with picamera.PiCamera() as cam:
         cam.image_effect_params = blurSize
     if effect == "watercolor" and watercolorEnableUV:
         cam.image_effect_params = (watercolorU, watercolorV)
+    if effect == "film":
+        cam.image_effect_params = (filmStrength, filmU, filmV)
     cam.rotation = rotation
     cam.hflip = hflip
     cam.vflip = vflip

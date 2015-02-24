@@ -14,7 +14,8 @@
                         $_GET['saturation'],        $_GET['sharpness'],
                         $_GET['posteriseSteps'],    $_GET['blurSize'],
                         $_GET['watercolorEnableUV'],$_GET['watercolorU'],
-                        $_GET['watercolorV']);
+                        $_GET['watercolorV'],       $_GET['filmStrength'],
+                        $_GET['filmU'],             $_GET['filmV']);
   }
   else if(isset($_GET['reset'])){
     $ret=Option::reset();

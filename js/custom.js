@@ -168,6 +168,14 @@ function setOpts(opts){
   $("#numwaterV").html(opts['watercolorV']-128);
   $("#watercolorUVPlaneSelectorV").css("margin-top",(255-opts['watercolorU'])+"px");
   $("#watercolorUVPlaneSelectorU").css("margin-left",opts['watercolorV']+"px");
+  $("#filmStrength").val(opts['filmStrength']);
+  $("#numFilmStrength").html(opts['filmStrength']);
+  $("#filmU").val(opts['filmU']);
+  $("#filmV").val(opts['filmV']);
+  $("#numfilmU").html(opts['filmU']-128);
+  $("#numfilmV").html(opts['filmV']-128);
+  $("#filmUVPlaneSelectorV").css("margin-top",(255-opts['filmU'])+"px");
+  $("#filmUVPlaneSelectorU").css("margin-left",opts['filmV']+"px");
 }
 function checkRecord(){
   var ret;
@@ -381,6 +389,9 @@ $(document).ready(function(){
     get+="&watercolorEnableUV="+uv;
     get+="&watercolorU="+$("#watercolorU").val();
     get+="&watercolorV="+$("#watercolorV").val();
+    get+="&filmStrength="+$("#filmStrength").val();
+    get+="&filmU="+$("#filmU").val();
+    get+="&filmV="+$("#filmV").val();
     jQuery.ajax("controllers/optionController.php?change&"+get,{async:false});
     $("#optionsMenu").modal("hide");
   });
@@ -432,6 +443,17 @@ $(document).ready(function(){
     $("#watercolorUVPlaneSelectorV").css("margin-top",(255-$("#watercolorV").val())+"px");
     $("#numwaterV").html($("#watercolorV").val()-128);
   });
+  $("#filmStrength").on("input",function(){
+    $("#numFilmStrength").html($("#filmStrength").val());
+  });
+  $("#filmU").on("input",function(){
+    $("#filmUVPlaneSelectorU").css("margin-left",$("#filmU").val()+"px");
+    $("#numfilmU").html($("#filmU").val()-128);
+  });
+  $("#filmV").on("input",function(){
+    $("#filmUVPlaneSelectorV").css("margin-top",(255-$("#filmV").val())+"px");
+    $("#numfilmV").html($("#filmV").val()-128);
+  });
   $("#oclock").on("click",function(){
     var rot=parseInt($("#rotate").attr("value"));
     if(rot==270) rot=0;
@@ -460,10 +482,23 @@ $(document).ready(function(){
     $("#vflip").attr("value",vflip);
     imgOr();
   });
+  var watercolorUVPlaneClick=false;
+  var filmUVPlaneClick=false;
   $("#watercolorUVPlane").on("mousemove",function(e){
-    $("#ustate").html(Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
-    $("#vstate").html(-(Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
-    if(e.buttons==1){
+    $(this).on("mousedown",function(){
+      watercolorUVPlaneClick=true;
+    });
+    $("#ustateWatercolor").html(Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
+    $("#vstateWatercolor").html(-(Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
+    var height=$("#watercolorUVPlaneMousePosition").height();
+    var width=$("#watercolorUVPlaneMousePosition").width();
+    var top=Math.round(e.pageY - $("#watercolorUVPlane").offset().top)+5;
+    var left=Math.round(e.pageX - $("#watercolorUVPlane").offset().left)+5;
+    if(parseInt(left)+parseInt(width)>256) left=256-width;
+    if(parseInt(top)+parseInt(height)>256) top=256-height;
+    $("#watercolorUVPlaneMousePosition").css("margin-top",top+"px");
+    $("#watercolorUVPlaneMousePosition").css("margin-left",left+"px");
+    if(watercolorUVPlaneClick){
       $("#watercolorU").val(128 + Math.round(e.pageX - $("#watercolorUVPlane").offset().left - 128));
       $("#watercolorU").trigger("input");
       $("#watercolorV").val(128 - (Math.round(e.pageY - $("#watercolorUVPlane").offset().top) - 128));
@@ -479,6 +514,55 @@ $(document).ready(function(){
     $("#watercolorV").trigger("input");
     $("#watercolorUVPlaneSelectorV").css("margin-top",Math.round(e.pageY - $("#watercolorUVPlane").offset().top));
     $("#watercolorUVPlaneSelectorU").css("margin-left",Math.round(e.pageX - $("#watercolorUVPlane").offset().left));
+  });
+  $("#watercolorUVPlane").on("mouseover",function(e){
+    $("#watercolorUVPlaneMousePosition").addClass("in");
+  });
+  $("#watercolorUVPlane").on("mouseout",function(e){
+    $("#watercolorUVPlaneMousePosition").removeClass("in");
+  });
+
+
+  $("#filmUVPlane").on("mousemove",function(e){
+    $(this).on("mousedown",function(){
+      watercolorUVPlaneClick=true;
+    });
+    $("#ustateFilm").html(Math.round(e.pageX - $("#filmUVPlane").offset().left - 128));
+    $("#vstateFilm").html(-(Math.round(e.pageY - $("#filmUVPlane").offset().top) - 128));
+    var height=$("#filmUVPlaneMousePosition").height();
+    var width=$("#filmUVPlaneMousePosition").width();
+    var top=Math.round(e.pageY - $("#filmUVPlane").offset().top)+5;
+    var left=Math.round(e.pageX - $("#filmUVPlane").offset().left)+5;
+    if(parseInt(left)+parseInt(width)>256) left=256-width;
+    if(parseInt(top)+parseInt(height)>256) top=256-height;
+    $("#filmUVPlaneMousePosition").css("margin-top",top+"px");
+    $("#filmUVPlaneMousePosition").css("margin-left",left+"px");
+    if(watercolorUVPlaneClick){
+      $("#filmU").val(128 + Math.round(e.pageX - $("#filmUVPlane").offset().left - 128));
+      $("#filmU").trigger("input");
+      $("#filmV").val(128 - (Math.round(e.pageY - $("#filmUVPlane").offset().top) - 128));
+      $("#filmV").trigger("input");
+      $("#filmUVPlaneSelectorV").css("margin-top",Math.round(e.pageY - $("#filmUVPlane").offset().top));
+      $("#filmUVPlaneSelectorU").css("margin-left",Math.round(e.pageX - $("#filmUVPlane").offset().left));
+    }
+  });
+  $("#filmUVPlane").on("mousedown",function(e){
+    $("#filmU").val(128 + Math.round(e.pageX - $("#filmUVPlane").offset().left - 128));
+    $("#filmU").trigger("input");
+    $("#filmV").val(128 - (Math.round(e.pageY - $("#filmUVPlane").offset().top) - 128));
+    $("#filmV").trigger("input");
+    $("#filmUVPlaneSelectorV").css("margin-top",Math.round(e.pageY - $("#filmUVPlane").offset().top));
+    $("#filmUVPlaneSelectorU").css("margin-left",Math.round(e.pageX - $("#filmUVPlane").offset().left));
+  });
+  $("#filmUVPlane").on("mouseover",function(e){
+    $("#filmUVPlaneMousePosition").addClass("in");
+  });
+  $("#filmUVPlane").on("mouseout",function(e){
+    $("#filmUVPlaneMousePosition").removeClass("in");
+  });
+  $(document).on("mouseup",function(){
+    watercolorUVPlaneClick=false;
+    filmUVPlaneClick=false;
   });
   fillTexts(texts);
 });

@@ -3,12 +3,12 @@
   <imgFormat>png</imgFormat>
   <width>640</width>
   <height>480</height>
-  <effect>watercolor</effect>
+  <effect>colorpoint</effect>
   <timer>0</timer>
   <rotate>0</rotate>
   <hflip>0</hflip>
   <vflip>0</vflip>
-  <colorpointColor>0</colorpointColor>
+  <colorpointColor>3</colorpointColor>
   <colorswapMode>0</colorswapMode>
   <posteriseSteps>4</posteriseSteps>
   <brightness>50</brightness>
@@ -16,7 +16,10 @@
   <saturation>0</saturation>
   <sharpness>0</sharpness>
   <blurSize>1</blurSize>
-  <watercolorEnableUV>1</watercolorEnableUV>
-  <watercolorU>250</watercolorU>
-  <watercolorV>250</watercolorV>
+  <watercolorEnableUV>0</watercolorEnableUV>
+  <watercolorU>0</watercolorU>
+  <watercolorV>0</watercolorV>
+  <filmStrength>0</filmStrength>
+  <filmU>0</filmU>
+  <filmV>0</filmV>
 </config>
