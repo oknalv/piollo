@@ -108,3 +108,6 @@ a, a:hover{
   width: 1px;
   background: white;
 }
+.custom-next{
+  position: absolute;
+}

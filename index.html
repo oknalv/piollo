@@ -181,177 +181,169 @@
                         <select id="imgEffect" class="form-control">
                         </select>
                       </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12">
-                          <span class="blur"></span>
-                        </label>
-                        <div class="col-sm-3 text-right">
-                          <span class="kernelSize"></span>
+                      <div class="tab-content">
+                        <div class="tab-pane fade custom-effect-param" id="blurEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="kernelSize"></span>
+                          </div>
+                          <div class="btn-group col-sm-9" data-toggle="buttons">
+                            <label class="btn btn-default" id="ks1">
+                              <input name="blurSize" type="radio" value="1">1
+                            </label>
+                            <label class="btn btn-default" id="ks2">
+                              <input name="blurSize" type="radio" value="2">2
+                            </label>
+                          </div>
+                          <div><br></div>
+                          <div><br></div>
                         </div>
-                        <div class="btn-group col-sm-9" data-toggle="buttons">
-                          <label class="btn btn-default" id="ks1">
-                            <input name="blurSize" type="radio" value="1">1
-                          </label>
-                          <label class="btn btn-default" id="ks2">
-                            <input name="blurSize" type="radio" value="2">2
-                          </label>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12">
-                          <span class="watercolor"></span>
-                        </label>
-                        <div class="col-sm-3 text-right">
-                          <span class="enableUV"></span>
-                        </div>
-                        <div class="col-sm-9">
-                            <input name="watercolorEnableUV" id="watercolorEnableUV" type="checkbox">
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span>U</span>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <input id="watercolorU" class="form-control" type="range" min="0" max="255" value="">
-                          <span id="numwaterU" class="input-group-addon"></span>
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span>V</span>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <input id="watercolorV" class="form-control" type="range" min="0" max="255" value="">
-                          <span id="numwaterV" class="input-group-addon"></span>
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span class="UVPlane"></class>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <div id="watercolorUVPlane" class="custom-uvplane">
-                            <div id="watercolorUVPlaneSelectorV" class="custom-planeselectorx"></div>
-                            <div id="watercolorUVPlaneSelectorU" class="custom-planeselectory"></div>
-                            <div class="fade" id="watercolorUVPlaneMousePosition">
-                              U: <span id="ustateWatercolor"></span> / V: <span id="vstateWatercolor"></span>
+                        <div class="tab-pane fade custom-effect-param" id="watercolorEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="enableUV"></span>
+                          </div>
+                          <div class="col-sm-9">
+                              <input name="watercolorEnableUV" id="watercolorEnableUV" type="checkbox">
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span>U</span>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <input id="watercolorU" class="form-control" type="range" min="0" max="255" value="">
+                            <span id="numwaterU" class="input-group-addon"></span>
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span>V</span>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <input id="watercolorV" class="form-control" type="range" min="0" max="255" value="">
+                            <span id="numwaterV" class="input-group-addon"></span>
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span class="UVPlane"></class>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <div id="watercolorUVPlane" class="custom-uvplane">
+                              <div id="watercolorUVPlaneSelectorV" class="custom-planeselectorx"></div>
+                              <div id="watercolorUVPlaneSelectorU" class="custom-planeselectory"></div>
+                              <div class="fade" id="watercolorUVPlaneMousePosition">
+                                U: <span id="ustateWatercolor"></span> / V: <span id="vstateWatercolor"></span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12">
-                          <span class="film"></span>
-                        </label>
-                        <div class="col-sm-3 text-right">
-                          <span class="strength"></span>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <input id="filmStrength" class="form-control" type="range" min="0" max="255" value="">
-                          <span id="numFilmStrength" class="input-group-addon"></span>
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span>U</span>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <input id="filmU" class="form-control" type="range" min="0" max="255" value="">
-                          <span id="numfilmU" class="input-group-addon"></span>
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span>V</span>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <input id="filmV" class="form-control" type="range" min="0" max="255" value="">
-                          <span id="numfilmV" class="input-group-addon"></span>
-                        </div>
-                        <br>
-                        <div class="col-sm-3 text-right">
-                          <span class="UVPlane"></class>
-                        </div>
-                        <div class="input-group col-sm-9">
-                          <div id="filmUVPlane" class="custom-uvplane">
-                            <div id="filmUVPlaneSelectorV" class="custom-planeselectorx"></div>
-                            <div id="filmUVPlaneSelectorU" class="custom-planeselectory"></div>
-                            <div class="fade" id="filmUVPlaneMousePosition">
-                              U: <span id="ustateFilm"></span> / V: <span id="vstateFilm"></span>
+                        <div class="tab-pane fade custom-effect-param" id="filmEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="strength"></span>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <input id="filmStrength" class="form-control" type="range" min="0" max="255" value="">
+                            <span id="numFilmStrength" class="input-group-addon"></span>
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span>U</span>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <input id="filmU" class="form-control" type="range" min="0" max="255" value="">
+                            <span id="numfilmU" class="input-group-addon"></span>
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span>V</span>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <input id="filmV" class="form-control" type="range" min="0" max="255" value="">
+                            <span id="numfilmV" class="input-group-addon"></span>
+                          </div>
+                          <br>
+                          <div class="col-sm-3 text-right">
+                            <span class="UVPlane"></class>
+                          </div>
+                          <div class="input-group col-sm-9">
+                            <div id="filmUVPlane" class="custom-uvplane">
+                              <div id="filmUVPlaneSelectorV" class="custom-planeselectorx"></div>
+                              <div id="filmUVPlaneSelectorU" class="custom-planeselectory"></div>
+                              <div class="fade" id="filmUVPlaneMousePosition">
+                                U: <span id="ustateFilm"></span> / V: <span id="vstateFilm"></span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12">
-                          <span class="colorswap"></span>
-                        </label>
-                        <div class="col-sm-3 text-right">
-                          <span class="mode"></span>
-                        </div>
-                        <div class="btn-group col-sm-9" data-toggle="buttons">
-                          <label class="btn btn-default" id="m0">
-                            <input name="colorswapMode" type="radio" value="0">
-                            <span class="rgbtobgr"></span>
-                            <span class="custom-red">&nbsp;</span>
-                            <span class="custom-lime">&nbsp;</span>
-                            <span class="custom-blue">&nbsp;</span>
-                            <i class="glyphicon glyphicon-arrow-right"></i>
-                            <span class="custom-blue">&nbsp;</span>
-                            <span class="custom-lime">&nbsp;</span>
-                            <span class="custom-red">&nbsp;</span>
-                          </label>
-                          <label class="btn btn-default" id="m1">
-                            <input name="colorswapMode" type="radio" value="1">
-                            <span class="rgbtobrg"></span>
-                            <span class="custom-red">&nbsp;</span>
-                            <span class="custom-lime">&nbsp;</span>
-                            <span class="custom-blue">&nbsp;</span>
-                            <i class="glyphicon glyphicon-arrow-right"></i>
-                            <span class="custom-blue">&nbsp;</span>
-                            <span class="custom-red">&nbsp;</span>
-                            <span class="custom-lime">&nbsp;</span>
-                          </label>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12">
-                          <span class="posterise"></span>
-                        </label>
-                        <div class="col-sm-3 text-right">
-                          <span class="quantizationSteps"></span>
-                        </div>
-                        <div class="col-sm-9 input-group">
-                          <div class="input-group-addon">
-                            <span class="steps"></span>
+                        <div class="tab-pane fade custom-effect-param" id="colorswapEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="mode"></span>
                           </div>
-                          <input type="number" id="posteriseSteps" min="2" max="32" value="" class="form-control">
+                          <div class="btn-group col-sm-9" data-toggle="buttons">
+                            <label class="btn btn-default" id="m0">
+                              <input name="colorswapMode" type="radio" value="0">
+                              <span class="rgbtobgr"></span>
+                              <span class="custom-red">&nbsp;</span>
+                              <span class="custom-lime">&nbsp;</span>
+                              <span class="custom-blue">&nbsp;</span>
+                              <i class="glyphicon glyphicon-arrow-right"></i>
+                              <span class="custom-blue">&nbsp;</span>
+                              <span class="custom-lime">&nbsp;</span>
+                              <span class="custom-red">&nbsp;</span>
+                            </label>
+                            <label class="btn btn-default" id="m1">
+                              <input name="colorswapMode" type="radio" value="1">
+                              <span class="rgbtobrg"></span>
+                              <span class="custom-red">&nbsp;</span>
+                              <span class="custom-lime">&nbsp;</span>
+                              <span class="custom-blue">&nbsp;</span>
+                              <i class="glyphicon glyphicon-arrow-right"></i>
+                              <span class="custom-blue">&nbsp;</span>
+                              <span class="custom-red">&nbsp;</span>
+                              <span class="custom-lime">&nbsp;</span>
+                            </label>
+                          </div>
+                          <div><br></div>
+                          <div><br></div>
                         </div>
-                      </div>
-                      <hr>
-                      <div class="input-group col-sm-12">
-                        <label class="col-sm-12"><span class="colorpoint"></span></label>
-                        <div class="col-sm-3 text-right">
-                          <span class="color"></span>
+                        <div class="tab-pane fade custom-effect-param" id="posteriseEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="quantizationSteps"></span>
+                          </div>
+                          <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                              <span class="steps"></span>
+                            </div>
+                            <input type="number" id="posteriseSteps" min="2" max="32" value="" class="form-control">
+                          </div>
+                          <div><br></div>
                         </div>
-                        <div class="btn-group col-sm-9" data-toggle="buttons">
-                          <label class="btn btn-default" id="c0">
-                            <input name="colorpointColor" type="radio" value="0"><span class="custom-greens">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          </label>
-                          <label class="btn btn-default" id="c1">
-                            <input name="colorpointColor" type="radio" value="1"><span class="custom-red-yellow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          </label>
-                          <label class="btn btn-default" id="c2">
-                            <input name="colorpointColor" type="radio" value="2"><span class="custom-blues">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          </label>
-                          <label class="btn btn-default" id="c3">
-                            <input name="colorpointColor" type="radio" value="3"><span class="custom-purples">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          </label>
+                        <div class="tab-pane fade custom-effect-param" id="colorpointEffect">
+                          <div><br></div>
+                          <div class="col-sm-3 text-right">
+                            <span class="color"></span>
+                          </div>
+                          <div class="btn-group col-sm-9" data-toggle="buttons">
+                            <label class="btn btn-default" id="c0">
+                              <input name="colorpointColor" type="radio" value="0"><span class="custom-greens">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </label>
+                            <label class="btn btn-default" id="c1">
+                              <input name="colorpointColor" type="radio" value="1"><span class="custom-red-yellow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </label>
+                            <label class="btn btn-default" id="c2">
+                              <input name="colorpointColor" type="radio" value="2"><span class="custom-blues">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </label>
+                            <label class="btn btn-default" id="c3">
+                              <input name="colorpointColor" type="radio" value="3"><span class="custom-purples">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </label>
+                          </div>
+                          <div><br></div>
+                          <div><br></div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-sm-12"><br></div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -424,6 +416,14 @@
                 </div>
                 <div class="modal-body">
                   <img id="imgPreview" class="img img-responsive" src="">
+                  <br>
+                  <button class="col-sm-6 btn btn-default ch-img prev-img">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                  </button>
+                  <button class="col-sm-6 btn btn-default ch-img next-img">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                  </button>
+                  <br>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-danger pull-left throwSureI" id="removePreview" value="">

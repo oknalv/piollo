@@ -204,6 +204,21 @@ function imgOr(){
   $("#rotIcon").removeClass("custom-r0 custom-r90 custom-r180 custom-r270");
   $("#rotIcon").addClass("custom-r"+$("#rotate").val());
 }
+function getIndex(value,json){
+    for(i in json){
+      if(json[i]==value) return i;
+    }
+}
+function nextImg(img){
+  var i=parseInt(getIndex(img,pics))+1;
+  if(i==pics.length) i=0;
+  return pics[i];
+}
+function prevImg(img){
+  var i=getIndex(img,pics)-1;
+  if(i==-1) i=pics.length-1;
+  return pics[i];
+}
 
 jQuery.ajax("controllers/languageController.php?getAll",{async:false}).done(function(data){
   langs=JSON.parse(data);
@@ -243,6 +258,8 @@ $(document).ready(function(){
       $("#modalImgA").attr('href',$(this).attr('src'));
       $("#removePreview").attr('value',$(this).attr('alt'));
       $("#showImg").modal("show");
+      $(".next-img").attr('value',nextImg($(this).attr('alt')));
+      $(".prev-img").attr('value',prevImg($(this).attr('alt')));
     });
     $(".throwSureI").on("click",function(){
       $("#delImg").attr("value",$(this).attr("value"));
@@ -255,6 +272,13 @@ $(document).ready(function(){
       $("#elementsToDelete").html(texts[$(this).attr("value")+"Sure"]);
       $("#sureAll").modal("show");
     });
+  });
+  $(".ch-img").on("click",function(){
+    $("#imgPreview").attr('src',"pictures/"+$(this).attr('value'));
+    $("#modalImgA").attr('href',"pictures/"+$(this).attr('value'));
+    $("#removePreview").attr('value',$(this).attr('value'));
+    $(".next-img").attr('value',nextImg($("#removePreview").attr('value')));
+    $(".prev-img").attr('value',prevImg($("#removePreview").attr('value')));
   });
   $("#delImg").on("click",function(){
     jQuery.ajax("controllers/fileController.php?del="+$(this).attr("value")+"&type=img",{async:false});
@@ -564,5 +588,10 @@ $(document).ready(function(){
     watercolorUVPlaneClick=false;
     filmUVPlaneClick=false;
   });
+  $("#imgEffect").on("change",function(){
+    $(".custom-effect-param").removeClass("active in");
+    $("#"+$("#imgEffect").val()+"Effect").addClass("active in");
+  });
+  $("#imgEffect").trigger("change");
   fillTexts(texts);
 });
