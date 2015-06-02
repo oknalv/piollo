@@ -111,3 +111,7 @@ a, a:hover{
 .custom-next{
   position: absolute;
 }
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus, a:focus {
+  outline: none;
+}
