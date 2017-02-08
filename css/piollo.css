@@ -1,0 +1,93 @@
+table tbody tr:hover {
+    cursor: pointer;
+}
+
+.piollo-no-video {
+    background-image: url("../img/uvplane.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    background-size: 500px;
+}
+
+.piollo-video {
+    height: 500px;
+}
+
+.piollo-fullscreen {
+    height: 100%;
+}
+
+.piollo-video-container {
+    background-color: lightgray;
+    height: 500px;
+}
+
+.piollo-streaming-controls-container {
+    height: 100px;
+    width: 100%;
+    transform: translateY(-100%);
+    cursor: default;
+}
+
+.piollo-controls {
+    background-color: rgba(255, 255, 255, .25);
+    padding: 10px;
+    border-radius: 50px;
+    margin
+}
+
+@keyframes spin {
+    100% {transform: rotate(360deg);}
+}
+
+.piollo-loading {
+    animation: spin 1s linear infinite;
+    border: 2px solid black;
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+    padding: 10px;
+}
+
+.piollo-loading * {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-left: 20px;
+    background-color: black;
+}
+
+.piollo-led-on-btn {
+    color: red;
+}
+
+.piollo-led-on-btn:hover {
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, .75);
+}
+
+.piollo-led-on-btn:active {
+    box-shadow: inset 0px 0px 10px rgba(255, 0, 0, .75);
+}
+
+.piollo-thumbnail {
+    max-height: 100px;
+    max-width: 100%;
+}
+
+.piollo-file-browser {
+    height: 500px;
+    overflow-y: auto;
+}
+
+#about-piollo > .modal-container {
+    width: 25%;
+}
+#about-piollo > .modal-container > .modal-body > div {
+    margin-top: 20px;
+}
+
+.piollo-menu-option {
+    padding: 10px 0;
+}
