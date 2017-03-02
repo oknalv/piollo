@@ -59,15 +59,15 @@ table tbody tr:hover {
     background-color: black;
 }
 
-.piollo-led-on-btn {
+.btn.icon.piollo-led-on-btn {
     color: red;
 }
 
-.piollo-led-on-btn:hover {
+.btn.icon.piollo-led-on-btn:hover {
     box-shadow: 0px 0px 10px rgba(255, 0, 0, .75);
 }
 
-.piollo-led-on-btn:active {
+.btn.icon.piollo-led-on-btn:active {
     box-shadow: inset 0px 0px 10px rgba(255, 0, 0, .75);
 }
 
@@ -82,7 +82,8 @@ table tbody tr:hover {
 }
 
 #about-piollo > .modal-container {
-    width: 25%;
+    flex-basis: 25%;
+    max-width: 25%;
 }
 #about-piollo > .modal-container > .modal-body > div {
     margin-top: 20px;
@@ -90,4 +91,9 @@ table tbody tr:hover {
 
 .piollo-menu-option {
     padding: 10px 0;
+}
+
+.piollo-big-icon {
+    font-size: 150px;
+    padding: 10px;
 }

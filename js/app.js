@@ -124,7 +124,8 @@ app.controller("piolloController",["$scope", "$location", "$http", function($sco
         }
     ];
 
-    $scope.imageWidth = 0;
+    $scope.width = 50;
+    $scope.height = 50;
 
     $scope.startStreaming = function(){
         if(datastream == null){
