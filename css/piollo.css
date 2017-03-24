@@ -13,6 +13,7 @@ table tbody tr:hover {
 
 .piollo-video {
     height: 500px;
+    max-width: 100%;
 }
 
 .piollo-fullscreen {
@@ -44,31 +45,14 @@ table tbody tr:hover {
 
 .piollo-loading {
     animation: spin 1s linear infinite;
-    border: 2px solid black;
+    border: 2px solid #01FB01;
+    border-left-color: #0296FF;
+    border-bottom-color: #FE02FE;
+    border-right-color: #FE6A00;
     border-radius: 50%;
     height: 26px;
     width: 26px;
     padding: 10px;
-}
-
-.piollo-loading * {
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    margin-left: 20px;
-    background-color: black;
-}
-
-.piollo-led-on-btn {
-    color: red;
-}
-
-.piollo-led-on-btn:hover {
-    box-shadow: 0px 0px 10px rgba(255, 0, 0, .75);
-}
-
-.piollo-led-on-btn:active {
-    box-shadow: inset 0px 0px 10px rgba(255, 0, 0, .75);
 }
 
 .piollo-thumbnail {
@@ -82,7 +66,8 @@ table tbody tr:hover {
 }
 
 #about-piollo > .modal-container {
-    width: 25%;
+    flex-basis: 25%;
+    max-width: 25%;
 }
 #about-piollo > .modal-container > .modal-body > div {
     margin-top: 20px;
@@ -90,4 +75,37 @@ table tbody tr:hover {
 
 .piollo-menu-option {
     padding: 10px 0;
+}
+
+.piollo-icon-transform {
+    font-size: 120px;
+    transition: transform .5s linear;
+}
+
+.piollo-rotate-0 {
+    transform: rotate(0deg);
+}
+
+.piollo-rotate-90 {
+    transform: rotate(90deg);
+}
+
+.piollo-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.piollo-rotate-270 {
+    transform: rotate(270deg);
+}
+
+.piollo-hflip-true {
+    transform: scale(-1, 1);
+}
+
+.piollo-vflip-true {
+    transform: scale(1, -1);
+}
+
+.piollo-hflip-true.piollo-vflip-true  {
+    transform: scale(-1, -1);
 }

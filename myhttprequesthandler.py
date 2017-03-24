@@ -1,10 +1,9 @@
 from camerasingleton import CameraSingleton
 from filesingleton import FileSingleton
 from httprequesthandler import HTTPRequestHandler
-from thumbnailer import Thumbnailer
+from loggersingleton import LoggerSingleton
 from os import listdir
 import json
-import string
 import hashlib
 import base64
 
@@ -13,8 +12,10 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
     def __init__(self, client, WebSocketHandlerClass):
         HTTPRequestHandler.__init__(self, client, WebSocketHandlerClass)
         self.files = FileSingleton.get_instance()
+        self._logger = LoggerSingleton.get_instance()
 
     def get(self):
+        self._logger.log("GET: " + self.request.request_uri)
         try:
             if self.request.request_uri == "/":
                 self.response.status = 200
@@ -69,6 +70,9 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                 elif file_name.endswith(".jpeg"):
                     file_type = "jpeg"
 
+                elif file_name.endswith(".gif"):
+                    file_type = "gif"
+
                 else:
                     raise IOError()
 
@@ -79,17 +83,12 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
             elif self.request.request_uri == "/gallery":
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "application/json"
-                self.response.body = json.dumps(sorted(listdir("pictures"), reverse=True))
+                self.response.body = json.dumps(sorted(listdir("pictures"), reverse=True)) or "[]"
 
             elif self.request.request_uri == "/take":
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "application/json"
-                self.response.body = '{"image":"' + CameraSingleton.get_instance().take(self) + '"}'
-
-            elif self.request.request_uri == "/take":
-                self.response.status = 200
-                self.response.headers["Content-Type"] = "application/json"
-                self.response.body = '{"led":' + 'true' if CameraSingleton.get_instance().is_led_on() else 'false' + '}'
+                self.response.body = '{"image":"' + CameraSingleton.get_instance().take() + '"}'
 
             elif self.request.request_uri == "/led":
                 if self.request.query_string == "on=true":
@@ -98,8 +97,15 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                 elif self.request.query_string == "on=false":
                     CameraSingleton.get_instance().led_off()
 
+                self.response.status = 200
+                self.response.headers["Content-Type"] = "application/json"
                 self.response.body =\
                     '{"led":' + ('true' if CameraSingleton.get_instance().is_led_on() else 'false') + '}'
+
+            elif self.request.request_uri == "/config":
+                self.response.status = 200
+                self.response.headers["Content-Type"] = "application/json"
+                self.response.body = json.dumps(CameraSingleton.get_instance().get_config())
 
             elif self.request.request_uri == "/streaming":
                 self.response.status = 101
@@ -115,3 +121,17 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
         except IOError:
             self.response.status = 404
 
+    def post(self):
+        self._logger.log("POST: " + self.request.request_uri)
+        try:
+            if self.request.request_uri == "/config":
+                CameraSingleton.get_instance().save_config(json.loads(self.request.body))
+                self.response.status = 200
+                self.response.headers["Content-Type"] = "application/json"
+                self.response.body = json.dumps(CameraSingleton.get_instance().get_config())
+
+            else:
+                raise IOError()
+
+        except IOError:
+            self.response.status = 404

@@ -8,8 +8,9 @@ import sys
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(("192.168.3.14", 80))
 server.listen(100)
-CameraSingleton.get_instance().start()
 LoggerSingleton.get_instance("console_log" in sys.argv)
+CameraSingleton.get_instance().start()
+
 while True:
     try:
         (client, address) = server.accept()

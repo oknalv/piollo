@@ -13,6 +13,9 @@ class HTTPRequestHandler:
         if self.request.method == "GET":
             self.get()
 
+        elif self.request.method == "POST":
+            self.post()
+
         else:
             raise MethodNotSupportedException(self.request.method)
 
@@ -24,6 +27,9 @@ class HTTPRequestHandler:
             self.client.close()
 
     def get(self):
+        pass
+
+    def post(self):
         pass
 
 

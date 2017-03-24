@@ -10,7 +10,7 @@ class MyWebSocketHandler(WebSocketHandler):
         CameraSingleton.get_instance().add_observer(self)
 
     def received_message(self, message):
-        LoggerSingleton.get_instance().log("Received message: " + message)
+        LoggerSingleton.get_instance().log("Received message from client " + self.client + ": " + message)
 
     def notify(self, data):
         try:

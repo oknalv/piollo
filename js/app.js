@@ -1,6 +1,6 @@
-var app = angular.module("piolloApp", ["larvae-directive"]);
+var app = angular.module("piolloApp", ["larvae"]);
 
-app.controller("piolloController",["$scope", "$location", "$http", function($scope, $location, $http){
+app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "lrvElement", function($scope, $location, $http, lrvColor, lrvElement){
     var methods = {}
     var wsurl = "ws://" + $location.host() + ":" + $location.port() + "/streaming";
     var datastream = null;
@@ -12,119 +12,99 @@ app.controller("piolloController",["$scope", "$location", "$http", function($sco
     $scope.ledOn = false;
     $scope.pictures = [];
     $scope.aboutPage = getAbout();
+    $scope.loadingConfig = true;
 
-    $scope.langs = Object.keys(texts);
-    $scope.texts = texts;
-    $scope.defaultLang = "English";
-    $scope.selectedLang = getLang();
+    $scope.rotation = 0;
 
-    $scope.formats = [
-        "tiff",
-        {
-            value: "jpeg",
-            text: "jpeg"
-        },
-        {
-            value: "png",
-            selected: true
-        },
-        "jpg"
-    ];
-    $scope.format = "png";
+    $scope.hflip = false;
+    $scope.vflip = false;
 
-    $scope.effects = [
-        {
-            value: "none",
-            translation: "none",
-            selected: true
-        },
-        {
-            value: "negative",
-            translation: "negative"
-        },
-        {
-            value: "solarize",
-            translation: "solarize"
-        },
-        {
-            value: "sketch",
-            translation: "sketch"
-        },
-        {
-            value: "denoise",
-            translation: "denoise"
-        },
-        {
-            value: "emboss",
-            translation: "emboss"
-        },
-        {
-            value: "oilpaint",
-            translation: "oilpaint"
-        },
-        {
-            value: "gpen",
-            translation: "gpen"
-        },
-        {
-            value: "hatch",
-            translation: "hatch"
-        },
-        {
-            value: "pastel",
-            translation: "pastel"
-        },
-        {
-            value: "watercolor",
-            translation: "watercolor"
-        },
-        {
-            value: "film",
-            translation: "film"
-        },
-        {
-            value: "blur",
-            translation: "blur"
-        },
-        {
-            value: "saturation",
-            translation: "saturation"
-        },
-        {
-            value: "colorswap",
-            translation: "colorswap"
-        },
-        {
-            value: "washedout",
-            translation: "washedout"
-        },
-        {
-            value: "posterise",
-            translation: "posterise"
-        },
-        {
-            value: "colorpoint",
-            translation: "colorpoint"
-        },
-        {
-            value: "colorbalance",
-            translation: "colorbalance"
-        },
-        {
-            value: "cartoon",
-            translation: "cartoon"
-        },
-        {
-            value: "deinterlace1",
-            translation: "deinterlace1"
-        },
-        {
-            value: "deinterlace2",
-            translation: "deinterlace2"
+    lrvColor.setDefaultColors({
+        "btn": ["#000000", "transparent"]
+    })
+    lrvColor.addColor("btn", "red", ["#FF0000", "transparent"]);
+    lrvColor.addColor("message", "success", ["#00FFAA", "#FFFFFF"])
+
+    $scope.langs = {
+        value: "en",
+        defaultLanguage: "en",
+        options: [
+            {
+                value: "en",
+                text: "English"
+            },
+            {
+                value: "es",
+                text: "español"
+            }
+        ],
+        texts: {
+            "en": texts["en"],
+            "es": texts["es"]
         }
-    ];
+    }
 
-    $scope.imageWidth = 0;
+    $scope.formats = {
+        options: ["jpeg", "png", "gif"]
+    };
+
+    $scope.effects = {
+        value: "none",
+        options: [
+            {value: "none", translation: "none"},
+            {value: "negative", translation: "negative"},
+            {value: "solarize", translation: "solarize"},
+            {value: "sketch", translation: "sketch"},
+            {value: "denoise", translation: "denoise"},
+            {value: "emboss", translation: "emboss"},
+            {value: "oilpaint", translation: "oilpaint"},
+            {value: "gpen", translation: "gpen"},
+            {value: "hatch", translation: "hatch"},
+            {value: "pastel", translation: "pastel"},
+            {value: "watercolor", translation: "watercolor"},
+            {value: "film", translation: "film"},
+            {value: "blur", translation: "blur"},
+            {value: "saturation", translation: "saturation"},
+            {value: "colorswap", translation: "colorswap"},
+            {value: "washedout", translation: "washedout"},
+            {value: "posterise", translation: "posterise"},
+            {value: "colorpoint", translation: "colorpoint"},
+            {value: "colorbalance", translation: "colorbalance"},
+            {value: "cartoon", translation: "cartoon"},
+            {value: "deinterlace1", translation: "deinterlace1"},
+            {value: "deinterlace2", translation: "deinterlace2"}
+        ]
+    };
+
+    $scope.width = {
+        max: 1920,
+        min: 640
+    };
+
+    $scope.height = {
+        max: 1080,
+        min: 480
+    };
+
+    $scope.brightness = {
+        max: 100,
+        min: 0
+    };
+
+    $scope.contrast = {
+        max: 100,
+        min: -100
+    };
+
+    $scope.saturation = {
+        max: 100,
+        min: -100
+    };
+
+    $scope.sharpness = {
+        max: 100,
+        min: -100
+    };
 
     $scope.startStreaming = function(){
         if(datastream == null){
@@ -202,6 +182,29 @@ app.controller("piolloController",["$scope", "$location", "$http", function($sco
         console.log(image);
     }
 
+    $scope.rotate = function(clock){
+        if(clock){
+            var rotation = $scope.rotation + 90;
+            if(rotation == 360)
+                rotation = 0;
+            $scope.rotation = rotation;
+        }
+        else{
+            var rotation = $scope.rotation - 90;
+            if(rotation == -90)
+                rotation = 270;
+            $scope.rotation = rotation;
+
+        }
+    }
+
+    $scope.flip = function(vertical){
+        if(vertical)
+            $scope.vflip = !$scope.vflip;
+        else
+            $scope.hflip = !$scope.hflip;
+    }
+
     function setImage(image){
         document.getElementById("video").src = image;
     }
@@ -233,16 +236,58 @@ app.controller("piolloController",["$scope", "$location", "$http", function($sco
             document.msFullscreenElement) != null;
     }
 
-    function getLang(){
-        lang = window.localStorage.getItem("lang");
-        if(lang != null && $scope.langs.indexOf(lang) != -1)
-            return lang;
-        return $scope.defaultLang;
-    }
-
     function getAbout(){
         about = window.localStorage.getItem("about") == "true";
         return about != null && about;
+    }
+
+    function loadConfig(){
+        $scope.loadingConfig = true;
+        $http.get("/config").then(function(response){
+            setConfig(response.data);
+            $scope.loadingConfig = false;
+        });
+    }
+
+    function setConfig(config){
+        $scope.width.value = config.width;
+        $scope.height.value = config.height;
+        $scope.formats.value = config.format;
+        $scope.rotation = config.rotation;
+        $scope.hflip = config.hflip;
+        $scope.vflip = config.vflip;
+        $scope.brightness.value = config.brightness;
+        $scope.contrast.value = config.contrast;
+        $scope.saturation.value = config.saturation;
+        $scope.sharpness.value = config.sharpness;
+    }
+
+    $scope.saveConfig = function(){
+        $scope.loadingConfig = true;
+        $http.post(
+            "/config",
+            {
+                width: $scope.width.value,
+                height: $scope.height.value,
+                format: $scope.formats.value,
+                rotation: $scope.rotation,
+                hflip: $scope.hflip,
+                vflip: $scope.vflip,
+                brightness: $scope.brightness.value,
+                contrast: $scope.contrast.value,
+                saturation: $scope.saturation.value,
+                sharpness: $scope.sharpness.value
+            }
+        ).then(function(response){
+            setConfig(response.data);
+            $scope.loadingConfig = false;
+            message = {
+                translation: "config-saved-success",
+                time: 3000,
+                classes: "success"
+            };
+            lrvElement.message("configMessage").add(message);
+        });
     }
 
     document.addEventListener("mozfullscreenchange", function(event){
@@ -264,4 +309,5 @@ app.controller("piolloController",["$scope", "$location", "$http", function($sco
 
     isLedOn();
     showGallery();
+    loadConfig();
 }]);

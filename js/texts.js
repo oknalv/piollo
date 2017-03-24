@@ -1,5 +1,5 @@
 texts = {
-  "English": {
+  "en": {
       "configuration": "Configuration",
       "camera": "Camera",
       "page": "Page",
@@ -41,9 +41,10 @@ texts = {
       "colorbalance": "colorbalance",
       "cartoon": "cartoon",
       "deinterlace1": "deinterlace1",
-      "deinterlace2": "deinterlace2"
+      "deinterlace2": "deinterlace2",
+      "config-saved-success": "Configuration saved successfully"
   },
-  "español": {
+  "es": {
       "configuration": "Configuración",
       "camera": "Cámara",
       "page": "Página",
@@ -85,6 +86,7 @@ texts = {
       "colorbalance": "colorbalance",
       "cartoon": "cartoon",
       "deinterlace1": "deinterlace1",
-      "deinterlace2": "deinterlace2"
+      "deinterlace2": "deinterlace2",
+      "config-saved-success": "Configuración guardada con éxito"
   }
 }
