@@ -124,11 +124,16 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
     def post(self):
         self._logger.log("POST: " + self.request.request_uri)
         try:
-            if self.request.request_uri == "/config":
-                CameraSingleton.get_instance().save_config(json.loads(self.request.body))
-                self.response.status = 200
-                self.response.headers["Content-Type"] = "application/json"
-                self.response.body = json.dumps(CameraSingleton.get_instance().get_config())
+            if self.request.request_uri.startswith("/config/"):
+                uri_remain = self.request.request_uri[8:]
+                if uri_remain == "apply":
+                    CameraSingleton.get_instance().apply_config(json.loads(self.request.body))
+                    self.response.status = 200
+                    self.response.headers["Content-Type"] = "application/json"
+                    self.response.body = json.dumps(CameraSingleton.get_instance().get_config())
+
+                else:
+                    raise IOError()
 
             else:
                 raise IOError()

@@ -109,3 +109,42 @@ table tbody tr:hover {
 .piollo-hflip-true.piollo-vflip-true  {
     transform: scale(-1, -1);
 }
+
+.piollo-uv-plane-picker {
+    position: relative;
+    height: 256px;
+    width: 256px;
+    background-image: url('../img/uvplane.png');
+    cursor: crosshair;
+}
+
+.piollo-uv-plane-picker > * {
+    position: absolute;
+}
+
+.piollo-uv-plane-y-bar {
+    width: 100%;
+    background-color: white;
+    height: 1px;
+}
+
+.piollo-uv-plane-x-bar {
+    height: 100%;
+    background-color: white;
+    width: 1px;
+}
+
+.piollo-uv-plane {
+    height: 256px;
+    width: 256px;
+}
+
+.piollo-uv-value {
+    color: white;
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.piollo-uv-plane-picker:hover > .piollo-uv-value {
+    opacity: 1;
+}

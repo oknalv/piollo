@@ -33,13 +33,13 @@
                     </div>
                     <div id="config-camera">
                         <div class="message" id="configMessage"></div>
-                        <div data-ng-if="loadingConfig" class="f-row h-center">
+                        <div data-ng-show="loadingConfig" class="f-row h-center">
                             <div class="piollo-loading">
                             </div>
                         </div>
-                        <div data-ng-if="!loadingConfig">
+                        <div data-ng-show="!loadingConfig">
                             <div class="piollo-menu-option">
-                                <label for="formatSelect" class="text" data-lrv-text="img-format"></label>:&nbsp;
+                                <label for="formatSelect" class="text" data-lrv-text="img-format"></label>&nbsp;
                                 <select id="formatSelect" class="select" data-lrv-model="formats"></select>
                             </div>
                             <div class="piollo-menu-option">
@@ -97,8 +97,42 @@
                                 <input id="imageSharpness" data-lrv-model="sharpness" type="range" class="range"/>
                             </div>
                             <div class="piollo-menu-option">
-                                <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>:&nbsp;
-                                <select id="effectSelector" class="select" data-lrv-model="effects"></select>
+                                <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>&nbsp;
+                                <select id="effectSelector" class="select" data-lrv-model="imageEffects"></select>
+                                <span data-ng-show="imageEffects.value == 'watercolor'">
+                                    <input type="checkbox" class="checkbox-btn" id="watercolorEnableUV" data-ng-model="watercolorUVPlane.enabled"/>
+                                    <label for="watercolorEnableUV" class="text" data-lrv-text="enable-uv-offset"></label>
+                                </span>
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'solarize'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorpoint'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorbalance'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorswap'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'posterise'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'blur'">
+                                <span class="text" data-lrv-text="kernel-size"></span>&nbsp;
+                                <span class="grouped">
+                                    <input id="blurSize1" type="radio" class="radio-btn" data-ng-model="blurSize" value="1"/>
+                                    <label for="blurSize1">1</label>
+                                    <input id="blurSize2" type="radio" class="radio-btn" data-ng-model="blurSize" value="2"/>
+                                    <label for="blurSize2">2</label>
+                                </span>
+                            </div>
+                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'film'">
+                                TODO
+                            </div>
+                            <div class="piollo-menu-option f-row h-center" data-ng-show="imageEffects.value == 'watercolor' && watercolorUVPlane.enabled">
+                                <div class="piollo-uv-plane-picker" data-piollo-model="watercolorUVPlane"></div>
                             </div>
                         </div>
                     </div>
@@ -121,12 +155,12 @@
                 </div>
                 <div class="modal-footer">
                     <div class="f-row h-end">
-                        <div class="grouped">
+                        <div>
                             <button class="btn modal-closer" data-lrv-modal="configuration">
                                 <i class="fa fa-close"></i>&nbsp;<span class="text" data-lrv-text="close"></span>
                             </button>
-                            <button class="btn" data-ng-click="saveConfig()" data-ng-if="!loadingConfig">
-                                <i class="fa fa-save"></i>&nbsp;<span class="text" data-lrv-text="save"></span>
+                            <button class="btn" data-ng-click="applyConfig()" data-ng-show="!loadingConfig">
+                                <i class="fa fa-check"></i>&nbsp;<span class="text" data-lrv-text="apply"></span>
                             </button>
                         </div>
                     </div>
@@ -162,7 +196,7 @@
                 <button class="btn icon round modal-launcher" data-lrv-modal="configuration">
                     <i class="fa fa-cogs"></i>
                 </button>
-                <button class="btn icon round modal-launcher" data-lrv-modal="about-piollo" data-ng-if="aboutPage">
+                <button class="btn icon round modal-launcher" data-lrv-modal="about-piollo" data-ng-show="aboutPage">
                     <i class="fa fa-info-circle"></i>
                 </button>
             </div>
@@ -170,27 +204,27 @@
         <div class="f-row">
             <div class="f-3-4">
                 <div class="header-bar f-row h-center v-center">
-                    <button class="btn icon round" data-ng-click="takePicture()" data-ng-if="!taking">
+                    <button class="btn icon round" data-ng-click="takePicture()" data-ng-show="!taking">
                         <i class="fa fa-camera"></i>
                     </button>
-                    <div data-ng-if="taking" class="piollo-loading">
+                    <div data-ng-show="taking" class="piollo-loading">
                     </div>
-                    <button class="btn icon round red" data-ng-if="ledOn" data-ng-click="turnOffLed()">
+                    <button class="btn icon round red" data-ng-show="ledOn" data-ng-click="turnOffLed()">
                         <i class="fa fa-lightbulb-o"></i>
                     </button>
-                    <button class="btn icon round" data-ng-if="!ledOn" data-ng-click="turnOnLed()">
+                    <button class="btn icon round" data-ng-show="!ledOn" data-ng-click="turnOnLed()">
                         <i class="fa fa-lightbulb-o"></i>
                     </button>
                 </div>
                 <div class="piollo-video-container" id="video-container">
-                    <div class="f-row v-center h-center" data-ng-if="streaming && !loading" id="video-parent">
+                    <div class="f-row v-center h-center" data-ng-show="streaming && !loading" id="video-parent">
                         <img id="video" class="piollo-video"/>
                     </div>
-                    <div class="piollo-no-video f-row v-center h-center" data-ng-if="!streaming || streaming && loading">
+                    <div class="piollo-no-video f-row v-center h-center" data-ng-show="!streaming || streaming && loading">
                         <div class="piollo-controls">
-                            <div data-ng-if="loading" class="piollo-loading">
+                            <div data-ng-show="loading" class="piollo-loading">
                             </div>
-                            <button data-ng-if="!loading" class="btn icon round" data-ng-click="startStreaming()">
+                            <button data-ng-show="!loading" class="btn icon round" data-ng-click="startStreaming()">
                                 <i class="fa fa-play"></i>
                             </button>
                         </div>
@@ -200,11 +234,11 @@
                             data-ng-mouseenter="streamingControlsVisible = true"
                             data-ng-mouseleave="streamingControlsVisible = false"
                     >
-                        <div class="piollo-controls" data-ng-if="streaming && streamingControlsVisible">
+                        <div class="piollo-controls" data-ng-show="streaming && streamingControlsVisible">
                             <button class="btn icon round" data-ng-click="stopStreaming()">
                                 <i class="fa fa-stop"></i>
                             </button>
-                            <button class="btn icon round" data-ng-if="streaming && !loading" data-ng-click="fullScreen()">
+                            <button class="btn icon round" data-ng-show="streaming && !loading" data-ng-click="fullScreen()">
                                 <i class="fa fa-arrows-alt"></i>
                             </button>
                         </div>
@@ -221,7 +255,7 @@
                     </div>-->
                 </div>
                 <div id="pictures" class="piollo-file-browser">
-                    <table data-ng-if="pictures.length > 0" class="w-full table">
+                    <table data-ng-show="pictures.length > 0" class="w-full table">
                         <tbody>
                             <tr data-ng-repeat="picture in pictures" data-ng-click="showImage(picture)">
                                 <td><img data-ng-src="thumbnails/{{picture}}" class="piollo-thumbnail h-center"/></td>

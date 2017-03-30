@@ -6,7 +6,7 @@ texts = {
       "language": "Language",
       "show-about": "Show about button",
       "close": "Close",
-      "save": "Save",
+      "apply": "Apply",
       "about": "About Piollo",
       "about-text": "by Eliot Blanco Lebrero.",
       "github": "View on GitHub",
@@ -42,7 +42,9 @@ texts = {
       "cartoon": "cartoon",
       "deinterlace1": "deinterlace1",
       "deinterlace2": "deinterlace2",
-      "config-saved-success": "Configuration saved successfully"
+      "config-applied-success": "Configuration applied successfully",
+      "kernel-size": "Kernel size",
+      "enable-uv-offset": "Enable UV offset"
   },
   "es": {
       "configuration": "Configuración",
@@ -51,7 +53,7 @@ texts = {
       "language": "Idioma",
       "show-about": "Mostrar el botón de información",
       "close": "Cerrar",
-      "save": "Guardar",
+      "apply": "Aplicar",
       "about": "Acerca de Piollo",
       "about-text": "por Eliot Blanco Lebrero.",
       "github": "Ver en GitHub",
@@ -87,6 +89,8 @@ texts = {
       "cartoon": "cartoon",
       "deinterlace1": "deinterlace1",
       "deinterlace2": "deinterlace2",
-      "config-saved-success": "Configuración guardada con éxito"
+      "config-applied-success": "Configuración aplicada con éxito",
+      "kernel-size": "Tamaño del kernel",
+      "enable-uv-offset": "Habilitar offset UV"
   }
 }

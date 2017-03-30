@@ -4,7 +4,6 @@ import picamera
 from io import BytesIO
 from threading import Thread
 import time
-from PIL import Image
 
 
 class CameraSingleton:
@@ -36,7 +35,14 @@ class CameraSingleton:
                 "brightness": 50,
                 "contrast": 0,
                 "saturation": 0,
-                "sharpness": 0
+                "sharpness": 0,
+                "image_effect": "none",
+                "blur_size": 1,
+                "watercolor_uv": {
+                    "enabled": False,
+                    "u": 0,
+                    "v": 0
+                }
             }
             self._config = Config("config", "current.json", "default.json", default_config)
             self._logger = LoggerSingleton.get_instance()
@@ -92,6 +98,12 @@ class CameraSingleton:
                 self._camera.contrast = self._config.get("contrast")
                 self._camera.saturation = self._config.get("saturation")
                 self._camera.sharpness = self._config.get("sharpness")
+                image_effect = self._config.get("image_effect")
+                self._camera.image_effect = image_effect
+                if image_effect == "blur":
+                    self._camera.image_effect_params = self._config.get("blur_size")
+                elif image_effect == "watercolor" and self._config.get("watercolor_uv")["enabled"]:
+                    self._camera.image_effect_params = (self._config.get("watercolor_uv")["u"], self._config.get("watercolor_uv")["v"])
 
         def close_camera(self):
             if self._camera is not None:
@@ -122,7 +134,7 @@ class CameraSingleton:
         def get_config(self):
             return self._config.get_all()
 
-        def save_config(self, config):
+        def apply_config(self, config):
             self._config.set("height", config["height"])
             self._config.set("width", config["width"])
             self._config.set("format", config["format"])
@@ -133,4 +145,11 @@ class CameraSingleton:
             self._config.set("contrast", config["contrast"])
             self._config.set("saturation", config["saturation"])
             self._config.set("sharpness", config["sharpness"])
+            self._config.set("image_effect", config["image_effect"])
+            self._config.set("blur_size", config["blur_size"])
+            self._config.set("watercolor_uv", {
+                "enabled": config["watercolor_uv"]["enabled"],
+                "u": config["watercolor_uv"]["u"],
+                "v": config["watercolor_uv"]["v"]
+            })
             self._config.save()

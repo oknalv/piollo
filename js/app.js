@@ -19,6 +19,14 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     $scope.hflip = false;
     $scope.vflip = false;
 
+    $scope.blurSize = "1";
+
+    $scope.watercolorUVPlane = {
+        enabled: false,
+        u: {value: 0},
+        v: {value: 0}
+    }
+
     lrvColor.setDefaultColors({
         "btn": ["#000000", "transparent"]
     })
@@ -48,7 +56,7 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         options: ["jpeg", "png", "gif"]
     };
 
-    $scope.effects = {
+    $scope.imageEffects = {
         value: "none",
         options: [
             {value: "none", translation: "none"},
@@ -260,12 +268,17 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         $scope.contrast.value = config.contrast;
         $scope.saturation.value = config.saturation;
         $scope.sharpness.value = config.sharpness;
+        $scope.imageEffects.value = config.image_effect;
+        $scope.blurSize = config.blur_size.toString();
+        $scope.watercolorUVPlane.enabled = config.watercolor_uv.enabled;
+        $scope.watercolorUVPlane.u.value = config.watercolor_uv.u;
+        $scope.watercolorUVPlane.v.value = config.watercolor_uv.v;
     }
 
-    $scope.saveConfig = function(){
+    $scope.applyConfig = function(){
         $scope.loadingConfig = true;
         $http.post(
-            "/config",
+            "/config/apply",
             {
                 width: $scope.width.value,
                 height: $scope.height.value,
@@ -276,13 +289,20 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
                 brightness: $scope.brightness.value,
                 contrast: $scope.contrast.value,
                 saturation: $scope.saturation.value,
-                sharpness: $scope.sharpness.value
+                sharpness: $scope.sharpness.value,
+                image_effect: $scope.imageEffects.value,
+                blur_size: parseInt($scope.blurSize),
+                watercolor_uv: {
+                    enabled: $scope.watercolorUVPlane.enabled,
+                    u: $scope.watercolorUVPlane.u.value,
+                    v: $scope.watercolorUVPlane.v.value
+                }
             }
         ).then(function(response){
             setConfig(response.data);
             $scope.loadingConfig = false;
             message = {
-                translation: "config-saved-success",
+                translation: "config-applied-success",
                 time: 3000,
                 classes: "success"
             };
@@ -310,4 +330,84 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     isLedOn();
     showGallery();
     loadConfig();
+}]);
+
+app.directive("piolloUvPlanePicker",["$compile", function($compile){
+    return {
+        restrict: "C",
+        scope: {
+            model: "=piolloModel"
+        },
+        link: function(scope, element, attributes){
+            var value = angular.element("<span class='piollo-uv-value'>({{u}},&nbsp;{{v}})</div>");
+            element.append(value);
+            $compile(value)(scope);
+            var xBar = angular.element("<div class='piollo-uv-plane-x-bar'></div>");
+            element.append(xBar);
+            var yBar = angular.element("<div class='piollo-uv-plane-y-bar'></div>");
+            element.append(yBar);
+            var plane = angular.element("<div class='piollo-uv-plane'></div>");
+            element.append(plane);
+            scope.u = scope.model.u.value;
+            scope.v = scope.model.v.value;
+            scope.model.u.max = 255;
+            scope.model.v.max = 255;
+            scope.model.u.min = 0;
+            scope.model.v.min = 0;
+            var ranges = angular.element("<div class='f-1-1 f-row'></div>");
+            element.after(ranges);
+            var rangeU = angular.element("<div class='f-1-2'>U<input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".u'/></div>");
+            ranges.append(rangeU);
+            $compile(rangeU)(scope.$parent);
+            var rangeV = angular.element("<div class='f-1-2'>V<input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".v'/></div>");
+            ranges.append(rangeV);
+            $compile(rangeV)(scope.$parent);
+            var clicking = false;
+
+            scope.$watch("model.v.value", function(){
+                yBar.css({"margin-top": (255 - scope.model.v.value) + "px"});
+            });
+
+            scope.$watch("model.u.value", function(){
+                xBar.css({"margin-left": scope.model.u.value + "px"});
+            });
+
+            plane.on("mousemove", function(event){
+                if(clicking)
+                    move(event.layerX, event.layerY);
+                scope.u = event.layerX - 1;
+                scope.v = 256 - event.layerY;
+                scope.$apply();
+                var left = event.layerX + 5;
+                var top = event.layerY + 5;
+                var height = value[0].offsetHeight;
+                var width = value[0].offsetWidth;
+                var left = left + width > 256 ? 256 - width : left;
+                var top = top + height > 256 ? 256 - height : top;
+                value.css({
+                    "margin-left": left + "px",
+                    "margin-top": top + "px"
+                });
+            });
+
+            plane.on("mousedown", function(event){
+                clicking = true;
+                move(event.layerX, event.layerY);
+            });
+
+            plane.on("mouseup", function(event){
+                clicking = false;
+            });
+
+            plane.on("mouseout", function(event){
+                clicking = false;
+            });
+
+            var move = function(x, y){
+                scope.model.u.value = x - 1;
+                scope.model.v.value = 256 - y;
+                scope.$apply();
+            }
+        }
+    }
 }]);
