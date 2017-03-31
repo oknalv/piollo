@@ -33,107 +33,101 @@
                     </div>
                     <div id="config-camera">
                         <div class="message" id="configMessage"></div>
-                        <div data-ng-show="loadingConfig" class="f-row h-center">
-                            <div class="piollo-loading">
+                        <div class="piollo-menu-option">
+                            <label for="formatSelect" class="text" data-lrv-text="img-format"></label>&nbsp;
+                            <select id="formatSelect" class="select" data-lrv-model="formats"></select>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageWidth" class="text" data-lrv-text="image-width"></label>
+                            <input id="imageWidth" data-lrv-model="width" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageHeight" class="text" data-lrv-text="image-height"></label>
+                            <input id="imageHeight" data-lrv-model="height" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option f-row">
+                            <div class="f-1-2">
+                                <span class="text" data-lrv-text="rotate-image"></span>
+                                <div class="f-row v-center h-around">
+                                    <div>
+                                        <button class="btn icon round" data-ng-click="rotate(false)">
+                                            <i class="fa fa-undo"></i>
+                                        </button>
+                                        <button class="btn icon round" data-ng-click="rotate(true)">
+                                            <i class="fa fa-repeat"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fa fa-picture-o piollo-icon-transform piollo-rotate-{{rotation}}"></i>
+                                </div>
+                            </div>
+                            <div class="f-1-2">
+                                <span class="text" data-lrv-text="flip-image"></span>
+                                <div class="f-row v-center h-around">
+                                    <div>
+                                        <button class="btn icon round" data-ng-click="flip(true)">
+                                            <i class="fa fa-exchange fa-rotate-90"></i>
+                                        </button>
+                                        <button class="btn icon round" data-ng-click="flip(false)">
+                                            <i class="fa fa-exchange"></i>
+                                        </button>
+                                    </div>
+                                    <i class="fa fa-picture-o piollo-icon-transform piollo-hflip-{{hflip}} piollo-vflip-{{vflip}}"></i>
+                                </div>
                             </div>
                         </div>
-                        <div data-ng-show="!loadingConfig">
-                            <div class="piollo-menu-option">
-                                <label for="formatSelect" class="text" data-lrv-text="img-format"></label>&nbsp;
-                                <select id="formatSelect" class="select" data-lrv-model="formats"></select>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageWidth" class="text" data-lrv-text="image-width"></label>
-                                <input id="imageWidth" data-lrv-model="width" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageHeight" class="text" data-lrv-text="image-height"></label>
-                                <input id="imageHeight" data-lrv-model="height" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option f-row">
-                                <div class="f-1-2">
-                                    <span class="text" data-lrv-text="rotate-image"></span>
-                                    <div class="f-row v-center h-around">
-                                        <div>
-                                            <button class="btn icon round" data-ng-click="rotate(false)">
-                                                <i class="fa fa-undo"></i>
-                                            </button>
-                                            <button class="btn icon round" data-ng-click="rotate(true)">
-                                                <i class="fa fa-repeat"></i>
-                                            </button>
-                                        </div>
-                                        <i class="fa fa-picture-o piollo-icon-transform piollo-rotate-{{rotation}}"></i>
-                                    </div>
-                                </div>
-                                <div class="f-1-2">
-                                    <span class="text" data-lrv-text="flip-image"></span>
-                                    <div class="f-row v-center h-around">
-                                        <div>
-                                            <button class="btn icon round" data-ng-click="flip(true)">
-                                                <i class="fa fa-exchange fa-rotate-90"></i>
-                                            </button>
-                                            <button class="btn icon round" data-ng-click="flip(false)">
-                                                <i class="fa fa-exchange"></i>
-                                            </button>
-                                        </div>
-                                        <i class="fa fa-picture-o piollo-icon-transform piollo-hflip-{{hflip}} piollo-vflip-{{vflip}}"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageBrightness" class="text" data-lrv-text="image-brightness"></label>
-                                <input id="imageBrightness" data-lrv-model="brightness" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageContrast" class="text" data-lrv-text="image-contrast"></label>
-                                <input id="imageContrast" data-lrv-model="contrast" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageSaturation" class="text" data-lrv-text="image-saturation"></label>
-                                <input id="imageSaturation" data-lrv-model="saturation" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="imageSharpness" class="text" data-lrv-text="image-sharpness"></label>
-                                <input id="imageSharpness" data-lrv-model="sharpness" type="range" class="range"/>
-                            </div>
-                            <div class="piollo-menu-option">
-                                <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>&nbsp;
-                                <select id="effectSelector" class="select" data-lrv-model="imageEffects"></select>
-                                <span data-ng-show="imageEffects.value == 'watercolor'">
-                                    <input type="checkbox" class="checkbox-btn" id="watercolorEnableUV" data-ng-model="watercolorUVPlane.enabled"/>
-                                    <label for="watercolorEnableUV" class="text" data-lrv-text="enable-uv-offset"></label>
-                                </span>
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'solarize'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorpoint'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorbalance'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorswap'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'posterise'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'blur'">
-                                <span class="text" data-lrv-text="kernel-size"></span>&nbsp;
-                                <span class="grouped">
-                                    <input id="blurSize1" type="radio" class="radio-btn" data-ng-model="blurSize" value="1"/>
-                                    <label for="blurSize1">1</label>
-                                    <input id="blurSize2" type="radio" class="radio-btn" data-ng-model="blurSize" value="2"/>
-                                    <label for="blurSize2">2</label>
-                                </span>
-                            </div>
-                            <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'film'">
-                                TODO
-                            </div>
-                            <div class="piollo-menu-option f-row h-center" data-ng-show="imageEffects.value == 'watercolor' && watercolorUVPlane.enabled">
-                                <div class="piollo-uv-plane-picker" data-piollo-model="watercolorUVPlane"></div>
-                            </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageBrightness" class="text" data-lrv-text="image-brightness"></label>
+                            <input id="imageBrightness" data-lrv-model="brightness" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageContrast" class="text" data-lrv-text="image-contrast"></label>
+                            <input id="imageContrast" data-lrv-model="contrast" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageSaturation" class="text" data-lrv-text="image-saturation"></label>
+                            <input id="imageSaturation" data-lrv-model="saturation" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="imageSharpness" class="text" data-lrv-text="image-sharpness"></label>
+                            <input id="imageSharpness" data-lrv-model="sharpness" type="range" class="range"/>
+                        </div>
+                        <div class="piollo-menu-option">
+                            <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>&nbsp;
+                            <select id="effectSelector" class="select" data-lrv-model="imageEffects"></select>
+                            <span data-ng-show="imageEffects.value == 'watercolor'">
+                                <input type="checkbox" class="checkbox-btn" id="watercolorEnableUV" data-ng-model="watercolorUVPlane.enabled"/>
+                                <label for="watercolorEnableUV" class="text" data-lrv-text="enable-uv-offset"></label>
+                            </span>
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'solarize'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorpoint'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorbalance'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorswap'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'posterise'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'blur'">
+                            <span class="text" data-lrv-text="kernel-size"></span>&nbsp;
+                            <span class="grouped">
+                                <input id="blurSize1" type="radio" class="radio-btn" data-ng-model="blurSize" value="1"/>
+                                <label for="blurSize1">1</label>
+                                <input id="blurSize2" type="radio" class="radio-btn" data-ng-model="blurSize" value="2"/>
+                                <label for="blurSize2">2</label>
+                            </span>
+                        </div>
+                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'film'">
+                            TODO
+                        </div>
+                        <div class="piollo-menu-option f-row h-center" data-ng-show="imageEffects.value == 'watercolor' && watercolorUVPlane.enabled">
+                            <div class="piollo-uv-plane-picker" data-piollo-model="watercolorUVPlane"></div>
                         </div>
                     </div>
                     <div id="config-page">

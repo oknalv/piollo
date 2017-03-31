@@ -9,7 +9,6 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(("192.168.3.14", 80))
 server.listen(100)
 LoggerSingleton.get_instance("console_log" in sys.argv)
-CameraSingleton.get_instance().start()
 
 while True:
     try:
@@ -21,6 +20,7 @@ while True:
 
     except KeyboardInterrupt:
         print "Bye bye..."
+        CameraSingleton.get_instance().close()
         break
 
 server.close()

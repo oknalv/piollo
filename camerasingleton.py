@@ -17,13 +17,9 @@ class CameraSingleton:
 
         return CameraSingleton._instance
 
-    class _CameraSingleton(Thread):
+    class _CameraSingleton:
         def __init__(self):
-            Thread.__init__(self)
-            self._closed = False
-            self._observers = []
             self._camera = None
-            self._taking = []
             self._led = True
             default_config = {
                 "width": 640,
@@ -46,75 +42,43 @@ class CameraSingleton:
             }
             self._config = Config("config", "current.json", "default.json", default_config)
             self._logger = LoggerSingleton.get_instance()
+            self._camera_thread = None
 
         def add_observer(self, observer):
             self._logger.log("Adding observer " + str(observer))
-            self._observers.append(observer)
-
-        def notify_observers(self, image):
-            closed = []
-            for observer in self._observers:
-                if observer.is_closed():
-                    closed.append(observer)
-                else:
-                    observer.notify(image)
-
-            for c in closed:
-                self.delete_observer(c)
-
-        def run(self):
-            stream = BytesIO()
-            while True:
-                if self._observers or self._taking:
-                    self.open_camera()
-
-                    if self._camera:
-                        self._camera.capture(stream, "jpeg")
-                        self.notify_observers(stream.getvalue())
-                        stream.seek(0)
-
-                    if self._taking:
-                        for filename in self._taking:
-                            self._camera.capture("pictures/" + filename + "." + self._config.get("format"))
-                            self._taking.remove(filename)
-
-                else:
-                    self.close_camera()
-
-        def delete_observer(self, observer):
-            self._logger.log("Deleting observer " + str(observer))
-            self._observers.remove(observer)
-
-        def open_camera(self):
-            if self._camera is None:
-                self._logger.log("Opening camera")
+            if self._camera_thread is None:
                 self._camera = picamera.PiCamera()
-                self._camera.led = self._led
-                self._camera.resolution = (self._config.get("width"), self._config.get("height"))
-                self._camera.rotation = self._config.get("rotation")
-                self._camera.hflip = self._config.get("hflip")
-                self._camera.vflip = self._config.get("vflip")
-                self._camera.brightness = self._config.get("brightness")
-                self._camera.contrast = self._config.get("contrast")
-                self._camera.saturation = self._config.get("saturation")
-                self._camera.sharpness = self._config.get("sharpness")
-                image_effect = self._config.get("image_effect")
-                self._camera.image_effect = image_effect
-                if image_effect == "blur":
-                    self._camera.image_effect_params = self._config.get("blur_size")
-                elif image_effect == "watercolor" and self._config.get("watercolor_uv")["enabled"]:
-                    self._camera.image_effect_params = (self._config.get("watercolor_uv")["u"], self._config.get("watercolor_uv")["v"])
+                self._load_config()
+                self._camera_thread = self._CameraThread(self._camera, self._config.get("format"), self)
 
-        def close_camera(self):
-            if self._camera is not None:
-                self._logger.log("Closing camera")
-                self._camera.close()
-                self._camera = None
+            self._camera_thread.add_observer(observer)
+
+        def _load_config(self):
+            self._camera.led = self._led
+            self._camera.resolution = (self._config.get("width"), self._config.get("height"))
+            self._camera.rotation = self._config.get("rotation")
+            self._camera.hflip = self._config.get("hflip")
+            self._camera.vflip = self._config.get("vflip")
+            self._camera.brightness = self._config.get("brightness")
+            self._camera.contrast = self._config.get("contrast")
+            self._camera.saturation = self._config.get("saturation")
+            self._camera.sharpness = self._config.get("sharpness")
+            image_effect = self._config.get("image_effect")
+            self._camera.image_effect = image_effect
+            if image_effect == "blur":
+                self._camera.image_effect_params = self._config.get("blur_size")
+            elif image_effect == "watercolor" and self._config.get("watercolor_uv")["enabled"]:
+                self._camera.image_effect_params = (self._config.get("watercolor_uv")["u"], self._config.get("watercolor_uv")["v"])
 
         def take(self):
             filename = str(int(time.time() * 1000))
-            self._taking.append(filename)
-            while filename in self._taking:
+            if self._camera_thread is None:
+                self._camera = picamera.PiCamera()
+                self._load_config()
+                self._camera_thread = self._CameraThread(self._camera, self._config.get("format"), self)
+
+            self._camera_thread.take(filename)
+            while self._camera_thread.is_taking(filename):
                 pass
             return filename
 
@@ -153,3 +117,69 @@ class CameraSingleton:
                 "v": config["watercolor_uv"]["v"]
             })
             self._config.save()
+
+        def close(self):
+            self._camera_thread = None
+            self._camera.close()
+            self._camera = None
+
+        class _CameraThread(Thread):
+            def __init__(self, camera, format_, camera_singleton):
+                Thread.__init__(self)
+                self._camera = camera
+                self._observers = []
+                self._taking = []
+                self._format = format_
+                self._started = False
+                self._camera_singleton = camera_singleton
+                self._stop = False
+
+            def run(self):
+                self._started = True
+                stream = BytesIO()
+                while not self._stop:
+                    if self._observers or self._taking:
+                        if self._observers:
+                            self._camera.capture(stream, "jpeg")
+                            self.notify_observers(stream.getvalue())
+                            stream.seek(0)
+
+                        if self._taking:
+                            for filename in self._taking:
+                                self._camera.capture("pictures/" + filename + "." + self._format)
+                                self._taking.remove(filename)
+
+                    else:
+                        break
+
+                self._camera_singleton.close()
+
+            def add_observer(self, observer):
+                self._observers.append(observer)
+                if not self._started:
+                    self.start()
+
+            def notify_observers(self, image):
+                closed = []
+                for observer in self._observers:
+                    if observer.is_closed():
+                        closed.append(observer)
+                    else:
+                        observer.notify(image)
+
+                for c in closed:
+                    self.delete_observer(c)
+
+            def delete_observer(self, observer):
+                self._observers.remove(observer)
+
+            def take(self, filename):
+                self._taking.append(filename)
+                if not self._started:
+                    self.start()
+
+            def is_taking(self, filename):
+                return filename in self._taking
+
+            def close(self):
+                self._stop = True
