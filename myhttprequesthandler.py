@@ -52,10 +52,10 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "font/" + file_type
 
-            elif self.request.request_uri.startswith("/img/") or self.request.request_uri.startswith("/pictures/") or self.request.request_uri.startswith("/thumbnails/"):
+            elif self.request.request_uri.startswith("/img/") or self.request.request_uri.startswith("/pictures/"):
                 uri_split = self.request.request_uri[1:].split("/")
                 folder_name = uri_split[0]
-                if folder_name not in ["img", "pictures", "thumbnails"]:
+                if folder_name not in ["img", "pictures"]:
                     raise IOError("Image folder not supported.")
 
                 file_name = "/".join(uri_split[1:])

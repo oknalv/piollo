@@ -1,4 +1,3 @@
-from thumbnailer import Thumbnailer
 import string
 
 
@@ -24,19 +23,12 @@ class FileGetter:
 
     @staticmethod
     def get_image(folder_name, file_name):
-        data = None
-        if folder_name == "thumbnails":
-            f = Thumbnailer.get_thumbnail(file_name)
-            data = f.read()
-            f.close()
+        if file_name.endswith(".svg"):
+            data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_TEXT)
 
         else:
-            if file_name.endswith(".svg"):
-                data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_TEXT)
-
-            else:
-                print(folder_name + "/" + file_name, FileGetter._READ_BYTES)
-                data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_BYTES)
+            print(folder_name + "/" + file_name, FileGetter._READ_BYTES)
+            data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_BYTES)
 
         return data
 
