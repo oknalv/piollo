@@ -4,25 +4,28 @@ import string
 class FileGetter:
     _READ_BYTES = "rb"
     _READ_TEXT = "rU"
+    _APP_FOLDER = "app"
 
     @staticmethod
     def get_index():
-        return FileGetter._get_file("index.html", FileGetter._READ_TEXT)
+        return FileGetter._get_file(FileGetter._APP_FOLDER + "/" + "index.html", FileGetter._READ_TEXT)
 
     @staticmethod
     def get_css(file_name):
-        return FileGetter._get_file("css/" + file_name, FileGetter._READ_TEXT)
+        return FileGetter._get_file(FileGetter._APP_FOLDER + "/" + "css/" + file_name, FileGetter._READ_TEXT)
 
     @staticmethod
     def get_js(file_name):
-        return FileGetter._get_file("js/" + file_name, FileGetter._READ_TEXT)
+        return FileGetter._get_file(FileGetter._APP_FOLDER + "/" + "js/" + file_name, FileGetter._READ_TEXT)
 
     @staticmethod
     def get_font(file_name):
-        return FileGetter._get_file("fonts/" + file_name, FileGetter._READ_BYTES)
+        return FileGetter._get_file(FileGetter._APP_FOLDER + "/" + "fonts/" + file_name, FileGetter._READ_BYTES)
 
     @staticmethod
     def get_image(folder_name, file_name):
+        if folder_name == "img":
+            folder_name = FileGetter._APP_FOLDER + "/" + folder_name
         if file_name.endswith(".svg"):
             data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_TEXT)
 
@@ -34,7 +37,7 @@ class FileGetter:
 
     @staticmethod
     def get_lang(file_name):
-        return FileGetter._get_file("langs/" + file_name, FileGetter._READ_TEXT)
+        return FileGetter._get_file(FileGetter._APP_FOLDER + "/" + "langs/" + file_name, FileGetter._READ_TEXT)
 
     @staticmethod
     def _get_file(file_path, mode):
