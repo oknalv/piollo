@@ -39,8 +39,8 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
             }
         ],
         texts: {
-            "en": texts["en"],
-            "es": texts["es"]
+            "en": "langs/en.json",
+            "es": "langs/es.json"
         }
     }
 

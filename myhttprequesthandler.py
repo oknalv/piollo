@@ -1,5 +1,5 @@
 from camerasingleton import CameraSingleton
-from filesingleton import FileSingleton
+from filegetter import FileGetter
 from httprequesthandler import HTTPRequestHandler
 from loggersingleton import LoggerSingleton
 from os import listdir
@@ -11,7 +11,6 @@ import base64
 class MyHTTPRequestHandler(HTTPRequestHandler):
     def __init__(self, client, WebSocketHandlerClass):
         HTTPRequestHandler.__init__(self, client, WebSocketHandlerClass)
-        self.files = FileSingleton.get_instance()
         self._logger = LoggerSingleton.get_instance()
 
     def get(self):
@@ -20,17 +19,17 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
             if self.request.request_uri == "/":
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "text/html"
-                self.response.body = self.files.get_index()
+                self.response.body = FileGetter.get_index()
 
             elif self.request.request_uri.startswith("/css/"):
                 file_name = self.request.request_uri[5:]
-                self.response.body = self.files.get_css(file_name)
+                self.response.body = FileGetter.get_css(file_name)
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "text/css"
 
             elif self.request.request_uri.startswith("/js/"):
                 file_name = self.request.request_uri[4:]
-                self.response.body = self.files.get_js(file_name)
+                self.response.body = FileGetter.get_js(file_name)
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "text/javascript"
 
@@ -47,9 +46,9 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                     file_type = "ttf"
 
                 else:
-                    raise IOError()
+                    raise IOError("Font file format not supported.")
 
-                self.response.body = self.files.get_font(file_name)
+                self.response.body = FileGetter.get_font(file_name)
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "font/" + file_type
 
@@ -57,7 +56,7 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                 uri_split = self.request.request_uri[1:].split("/")
                 folder_name = uri_split[0]
                 if folder_name not in ["img", "pictures", "thumbnails"]:
-                    raise IOError()
+                    raise IOError("Image folder not supported.")
 
                 file_name = "/".join(uri_split[1:])
                 file_type = None
@@ -74,11 +73,17 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                     file_type = "gif"
 
                 else:
-                    raise IOError()
+                    raise IOError("Image file format nos supported.")
 
-                self.response.body = self.files.get_image(folder_name, file_name)
+                self.response.body = FileGetter.get_image(folder_name, file_name)
                 self.response.status = 200
                 self.response.headers["Content-Type"] = "image/" + file_type
+
+            elif self.request.request_uri.startswith("/langs/"):
+                self.response.status = 200
+                self.response.headers["Content-Type"] = "application/json"
+                file_name = self.request.request_uri[7:]
+                self.response.body = FileGetter.get_lang(file_name)
 
             elif self.request.request_uri == "/gallery":
                 self.response.status = 200
@@ -116,9 +121,10 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                 self.response.headers["Sec-WebSocket-Accept"] = base64.b64encode(hasher.digest())
 
             else:
-                raise IOError()
+                raise IOError("Resource not supported.")
 
-        except IOError:
+        except IOError as e:
+            self._logger.log(e.message)
             self.response.status = 404
 
     def post(self):
@@ -133,10 +139,11 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
                     self.response.body = json.dumps(CameraSingleton.get_instance().get_config())
 
                 else:
-                    raise IOError()
+                    raise IOError("Config action not supported.")
 
             else:
-                raise IOError()
+                raise IOError("Resource not suported")
 
-        except IOError:
+        except IOError as e:
+            self._logger.log(e.message)
             self.response.status = 404
