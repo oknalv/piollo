@@ -111,14 +111,19 @@ table tbody tr:hover {
 }
 
 .piollo-uv-plane-picker {
+    margin-top: 5px;
+}
+
+.piollo-uv-plane-container {
     position: relative;
     height: 256px;
     width: 256px;
     background-image: url('../img/uvplane.png');
     cursor: crosshair;
+    display: flex;
 }
 
-.piollo-uv-plane-picker > * {
+.piollo-uv-plane-container > * {
     position: absolute;
 }
 
@@ -145,6 +150,6 @@ table tbody tr:hover {
     transition: opacity .5s ease;
 }
 
-.piollo-uv-plane-picker:hover > .piollo-uv-value {
+.piollo-uv-plane-container:hover > .piollo-uv-value {
     opacity: 1;
 }

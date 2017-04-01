@@ -19,14 +19,6 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     $scope.hflip = false;
     $scope.vflip = false;
 
-    $scope.blurSize = "1";
-
-    $scope.watercolorUVPlane = {
-        enabled: false,
-        u: {value: 0},
-        v: {value: 0}
-    }
-
     lrvColor.setDefaultColors({
         "btn": ["#000000", "transparent"]
     })
@@ -113,6 +105,21 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         max: 100,
         min: -100
     };
+
+    $scope.blurSize = "1";
+
+    $scope.watercolorParams = {
+        enabled: false,
+        u: {value: 0},
+        v: {value: 0}
+    }
+
+    $scope.filmParams = {
+        enabled: false,
+        strength: {max: 255, min: 0},
+        u: {value: 0},
+        v: {value: 0}
+    }
 
     $scope.startStreaming = function(){
         if(datastream == null){
@@ -270,9 +277,13 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         $scope.sharpness.value = config.sharpness;
         $scope.imageEffects.value = config.image_effect;
         $scope.blurSize = config.blur_size.toString();
-        $scope.watercolorUVPlane.enabled = config.watercolor_uv.enabled;
-        $scope.watercolorUVPlane.u.value = config.watercolor_uv.u;
-        $scope.watercolorUVPlane.v.value = config.watercolor_uv.v;
+        $scope.watercolorParams.enabled = config.watercolor_params.enabled;
+        $scope.watercolorParams.u.value = config.watercolor_params.u;
+        $scope.watercolorParams.v.value = config.watercolor_params.v;
+        $scope.filmParams.enabled = config.film_params.enabled;
+        $scope.filmParams.strength.value = config.film_params.strength;
+        $scope.filmParams.u.value = config.film_params.u;
+        $scope.filmParams.v.value = config.film_params.v;
     }
 
     $scope.applyConfig = function(){
@@ -292,10 +303,16 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
                 sharpness: $scope.sharpness.value,
                 image_effect: $scope.imageEffects.value,
                 blur_size: parseInt($scope.blurSize),
-                watercolor_uv: {
-                    enabled: $scope.watercolorUVPlane.enabled,
-                    u: $scope.watercolorUVPlane.u.value,
-                    v: $scope.watercolorUVPlane.v.value
+                watercolor_params: {
+                    enabled: $scope.watercolorParams.enabled,
+                    u: $scope.watercolorParams.u.value,
+                    v: $scope.watercolorParams.v.value
+                },
+                film_params: {
+                    enabled: $scope.filmParams.enabled,
+                    strength: $scope.filmParams.strength.value,
+                    u: $scope.filmParams.u.value,
+                    v: $scope.filmParams.v.value
                 }
             }
         ).then(function(response){
@@ -339,27 +356,32 @@ app.directive("piolloUvPlanePicker",["$compile", function($compile){
             model: "=piolloModel"
         },
         link: function(scope, element, attributes){
-            var value = angular.element("<span class='piollo-uv-value'>({{u}},&nbsp;{{v}})</div>");
-            element.append(value);
+            element.addClass("grid");
+            var mainContainer = angular.element("<div class='f-1-2 grid h-center'></div>");
+            element.append(mainContainer);
+            var planeContainer = angular.element("<div class='piollo-uv-plane-container'></div>")
+            mainContainer.append(planeContainer);
+            var value = angular.element("<div class='piollo-uv-value'>({{u}},&nbsp;{{v}})</div>");
+            planeContainer.append(value);
             $compile(value)(scope);
             var xBar = angular.element("<div class='piollo-uv-plane-x-bar'></div>");
-            element.append(xBar);
+            planeContainer.append(xBar);
             var yBar = angular.element("<div class='piollo-uv-plane-y-bar'></div>");
-            element.append(yBar);
+            planeContainer.append(yBar);
             var plane = angular.element("<div class='piollo-uv-plane'></div>");
-            element.append(plane);
+            planeContainer.append(plane);
             scope.u = scope.model.u.value;
             scope.v = scope.model.v.value;
             scope.model.u.max = 255;
             scope.model.v.max = 255;
             scope.model.u.min = 0;
             scope.model.v.min = 0;
-            var ranges = angular.element("<div class='f-1-1 f-row'></div>");
-            element.after(ranges);
-            var rangeU = angular.element("<div class='f-1-2'>U<input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".u'/></div>");
+            var ranges = angular.element("<div class='f-1-2 grid'></div>");
+            mainContainer.after(ranges);
+            var rangeU = angular.element("<div class='one-line'><span>U</span><input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".u'/></div>");
             ranges.append(rangeU);
             $compile(rangeU)(scope.$parent);
-            var rangeV = angular.element("<div class='f-1-2'>V<input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".v'/></div>");
+            var rangeV = angular.element("<div class='one-line'><span>V</span><input type='range' class='range' data-lrv-model='" + element.attr("data-piollo-model") + ".v'/></div>");
             ranges.append(rangeV);
             $compile(rangeV)(scope.$parent);
             var clicking = false;

@@ -18,23 +18,23 @@
         <div class="modal" id="configuration">
             <div class="modal-container">
                 <div class="modal-header">
-                    <i class="fa fa-cogs icon"></i>&nbsp;<span class="text" data-lrv-text="configuration"></span>
+                    <i class="fa fa-cogs icon"></i> <span class="text" data-lrv-text="configuration"></span>
                 </div>
                 <div class="modal-body">
                     <div class="tabs">
                         <div class="selected" data-lrv-tab="config-camera">
-                            <i class="fa fa-camera icon"></i>&nbsp;<span class="text" data-lrv-text="camera"></span>
+                            <i class="fa fa-camera icon"></i> <span class="text" data-lrv-text="camera"></span>
                         </div>
                         <div data-lrv-tab="config-page">
                             <span>
-                                <i class="fa fa-file-o icon"></i>&nbsp;<span class="text" data-lrv-text="page"></span>
+                                <i class="fa fa-file-o icon"></i> <span class="text" data-lrv-text="page"></span>
                             </span>
                         </div>
                     </div>
                     <div id="config-camera">
                         <div class="message" id="configMessage"></div>
                         <div class="piollo-menu-option">
-                            <label for="formatSelect" class="text" data-lrv-text="img-format"></label>&nbsp;
+                            <label for="formatSelect" class="text" data-lrv-text="img-format"></label>
                             <select id="formatSelect" class="select" data-lrv-model="formats"></select>
                         </div>
                         <div class="piollo-menu-option">
@@ -45,10 +45,10 @@
                             <label for="imageHeight" class="text" data-lrv-text="image-height"></label>
                             <input id="imageHeight" data-lrv-model="height" type="range" class="range"/>
                         </div>
-                        <div class="piollo-menu-option f-row">
+                        <div class="piollo-menu-option grid">
                             <div class="f-1-2">
                                 <span class="text" data-lrv-text="rotate-image"></span>
-                                <div class="f-row v-center h-around">
+                                <div class="grid v-center h-around">
                                     <div>
                                         <button class="btn icon round" data-ng-click="rotate(false)">
                                             <i class="fa fa-undo"></i>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="f-1-2">
                                 <span class="text" data-lrv-text="flip-image"></span>
-                                <div class="f-row v-center h-around">
+                                <div class="grid v-center h-around">
                                     <div>
                                         <button class="btn icon round" data-ng-click="flip(true)">
                                             <i class="fa fa-exchange fa-rotate-90"></i>
@@ -92,42 +92,58 @@
                             <input id="imageSharpness" data-lrv-model="sharpness" type="range" class="range"/>
                         </div>
                         <div class="piollo-menu-option">
-                            <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>&nbsp;
+                            <label for="effectSelector" class="text" data-lrv-text="image-effect"></label>
                             <select id="effectSelector" class="select" data-lrv-model="imageEffects"></select>
                             <span data-ng-show="imageEffects.value == 'watercolor'">
-                                <input type="checkbox" class="checkbox-btn" id="watercolorEnableUV" data-ng-model="watercolorUVPlane.enabled"/>
-                                <label for="watercolorEnableUV" class="text" data-lrv-text="enable-uv-offset"></label>
+                                <input type="checkbox" class="checkbox-btn" id="watercolorEnableParams" data-ng-model="watercolorParams.enabled"/>
+                                <label for="watercolorEnableParams" class="text" data-lrv-text="enable-params"></label>
+                            </span>
+                            <span data-ng-show="imageEffects.value == 'film'">
+                                <input type="checkbox" class="checkbox-btn" id="filmEnableParams" data-ng-model="filmParams.enabled"/>
+                                <label for="filmEnableParams" class="text" data-lrv-text="enable-params"></label>
                             </span>
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'solarize'">
+                        <div data-ng-show="imageEffects.value == 'solarize'">
                             TODO
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorpoint'">
+                        <div data-ng-show="imageEffects.value == 'colorpoint'">
                             TODO
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorbalance'">
+                        <div data-ng-show="imageEffects.value == 'colorbalance'">
                             TODO
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'colorswap'">
+                        <div data-ng-show="imageEffects.value == 'colorswap'">
                             TODO
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'posterise'">
+                        <div data-ng-show="imageEffects.value == 'posterise'">
                             TODO
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'blur'">
-                            <span class="text" data-lrv-text="kernel-size"></span>&nbsp;
-                            <span class="grouped">
-                                <input id="blurSize1" type="radio" class="radio-btn" data-ng-model="blurSize" value="1"/>
-                                <label for="blurSize1">1</label>
-                                <input id="blurSize2" type="radio" class="radio-btn" data-ng-model="blurSize" value="2"/>
-                                <label for="blurSize2">2</label>
-                            </span>
+                        <div data-ng-show="imageEffects.value == 'blur'">
+                            <div class="piollo-menu-option">
+                                <span class="text" data-lrv-text="kernel-size"></span>
+                                <span class="grouped">
+                                    <input id="blurSize1" type="radio" class="radio-btn" data-ng-model="blurSize" value="1"/>
+                                    <label for="blurSize1">1</label>
+                                    <input id="blurSize2" type="radio" class="radio-btn" data-ng-model="blurSize" value="2"/>
+                                    <label for="blurSize2">2</label>
+                                </span>
+                            </div>
                         </div>
-                        <div class="piollo-menu-option" data-ng-show="imageEffects.value == 'film'">
-                            TODO
+                        <div data-ng-show="imageEffects.value == 'film' && filmParams.enabled">
+                            <div class="piollo-menu-option">
+                                <label for="filmStrength" class="text" data-lrv-text="strength"></label>
+                                <input id="filmStrength" data-lrv-model="filmParams.strength" type="range" class="range"/>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="filmUV" class="text" data-lrv-text="uv-offset"></label>
+                                <div id="filmUV" class="piollo-uv-plane-picker" data-piollo-model="filmParams"></div>
+                            </div>
                         </div>
-                        <div class="piollo-menu-option f-row h-center" data-ng-show="imageEffects.value == 'watercolor' && watercolorUVPlane.enabled">
-                            <div class="piollo-uv-plane-picker" data-piollo-model="watercolorUVPlane"></div>
+                        <div data-ng-show="imageEffects.value == 'watercolor' && watercolorParams.enabled">
+                            <div class="piollo-menu-option">
+                                <label for="watercolorUV" class="text" data-lrv-text="uv-offset"></label>
+                                <div id="watercolorUV" class="piollo-uv-plane-picker" data-piollo-model="watercolorParams"></div>
+                            </div>
                         </div>
                     </div>
                     <div id="config-page">
@@ -140,7 +156,7 @@
                         <div class="piollo-menu-option">
                             <div class="w-full">
                                 <label for="langSelector">
-                                    <span class="text" data-lrv-text="language"></span>:&nbsp;
+                                    <span class="text" data-lrv-text="language"></span>
                                 </label>
                                 <select id="langSelector" class="select" data-lrv-model="langs"></select>
                             </div>
@@ -148,13 +164,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="f-row h-end">
+                    <div class="grid h-end">
                         <div>
                             <button class="btn modal-closer" data-lrv-modal="configuration">
-                                <i class="fa fa-close"></i>&nbsp;<span class="text" data-lrv-text="close"></span>
+                                <i class="fa fa-close"></i> <span class="text" data-lrv-text="close"></span>
                             </button>
                             <button class="btn" data-ng-click="applyConfig()" data-ng-show="!loadingConfig">
-                                <i class="fa fa-check"></i>&nbsp;<span class="text" data-lrv-text="apply"></span>
+                                <i class="fa fa-check"></i> <span class="text" data-lrv-text="apply"></span>
                             </button>
                         </div>
                     </div>
@@ -164,29 +180,29 @@
         <div class="modal" id="about-piollo">
             <div class="modal-container">
                 <div class="modal-header">
-                    <i class="fa fa-info-circle icon"></i>&nbsp;<span class="text" data-lrv-text="about"></span>
+                    <i class="fa fa-info-circle icon"></i> <span class="text" data-lrv-text="about"></span>
                 </div>
                 <div class="modal-body">
-                    <div class="f-row h-center">
+                    <div class="grid h-center">
                         <img src="img/piollo.svg"/>
                     </div>
-                    <div class="f-row h-center">
+                    <div class="grid h-center">
                         <span class="t-center text" data-lrv-text="about-text"></span>
                     </div>
-                    <div class="f-row h-center">
+                    <div class="grid h-center">
                         <a href="https://github.com/oknalv/piollo" class="btn">
-                            <i class="fa fa-github"></i>&nbsp;
+                            <i class="fa fa-github"></i>
                             <span class="text" data-lrv-text="github"></span>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="header-bar f-row">
-            <div class="f-3-4 f-row v-center h-center">
+        <div class="header-bar grid">
+            <div class="f-3-4 grid v-center h-center">
                     <img src="img/piollo.svg"/>
             </div>
-            <div class="f-1-4 f-row v-center h-end">
+            <div class="f-1-4 grid v-center h-end">
                 <button class="btn icon round modal-launcher" data-lrv-modal="configuration">
                     <i class="fa fa-cogs"></i>
                 </button>
@@ -195,9 +211,9 @@
                 </button>
             </div>
         </div>
-        <div class="f-row">
+        <div class="grid">
             <div class="f-3-4">
-                <div class="header-bar f-row h-center v-center">
+                <div class="header-bar grid h-center v-center">
                     <button class="btn icon round" data-ng-click="takePicture()" data-ng-show="!taking">
                         <i class="fa fa-camera"></i>
                     </button>
@@ -211,10 +227,10 @@
                     </button>
                 </div>
                 <div class="piollo-video-container" id="video-container">
-                    <div class="f-row v-center h-center" data-ng-show="streaming && !loading" id="video-parent">
+                    <div class="grid v-center h-center" data-ng-show="streaming && !loading" id="video-parent">
                         <img id="video" class="piollo-video"/>
                     </div>
-                    <div class="piollo-no-video f-row v-center h-center" data-ng-show="!streaming || streaming && loading">
+                    <div class="piollo-no-video grid v-center h-center" data-ng-show="!streaming || streaming && loading">
                         <div class="piollo-controls">
                             <div data-ng-show="loading" class="piollo-loading">
                             </div>
@@ -224,7 +240,7 @@
                         </div>
                     </div>
                     <div
-                            class="piollo-streaming-controls-container f-row v-center h-center"
+                            class="piollo-streaming-controls-container grid v-center h-center"
                             data-ng-mouseenter="streamingControlsVisible = true"
                             data-ng-mouseleave="streamingControlsVisible = false"
                     >

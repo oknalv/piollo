@@ -44,7 +44,9 @@ texts = {
       "deinterlace2": "deinterlace2",
       "config-applied-success": "Configuration applied successfully",
       "kernel-size": "Kernel size",
-      "enable-uv-offset": "Enable UV offset"
+      "enable-params": "Enable filter parameters",
+      "strength": "Strength",
+      "uv-offset": "UV offset"
   },
   "es": {
       "configuration": "Configuración",
@@ -91,6 +93,8 @@ texts = {
       "deinterlace2": "deinterlace2",
       "config-applied-success": "Configuración aplicada con éxito",
       "kernel-size": "Tamaño del kernel",
-      "enable-uv-offset": "Habilitar offset UV"
+      "enable-params": "Habilitar parámetros del filtro",
+      "strength": "Fuerza",
+      "uv-offset": "Compensación UV"
   }
 }

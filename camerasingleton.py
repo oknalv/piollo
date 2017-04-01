@@ -34,8 +34,14 @@ class CameraSingleton:
                 "sharpness": 0,
                 "image_effect": "none",
                 "blur_size": 1,
-                "watercolor_uv": {
+                "watercolor_params": {
                     "enabled": False,
+                    "u": 0,
+                    "v": 0
+                },
+                "film_params": {
+                    "enabled": False,
+                    "strength": 0,
                     "u": 0,
                     "v": 0
                 }
@@ -67,8 +73,15 @@ class CameraSingleton:
             self._camera.image_effect = image_effect
             if image_effect == "blur":
                 self._camera.image_effect_params = self._config.get("blur_size")
-            elif image_effect == "watercolor" and self._config.get("watercolor_uv")["enabled"]:
-                self._camera.image_effect_params = (self._config.get("watercolor_uv")["u"], self._config.get("watercolor_uv")["v"])
+
+            elif image_effect == "watercolor" and self._config.get("watercolor_params")["enabled"]:
+                self._camera.image_effect_params = (self._config.get("watercolor_params")["u"],
+                                                    self._config.get("watercolor_params")["v"])
+
+            elif image_effect == "film" and self._config.get("film_params")["enabled"]:
+                self._camera.image_effect_params = (self._config.get("film_params")["strength"],
+                                                    self._config.get("film_params")["u"],
+                                                    self._config.get("film_params")["v"])
 
         def take(self):
             filename = str(int(time.time() * 1000))
@@ -111,17 +124,24 @@ class CameraSingleton:
             self._config.set("sharpness", config["sharpness"])
             self._config.set("image_effect", config["image_effect"])
             self._config.set("blur_size", config["blur_size"])
-            self._config.set("watercolor_uv", {
-                "enabled": config["watercolor_uv"]["enabled"],
-                "u": config["watercolor_uv"]["u"],
-                "v": config["watercolor_uv"]["v"]
+            self._config.set("watercolor_params", {
+                "enabled": config["watercolor_params"]["enabled"],
+                "u": config["watercolor_params"]["u"],
+                "v": config["watercolor_params"]["v"]
+            })
+            self._config.set("film_params", {
+                "enabled": config["film_params"]["enabled"],
+                "strength": config["film_params"]["strength"],
+                "u": config["film_params"]["u"],
+                "v": config["film_params"]["v"]
             })
             self._config.save()
 
         def close(self):
             self._camera_thread = None
-            self._camera.close()
-            self._camera = None
+            if self._camera is not None:
+                self._camera.close()
+                self._camera = None
 
         class _CameraThread(Thread):
             def __init__(self, camera, format_, camera_singleton):
