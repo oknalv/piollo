@@ -47,7 +47,14 @@ class CameraSingleton:
                 },
                 "colorswap_dir": 0,
                 "colorpoint_quadrant": 1,
-                "posterise_steps": 4
+                "posterise_steps": 4,
+                "solarize_params": {
+                    "yuv": False,
+                    "x0": 128,
+                    "y0": 128,
+                    "y1": 128,
+                    "y2": 0
+                }
             }
             self._config = Config("config", "current.json", "default.json", default_config)
             self._logger = LoggerSingleton.get_instance()
@@ -97,6 +104,13 @@ class CameraSingleton:
 
             elif image_effect == "posterise":
                 self._camera.image_effect_params = self._config.get("posterise_steps")
+
+            elif image_effect == "solarize":
+                self._camera.image_effect_params = (self._config.get("solarize_params")["yuv"],
+                                                    self._config.get("solarize_params")["x0"],
+                                                    self._config.get("solarize_params")["y0"],
+                                                    self._config.get("solarize_params")["y1"],
+                                                    self._config.get("solarize_params")["y2"])
 
         def take(self):
             filename = str(int(time.time() * 1000))
@@ -153,6 +167,13 @@ class CameraSingleton:
             self._config.set("colorswap_dir", config["colorswap_dir"])
             self._config.set("colorpoint_quadrant", config["colorpoint_quadrant"])
             self._config.set("posterise_steps", config["posterise_steps"])
+            self._config.set("solarize_params", {
+                "yuv": config["solarize_params"]["yuv"],
+                "x0": config["solarize_params"]["x0"],
+                "y0": config["solarize_params"]["y0"],
+                "y1": config["solarize_params"]["y1"],
+                "y2": config["solarize_params"]["y2"]
+            })
             self._config.save()
 
         def close(self):

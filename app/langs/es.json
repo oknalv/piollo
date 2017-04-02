@@ -46,9 +46,8 @@
   "enable-params": "Habilitar parámetros del filtro",
   "strength": "Fuerza",
   "uv-offset": "Compensación UV",
-  "mode": "Mode",
-  "rgb-to-bgr": "RGB a BGR",
-  "rgb-to-brg": "RGB a BRG",
+  "mode": "Modo",
   "uv-quadrant": "Cuadrante del plano UV",
-  "color-quantization": "Número de colores para el proceso de cuantificación de colores"
+  "color-quantization": "Número de colores para el proceso de cuantificación de colores",
+  "solarize-explaination": "Nota: Los valores de 0 a x0 - 1 se remapean linealmente en el rango de 0 a y0. Los valores de x0 a 255 se remapean linealmente en el rango de y1 a y2."
 }

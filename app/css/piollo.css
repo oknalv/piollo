@@ -158,9 +158,14 @@ table tbody tr:hover {
     display: inline-flex;
 }
 
-.piollo-colorswap > span {
-    width: 5px;
-    height: 15px;
+.piollo-r,
+.piollo-g,
+.piollo-b,
+.piollo-y,
+.piollo-u,
+.piollo-v {
+    color: white;
+    padding: 0 1px;
 }
 
 .piollo-r {
@@ -173,6 +178,18 @@ table tbody tr:hover {
 
 .piollo-b {
     background-color: #0000FF;
+}
+
+.piollo-y {
+    background-color: #888888;
+}
+
+.piollo-u {
+    background-color: #027B88;
+}
+
+.piollo-v {
+    background-color: #778500;
 }
 
 .piollo-uv-quadrant {
@@ -224,4 +241,9 @@ table tbody tr:hover {
 .piollo-uv-quadrant > input + label:active,
 .piollo-uv-quadrant > input:checked + label:active {
     box-shadow: inset 0 0 10px rgba(0, 0, 0, .75);
+}
+
+.piollo-note {
+    color: #333333;
+    font-style: italic;
 }

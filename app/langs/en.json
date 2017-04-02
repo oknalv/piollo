@@ -47,8 +47,7 @@
   "strength": "Strength",
   "uv-offset": "UV offset",
   "mode": "Mode",
-  "rgb-to-bgr": "RGB to BGR",
-  "rgb-to-brg": "RGB to BRG",
   "uv-quadrant": "UV plane quadrant",
-  "color-quantization": "Number of colors for the color quantization process"
+  "color-quantization": "Number of colors for the color quantization process",
+  "solarize-explaination": "Note: Values from 0 to x0 - 1 are remapped linearly onto the range 0 to y0. Values from x0 to 255 are remapped linearly onto the range y1 to y2."
 }

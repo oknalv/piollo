@@ -131,6 +131,30 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         min: 2
     };
 
+    $scope.solarizeParams = {
+        yuv: "false",
+        x0: {
+            value: 128,
+            min: 0,
+            max: 255
+        },
+        y0: {
+            value: 128,
+            min: 0,
+            max: 255
+        },
+        y1: {
+            value: 128,
+            min: 0,
+            max: 255
+        },
+        y2: {
+            value: 0,
+            min: 0,
+            max: 255
+        }
+    }
+
     $scope.startStreaming = function(){
         if(datastream == null){
             $scope.loading = true;
@@ -297,6 +321,11 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         $scope.colorswapDir = config.colorswap_dir.toString();
         $scope.colorpointQuadrant = config.colorpoint_quadrant.toString();
         $scope.posteriseSteps.value = config.posterise_steps;
+        $scope.solarizeParams.yuv = config.solarize_params.yuv ? "true" : "false";
+        $scope.solarizeParams.x0.value = config.solarize_params.x0;
+        $scope.solarizeParams.y0.value = config.solarize_params.y0;
+        $scope.solarizeParams.y1.value = config.solarize_params.y1;
+        $scope.solarizeParams.y2.value = config.solarize_params.y2;
     }
 
     $scope.applyConfig = function(){
@@ -329,7 +358,14 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
                 },
                 colorswap_dir: parseInt($scope.colorswapDir),
                 colorpoint_quadrant: parseInt($scope.colorpointQuadrant),
-                posterise_steps: $scope.posteriseSteps.value
+                posterise_steps: $scope.posteriseSteps.value,
+                solarize_params: {
+                    yuv: $scope.solarizeParams.yuv == "true",
+                    x0: $scope.solarizeParams.x0.value,
+                    y0: $scope.solarizeParams.y0.value,
+                    y1: $scope.solarizeParams.y1.value,
+                    y2: $scope.solarizeParams.y2.value
+                }
             }
         ).then(function(response){
             setConfig(response.data);

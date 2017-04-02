@@ -102,7 +102,36 @@
                             </span>
                         </div>
                         <div data-ng-show="imageEffects.value == 'solarize'">
-                            TODO
+                            <div class="piollo-menu-option">
+                                <span class="text" data-lrv-text="mode"></span>
+                                <div class="grouped">
+                                    <input id="solarizeModeRGB" type="radio" class="radio-btn" data-ng-model="solarizeParams.yuv" value="false">
+                                    <label for="solarizeModeRGB">
+                                        <span class="piollo-r">R</span><span class="piollo-g">G</span><span class="piollo-b">B</span>
+                                    </label>
+                                    <input id="solarizeModeYUV" type="radio" class="radio-btn" data-ng-model="solarizeParams.yuv" value="true">
+                                    <label for="solarizeModeYUV">
+                                        <span class="piollo-y">Y</span><span class="piollo-u">U</span><span class="piollo-v">V</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="solarizeX0">x0</label>
+                                <input id="solarizeX0" type="range" class="range" data-lrv-model="solarizeParams.x0"/>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="solarizeY0">y0</label>
+                                <input id="solarizeY0" type="range" class="range" data-lrv-model="solarizeParams.y0"/>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="solarizeY1">y1</label>
+                                <input id="solarizeY1" type="range" class="range" data-lrv-model="solarizeParams.y1"/>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="solarizeY2">y2</label>
+                                <input id="solarizeY2" type="range" class="range" data-lrv-model="solarizeParams.y2"/>
+                            </div>
+                            <div class="piollo-menu-option piollo-note paragraph indent text" data-lrv-text="solarize-explaination"></div>
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorpoint'">
                             <div class="piollo-menu-option one-line">
@@ -128,33 +157,15 @@
                                 <div class="grouped">
                                     <input id="rgbToBgr" type="radio" class="radio-btn" data-ng-model="colorswapDir" value="0">
                                     <label for="rgbToBgr">
-                                        <span class="text" data-lrv-text="rgb-to-bgr"></span>
-                                        <span class="piollo-colorswap">
-                                            <span class="piollo-r"></span>
-                                            <span class="piollo-g"></span>
-                                            <span class="piollo-b"></span>
-                                        </span>
+                                        <span class="piollo-r">R</span><span class="piollo-g">G</span><span class="piollo-b">B</span>
                                         <i class="fa fa-arrow-right"></i>
-                                        <span class="piollo-colorswap">
-                                            <span class="piollo-b"></span>
-                                            <span class="piollo-g"></span>
-                                            <span class="piollo-r"></span>
-                                        </span>
+                                        <span class="piollo-b">B</span><span class="piollo-g">G</span><span class="piollo-r">R</span>
                                     </label>
                                     <input id="rgbToBrg" type="radio" class="radio-btn" data-ng-model="colorswapDir" value="1">
                                     <label for="rgbToBrg">
-                                        <span class="text" data-lrv-text="rgb-to-brg"></span>
-                                        <span class="piollo-colorswap">
-                                            <span class="piollo-r"></span>
-                                            <span class="piollo-g"></span>
-                                            <span class="piollo-b"></span>
-                                        </span>
+                                        <span class="piollo-r">R</span><span class="piollo-g">G</span><span class="piollo-b">B</span>
                                         <i class="fa fa-arrow-right"></i>
-                                        <span class="piollo-colorswap">
-                                            <span class="piollo-b"></span>
-                                            <span class="piollo-r"></span>
-                                            <span class="piollo-g"></span>
-                                        </span>
+                                        <span class="piollo-b">B</span><span class="piollo-r">R</span><span class="piollo-g">G</span>
                                     </label>
                                 </div>
                             </div>
