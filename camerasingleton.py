@@ -2,7 +2,7 @@ from loggersingleton import LoggerSingleton
 from config import Config
 import picamera
 from io import BytesIO
-from threading import Thread
+from threading import Thread, Lock
 import time
 from os import path, makedirs
 
@@ -119,9 +119,9 @@ class CameraSingleton:
                 self._load_config()
                 self._camera_thread = self._CameraThread(self._camera, self._config.get("format"), self)
 
-            self._camera_thread.take(filename)
-            while self._camera_thread.is_taking(filename):
-                pass
+            lock = Lock()
+            self._camera_thread.take(filename, lock)
+            lock.acquire()
             return filename
 
         def led_on(self):
@@ -205,9 +205,10 @@ class CameraSingleton:
                             stream.seek(0)
 
                         if self._taking:
-                            for filename in self._taking:
-                                self._camera.capture("pictures/" + filename + "." + self._format)
-                                self._taking.remove(filename)
+                            for file in self._taking:
+                                self._camera.capture("pictures/" + file["filename"] + "." + self._format)
+                                file["lock"].release()
+                                self._taking.remove(file)
 
                     else:
                         break
@@ -233,8 +234,9 @@ class CameraSingleton:
             def delete_observer(self, observer):
                 self._observers.remove(observer)
 
-            def take(self, filename):
-                self._taking.append(filename)
+            def take(self, filename, lock):
+                lock.acquire()
+                self._taking.append({"filename": filename, "lock": lock})
                 if not self._started:
                     self.start()
 
