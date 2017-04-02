@@ -10,6 +10,7 @@ class Worker(Thread):
         Thread.__init__(self)
         self.client = client
         self.request = None
+        self.daemon = True
 
     def run(self):
         try:

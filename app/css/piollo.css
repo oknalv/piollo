@@ -153,3 +153,75 @@ table tbody tr:hover {
 .piollo-uv-plane-container:hover > .piollo-uv-value {
     opacity: 1;
 }
+
+.piollo-colorswap {
+    display: inline-flex;
+}
+
+.piollo-colorswap > span {
+    width: 5px;
+    height: 15px;
+}
+
+.piollo-r {
+    background-color: #FF0000;
+}
+
+.piollo-g {
+    background-color: #00FF00;
+}
+
+.piollo-b {
+    background-color: #0000FF;
+}
+
+.piollo-uv-quadrant {
+    height: 100px;
+    width: 100px;
+    background-image: url('../img/uvplane.png');
+    background-size: 100px 100px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    border-radius: 4px;
+}
+
+.piollo-uv-quadrant > input {
+    display: none;
+}
+
+.piollo-uv-quadrant > label {
+    height: 50px;
+    width: 50px;
+    transition: box-shadow .25s ease;
+    cursor: pointer;
+}
+
+.piollo-uv-quadrant > label:nth-of-type(1) {
+    border-top-left-radius: 4px;
+}
+
+.piollo-uv-quadrant > label:nth-of-type(2) {
+    border-top-right-radius: 4px;
+}
+
+.piollo-uv-quadrant > label:nth-of-type(3) {
+    border-bottom-left-radius: 4px;
+}
+
+.piollo-uv-quadrant > label:nth-of-type(4) {
+    border-bottom-right-radius: 4px;
+}
+
+.piollo-uv-quadrant > label:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .75);
+}
+
+.piollo-uv-quadrant > input:checked + label:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, .75);
+}
+
+.piollo-uv-quadrant > input:checked + label,
+.piollo-uv-quadrant > input + label:active,
+.piollo-uv-quadrant > input:checked + label:active {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, .75);
+}

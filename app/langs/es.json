@@ -45,5 +45,9 @@
   "kernel-size": "Tamaño del kernel",
   "enable-params": "Habilitar parámetros del filtro",
   "strength": "Fuerza",
-  "uv-offset": "Compensación UV"
+  "uv-offset": "Compensación UV",
+  "mode": "Mode",
+  "rgb-to-bgr": "RGB a BGR",
+  "rgb-to-brg": "RGB a BRG",
+  "uv-quadrant": "Cuadrante del plano UV"
 }

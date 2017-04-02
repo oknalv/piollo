@@ -45,5 +45,9 @@
   "kernel-size": "Kernel size",
   "enable-params": "Enable filter parameters",
   "strength": "Strength",
-  "uv-offset": "UV offset"
+  "uv-offset": "UV offset",
+  "mode": "Mode",
+  "rgb-to-bgr": "RGB to BGR",
+  "rgb-to-brg": "RGB to BRG",
+  "uv-quadrant": "UV plane quadrant"
 }

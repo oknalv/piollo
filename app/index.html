@@ -31,7 +31,6 @@
                         </div>
                     </div>
                     <div id="config-camera">
-                        <div class="message" id="configMessage"></div>
                         <div class="piollo-menu-option">
                             <label for="formatSelect" class="text" data-lrv-text="img-format"></label>
                             <select id="formatSelect" class="select" data-lrv-model="formats"></select>
@@ -106,13 +105,59 @@
                             TODO
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorpoint'">
-                            TODO
+                            <div class="piollo-menu-option one-line">
+                                <span class="text" data-lrv-text="uv-quadrant"></span>
+                                <div class="piollo-uv-quadrant">
+                                    <input id="colorpointRedYellow" type="radio" data-ng-model="colorpointQuadrant" value="1">
+                                    <label for="colorpointRedYellow"></label>
+                                    <input id="colorpointPurple" type="radio" data-ng-model="colorpointQuadrant" value="3">
+                                    <label for="colorpointPurple"></label>
+                                    <input id="colorpointGreen" type="radio" data-ng-model="colorpointQuadrant" value="0">
+                                    <label for="colorpointGreen"></label>
+                                    <input id="colorpointBlue" type="radio" data-ng-model="colorpointQuadrant" value="2">
+                                    <label for="colorpointBlue"></label>
+                                </div>
+                            </div>
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorbalance'">
                             TODO
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorswap'">
-                            TODO
+                            <div class="piollo-menu-option">
+                                <span class="text" data-lrv-text="mode"></span>
+                                <div class="grouped">
+                                    <input id="rgbToBgr" type="radio" class="radio-btn" data-ng-model="colorswapDir" value="0">
+                                    <label for="rgbToBgr">
+                                        <span class="text" data-lrv-text="rgb-to-bgr"></span>
+                                        <span class="piollo-colorswap">
+                                            <span class="piollo-r"></span>
+                                            <span class="piollo-g"></span>
+                                            <span class="piollo-b"></span>
+                                        </span>
+                                        <i class="fa fa-arrow-right"></i>
+                                        <span class="piollo-colorswap">
+                                            <span class="piollo-b"></span>
+                                            <span class="piollo-g"></span>
+                                            <span class="piollo-r"></span>
+                                        </span>
+                                    </label>
+                                    <input id="rgbToBrg" type="radio" class="radio-btn" data-ng-model="colorswapDir" value="1">
+                                    <label for="rgbToBrg">
+                                        <span class="text" data-lrv-text="rgb-to-brg"></span>
+                                        <span class="piollo-colorswap">
+                                            <span class="piollo-r"></span>
+                                            <span class="piollo-g"></span>
+                                            <span class="piollo-b"></span>
+                                        </span>
+                                        <i class="fa fa-arrow-right"></i>
+                                        <span class="piollo-colorswap">
+                                            <span class="piollo-b"></span>
+                                            <span class="piollo-r"></span>
+                                            <span class="piollo-g"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div data-ng-show="imageEffects.value == 'posterise'">
                             TODO
@@ -163,7 +208,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="grid h-end">
+                    <div class="grid h-between">
+                        <div class="message" id="configMessage"></div>
                         <div>
                             <button class="btn modal-closer" data-lrv-modal="configuration">
                                 <i class="fa fa-close"></i> <span class="text" data-lrv-text="close"></span>

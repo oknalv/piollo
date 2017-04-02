@@ -15,7 +15,6 @@ while True:
         (client, address) = server.accept()
         LoggerSingleton.get_instance().log("Connection from " + str(address))
         worker = Worker(client)
-        worker.daemon = True
         worker.start()
 
     except KeyboardInterrupt:

@@ -4,6 +4,7 @@ import picamera
 from io import BytesIO
 from threading import Thread
 import time
+from os import path, makedirs
 
 
 class CameraSingleton:
@@ -13,7 +14,6 @@ class CameraSingleton:
     def get_instance():
         if CameraSingleton._instance is None:
             CameraSingleton._instance = CameraSingleton._CameraSingleton()
-            CameraSingleton._instance.daemon = True
 
         return CameraSingleton._instance
 
@@ -44,11 +44,16 @@ class CameraSingleton:
                     "strength": 0,
                     "u": 0,
                     "v": 0
-                }
+                },
+                "colorswap_dir": 0,
+                "colorpoint_quadrant": 1
             }
             self._config = Config("config", "current.json", "default.json", default_config)
             self._logger = LoggerSingleton.get_instance()
             self._camera_thread = None
+            if not path.exists("pictures"):
+                self._logger.log("Creating pictures folder")
+                makedirs("pictures")
 
         def add_observer(self, observer):
             self._logger.log("Adding observer " + str(observer))
@@ -82,6 +87,12 @@ class CameraSingleton:
                 self._camera.image_effect_params = (self._config.get("film_params")["strength"],
                                                     self._config.get("film_params")["u"],
                                                     self._config.get("film_params")["v"])
+
+            elif image_effect == "colorswap":
+                self._camera.image_effect_params = self._config.get("colorswap_dir")
+
+            elif image_effect == "colorpoint":
+                self._camera.image_effect_params = self._config.get("colorpoint_quadrant")
 
         def take(self):
             filename = str(int(time.time() * 1000))
@@ -135,6 +146,8 @@ class CameraSingleton:
                 "u": config["film_params"]["u"],
                 "v": config["film_params"]["v"]
             })
+            self._config.set("colorswap_dir", config["colorswap_dir"])
+            self._config.set("colorpoint_quadrant", config["colorpoint_quadrant"])
             self._config.save()
 
         def close(self):
@@ -153,6 +166,7 @@ class CameraSingleton:
                 self._started = False
                 self._camera_singleton = camera_singleton
                 self._stop = False
+                self.daemon = True
 
             def run(self):
                 self._started = True
