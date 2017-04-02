@@ -46,7 +46,8 @@ class CameraSingleton:
                     "v": 0
                 },
                 "colorswap_dir": 0,
-                "colorpoint_quadrant": 1
+                "colorpoint_quadrant": 1,
+                "posterise_steps": 4
             }
             self._config = Config("config", "current.json", "default.json", default_config)
             self._logger = LoggerSingleton.get_instance()
@@ -93,6 +94,9 @@ class CameraSingleton:
 
             elif image_effect == "colorpoint":
                 self._camera.image_effect_params = self._config.get("colorpoint_quadrant")
+
+            elif image_effect == "posterise":
+                self._camera.image_effect_params = self._config.get("posterise_steps")
 
         def take(self):
             filename = str(int(time.time() * 1000))
@@ -148,6 +152,7 @@ class CameraSingleton:
             })
             self._config.set("colorswap_dir", config["colorswap_dir"])
             self._config.set("colorpoint_quadrant", config["colorpoint_quadrant"])
+            self._config.set("posterise_steps", config["posterise_steps"])
             self._config.save()
 
         def close(self):

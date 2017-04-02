@@ -49,5 +49,6 @@
   "mode": "Mode",
   "rgb-to-bgr": "RGB to BGR",
   "rgb-to-brg": "RGB to BRG",
-  "uv-quadrant": "UV plane quadrant"
+  "uv-quadrant": "UV plane quadrant",
+  "color-quantization": "Number of colors for the color quantization process"
 }

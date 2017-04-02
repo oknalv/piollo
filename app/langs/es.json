@@ -49,5 +49,6 @@
   "mode": "Mode",
   "rgb-to-bgr": "RGB a BGR",
   "rgb-to-brg": "RGB a BRG",
-  "uv-quadrant": "Cuadrante del plano UV"
+  "uv-quadrant": "Cuadrante del plano UV",
+  "color-quantization": "Número de colores para el proceso de cuantificación de colores"
 }

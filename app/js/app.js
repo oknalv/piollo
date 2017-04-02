@@ -125,6 +125,12 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
 
     $scope.colorpointQuadrant = "1";
 
+    $scope.posteriseSteps = {
+        value: 4,
+        max: 32,
+        min: 2
+    };
+
     $scope.startStreaming = function(){
         if(datastream == null){
             $scope.loading = true;
@@ -290,6 +296,7 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         $scope.filmParams.v.value = config.film_params.v;
         $scope.colorswapDir = config.colorswap_dir.toString();
         $scope.colorpointQuadrant = config.colorpoint_quadrant.toString();
+        $scope.posteriseSteps.value = config.posterise_steps;
     }
 
     $scope.applyConfig = function(){
@@ -321,7 +328,8 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
                     v: $scope.filmParams.v.value
                 },
                 colorswap_dir: parseInt($scope.colorswapDir),
-                colorpoint_quadrant: parseInt($scope.colorpointQuadrant)
+                colorpoint_quadrant: parseInt($scope.colorpointQuadrant),
+                posterise_steps: $scope.posteriseSteps.value
             }
         ).then(function(response){
             setConfig(response.data);
