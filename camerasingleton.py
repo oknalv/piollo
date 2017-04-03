@@ -54,6 +54,14 @@ class CameraSingleton:
                     "y0": 128,
                     "y1": 128,
                     "y2": 0
+                },
+                "colorbalance_params": {
+                    "lens": 0.0,
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "u": 0,
+                    "v": 0
                 }
             }
             self._config = Config("config", "current.json", "default.json", default_config)
@@ -111,6 +119,14 @@ class CameraSingleton:
                                                     self._config.get("solarize_params")["y0"],
                                                     self._config.get("solarize_params")["y1"],
                                                     self._config.get("solarize_params")["y2"])
+
+            elif image_effect == "colorbalance":
+                self._camera.image_effect_params = (self._config.get("colorbalance_params")["lens"],
+                                                    self._config.get("colorbalance_params")["r"],
+                                                    self._config.get("colorbalance_params")["g"],
+                                                    self._config.get("colorbalance_params")["b"],
+                                                    self._config.get("colorbalance_params")["u"],
+                                                    self._config.get("colorbalance_params")["v"])
 
         def take(self):
             filename = str(int(time.time() * 1000))
@@ -174,6 +190,14 @@ class CameraSingleton:
                 "y1": config["solarize_params"]["y1"],
                 "y2": config["solarize_params"]["y2"]
             })
+            self._config.set("colorbalance_params", {
+                "lens": config["colorbalance_params"]["lens"],
+                "r": config["colorbalance_params"]["r"],
+                "g": config["colorbalance_params"]["g"],
+                "b": config["colorbalance_params"]["b"],
+                "u": config["colorbalance_params"]["u"],
+                "v": config["colorbalance_params"]["v"]
+            })
             self._config.save()
 
         def close(self):
@@ -205,10 +229,10 @@ class CameraSingleton:
                             stream.seek(0)
 
                         if self._taking:
-                            for file in self._taking:
-                                self._camera.capture("pictures/" + file["filename"] + "." + self._format)
-                                file["lock"].release()
-                                self._taking.remove(file)
+                            for take in self._taking:
+                                self._camera.capture("pictures/" + take["filename"] + "." + self._format)
+                                take["lock"].release()
+                                self._taking.remove(take)
 
                     else:
                         break

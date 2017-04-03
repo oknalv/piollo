@@ -149,7 +149,41 @@
                             </div>
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorbalance'">
-                            TODO
+                            <div class="piollo-menu-option">
+                                <label for="colorbalanceLens" class="text" data-lrv-text="lens-shading-strength"></label>
+                                <div class="one-line">
+                                    <input id="colorbalanceLens" type="range" class="range" data-lrv-model="colorbalanceParams.lens"/>
+                                    <input id="colorbalanceLens2" type="number" class="input" data-ng-model="colorbalanceParams.lens.value" step="any"/>
+                                </div>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <div class="text" data-lrv-text="rgb-multipliers"></div>
+                                <div class="piollo-menu-option one-line">
+                                    <label for="colorbalanceR">R</label>
+                                    <div class="one-line">
+                                        <input id="colorbalanceR" type="range" class="range" data-lrv-model="colorbalanceParams.r"/>
+                                        <input id="colorbalanceR2" type="number" class="input" data-ng-model="colorbalanceParams.r.value" step="any"/>
+                                    </div>
+                                </div>
+                                <div class="piollo-menu-option one-line">
+                                    <label for="colorbalanceG">G</label>
+                                    <div class="one-line">
+                                        <input id="colorbalanceG" type="range" class="range" data-lrv-model="colorbalanceParams.g"/>
+                                        <input id="colorbalanceG2" type="number" class="input" data-ng-model="colorbalanceParams.g.value" step="any"/>
+                                    </div>
+                                </div>
+                                <div class="piollo-menu-option one-line">
+                                    <label for="colorbalanceB">B</label>
+                                    <div class="one-line">
+                                        <input id="colorbalanceB" type="range" class="range" data-lrv-model="colorbalanceParams.b"/>
+                                        <input id="colorbalanceB2" type="number" class="input" data-ng-model="colorbalanceParams.b.value" step="any"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="piollo-menu-option">
+                                <label for="colorbalanceUV" class="text" data-lrv-text="uv-offset"></label>
+                                <div id="colorbalanceUV" class="piollo-uv-plane-picker" data-piollo-model="colorbalanceParams"></div>
+                            </div>
                         </div>
                         <div data-ng-show="imageEffects.value == 'colorswap'">
                             <div class="piollo-menu-option">

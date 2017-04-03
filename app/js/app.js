@@ -155,6 +155,41 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         }
     }
 
+    $scope.colorbalanceParams = {
+        lens: {
+            min: 0.0,
+            max: 256.0,
+            step: "any"
+        },
+        r: {
+            min: 0.0,
+            max: 256.0,
+            step: "any",
+            value: 1.0
+        },
+        g: {
+            min: 0.0,
+            max: 256.0,
+            step: "any",
+            value: 1.0
+        },
+        b: {
+            min: 0.0,
+            max: 256.0,
+            step: "any",
+            value: 1.0
+        },
+        u: {
+            min: 0,
+            max: 255
+        },
+        v: {
+            min: 0,
+            max: 255
+        }
+
+    }
+
     $scope.startStreaming = function(){
         if(datastream == null){
             $scope.loading = true;
@@ -326,6 +361,12 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
         $scope.solarizeParams.y0.value = config.solarize_params.y0;
         $scope.solarizeParams.y1.value = config.solarize_params.y1;
         $scope.solarizeParams.y2.value = config.solarize_params.y2;
+        $scope.colorbalanceParams.lens.value = config.colorbalance_params.lens;
+        $scope.colorbalanceParams.r.value = config.colorbalance_params.r;
+        $scope.colorbalanceParams.g.value = config.colorbalance_params.g;
+        $scope.colorbalanceParams.b.value = config.colorbalance_params.b;
+        $scope.colorbalanceParams.u.value = config.colorbalance_params.u;
+        $scope.colorbalanceParams.v.value = config.colorbalance_params.v;
     }
 
     $scope.applyConfig = function(){
@@ -365,6 +406,14 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
                     y0: $scope.solarizeParams.y0.value,
                     y1: $scope.solarizeParams.y1.value,
                     y2: $scope.solarizeParams.y2.value
+                },
+                colorbalance_params: {
+                    lens: $scope.colorbalanceParams.lens.value,
+                    r: $scope.colorbalanceParams.r.value,
+                    g: $scope.colorbalanceParams.g.value,
+                    b: $scope.colorbalanceParams.b.value,
+                    u: $scope.colorbalanceParams.u.value,
+                    v: $scope.colorbalanceParams.v.value,
                 }
             }
         ).then(function(response){

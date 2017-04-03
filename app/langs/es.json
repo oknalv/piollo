@@ -49,5 +49,7 @@
   "mode": "Modo",
   "uv-quadrant": "Cuadrante del plano UV",
   "color-quantization": "Número de colores para el proceso de cuantificación de colores",
-  "solarize-explaination": "Nota: Los valores de 0 a x0 - 1 se remapean linealmente en el rango de 0 a y0. Los valores de x0 a 255 se remapean linealmente en el rango de y1 a y2."
+  "solarize-explaination": "Nota: Los valores de 0 a x0 - 1 se remapean linealmente en el rango de 0 a y0. Los valores de x0 a 255 se remapean linealmente en el rango de y1 a y2.",
+  "lens-shading-strength": "Fuerza de oscurecimiento de la lente",
+  "rgb-multipliers": "Multiplicadores RGB"
 }
