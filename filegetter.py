@@ -1,4 +1,5 @@
 import string
+from os import remove
 
 
 class FileGetter:
@@ -34,6 +35,10 @@ class FileGetter:
             data = FileGetter._get_file(folder_name + "/" + file_name, FileGetter._READ_BYTES)
 
         return data
+
+    @staticmethod
+    def delete_image(image_name):
+        remove("pictures/" + image_name)
 
     @staticmethod
     def get_lang(file_name):

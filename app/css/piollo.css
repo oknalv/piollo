@@ -1,4 +1,4 @@
-table tbody tr:hover {
+table > tbody > tr > td > img:hover {
     cursor: pointer;
 }
 
@@ -246,4 +246,14 @@ table tbody tr:hover {
 .piollo-note {
     color: #333333;
     font-style: italic;
+}
+
+.piollo-image {
+    max-height: 250px;
+    max-width: 100%;
+}
+.piollo-main-message {
+    position: fixed;
+    padding: 10px;
+    z-index: 10;
 }

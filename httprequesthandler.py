@@ -16,6 +16,9 @@ class HTTPRequestHandler:
         elif self.request.method == "POST":
             self.post()
 
+        elif self.request.method == "DELETE":
+            self.delete()
+
         else:
             raise MethodNotSupportedException(self.request.method)
 

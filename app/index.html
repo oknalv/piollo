@@ -14,6 +14,38 @@
         <title>piollo</title>
     </head>
     <body class="translate" data-lrv-model="langs">
+        <div class="piollo-main-message">
+            <div class="message" id="mainMessage"></div>
+        </div>
+        <div class="gallery" id="gallery" data-lrv-model="pictures"></div>
+        <div class="modal" id="warningDelete">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <i class="fa fa-warning icon"></i> <span class="text" data-lrv-text="warning"></span>
+                </div>
+                <div class="modal-body">
+                    <p class="paragraph text" data-lrv-text="sure-delete"></p>
+                    <div class="grid h-center">
+                        <img class="piollo-image" data-ng-src="{{deleteImagePath}}"/>
+                    </div>
+                    <div class="grid h-center">
+                        <span>{{deleteImageName}}</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="grid h-end">
+                        <div>
+                            <button class="btn modal-closer" data-lrv-modal="warningDelete" data-ng-click="deleteImage()">
+                                <i class="fa fa-check"></i> <span class="text" data-lrv-text="accept"></span>
+                            </button>
+                            <button class="btn modal-closer" data-lrv-modal="warningDelete">
+                                <i class="fa fa-close"></i> <span class="text" data-lrv-text="cancel"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal" id="configuration">
             <div class="modal-container">
                 <div class="modal-header">
@@ -358,11 +390,18 @@
                     </div>-->
                 </div>
                 <div id="pictures" class="piollo-file-browser">
-                    <table data-ng-show="pictures.length > 0" class="w-full table">
+                    <table data-ng-show="pictures.images.length > 0" class="w-full table">
                         <tbody>
-                            <tr data-ng-repeat="picture in pictures" data-ng-click="showImage(picture)">
-                                <td><img data-ng-src="pictures/{{picture}}" class="piollo-thumbnail h-center"/></td>
-                                <td>{{picture}}</td>
+                            <tr data-ng-repeat="picture in pictures.images track by $index">
+                                <td>
+                                    <img data-ng-src="{{picture.path}}" class="piollo-thumbnail gallery-launcher" data-lrv-gallery="gallery" data-lrv-image="{{$index}}"/>
+                                </td>
+                                <td>{{picture.value}}</td>
+                                <td>
+                                    <button class="btn icon red round modal-launcher" data-lrv-modal="warningDelete" data-ng-click="warningDelete($index)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -372,7 +411,6 @@
                 </div>-->
             </div>
         </div>
-        <img id="pic"/>
         <script src="js/app.js"></script>
     </body>
 </html>

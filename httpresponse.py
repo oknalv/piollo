@@ -22,6 +22,10 @@ class HTTPResponse(object):
             status_str += " Not Found"
             self.body = None
 
+        elif value == 204:
+            status_str = " No Content"
+            self.body = None
+
         else:
             raise HTTPStatusNotAllowed(value)
 

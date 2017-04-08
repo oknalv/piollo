@@ -147,3 +147,22 @@ class MyHTTPRequestHandler(HTTPRequestHandler):
         except IOError as e:
             self._logger.log(e.message)
             self.response.status = 404
+
+    def delete(self):
+        self._logger.log("DELETE: " + self.request.request_uri)
+        try:
+            if self.request.request_uri.startswith("/picture/"):
+                image = self.request.request_uri[9:]
+                if image != "":
+                    FileGetter.delete_image(image)
+                    self.response.status = 204
+
+                else:
+                    raise IOError("Image [" + image + "] not found")
+
+            else:
+                raise IOError("Resource not suported")
+
+        except IOError as e:
+            self._logger.log(e.message)
+            self.response.status = 404

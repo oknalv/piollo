@@ -10,9 +10,11 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     $scope.streamingControlsVisible = false;
     $scope.taking = false;
     $scope.ledOn = false;
-    $scope.pictures = [];
+    $scope.pictures = {images:[]};
     $scope.aboutPage = getAbout();
     $scope.loadingConfig = true;
+    $scope.deleteImagePath = "";
+    $scope.deleteImageName = "";
 
     $scope.rotation = 0;
 
@@ -24,6 +26,7 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     })
     lrvColor.addColor("btn", "red", ["#FF0000", "transparent"]);
     lrvColor.addColor("message", "success", ["#00FFAA", "#FFFFFF"])
+    lrvColor.addColor("message", "error", ["#FF5533", "#FFFFFF"])
 
     $scope.langs = {
         value: "en",
@@ -241,9 +244,21 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     $scope.takePicture = function(){
         $scope.taking = true;
         $http.get("/take").then(function(response){
-            document.getElementById("pic").src = "pictures/" + response.data.image;
+            message = {
+                translation: "image-taken-success",
+                time: 3000,
+                classes: "success"
+            };
+            lrvElement.message("mainMessage").add(message);
+            lrvElement.gallery("gallery").set(0);
+            lrvElement.gallery("gallery").open();
         }, function(response){
-            console.log("fail: " + response.data)
+            message = {
+                translation: "image-taken-error",
+                time: 3000,
+                classes: "success"
+            };
+            lrvElement.message("mainMessage").add(message);
         }).finally(function(){
             $scope.taking = false;
             showGallery();
@@ -301,7 +316,11 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
 
     function showGallery(){
         $http.get("/gallery").then(function(response){
-            $scope.pictures = response.data;
+            var pictures = response.data;
+            $scope.pictures.images = [];
+            for(var i = 0; i < pictures.length; i++){
+                $scope.pictures.images.push({value: pictures[i], path: "pictures/" + pictures[i]});
+            }
         });
     }
 
@@ -444,6 +463,29 @@ app.controller("piolloController",["$scope", "$location", "$http", "lrvColor", "
     $scope.$watch("aboutPage", function(){
         window.localStorage.setItem("about", $scope.aboutPage);
     });
+
+    $scope.warningDelete = function(i){
+        $scope.deleteImageName = $scope.pictures.images[i].value;
+        $scope.deleteImagePath = $scope.pictures.images[i].path;
+    }
+
+    $scope.deleteImage = function(){
+        $http.delete("picture/" + $scope.deleteImageName).then(function(){
+            message = {
+                translation: "image-deleted-success",
+                time: 3000,
+                classes: "success"
+            };
+            lrvElement.message("mainMessage").add(message);
+        }, function(){
+            message = {
+                translation: "image-deleted-error",
+                time: 3000,
+                classes: "error"
+            };
+            lrvElement.message("mainMessage").add(message);
+        }).finally(showGallery);
+    }
 
     isLedOn();
     showGallery();
